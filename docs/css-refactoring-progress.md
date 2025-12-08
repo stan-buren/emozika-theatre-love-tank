@@ -55,6 +55,21 @@ This document tracks the ongoing refactoring of the CSS architecture from a mono
   - Cards for schools and families
   - Responsive mobile/desktop layouts
   
+- **`sections/_reviews.scss`** - Reviews section
+- **`sections/_gallery.scss`** - Gallery section
+- **`sections/_faq.scss`** - FAQ section
+- **`sections/_tracks.scss`** - Tracks section:
+  - Two directions block
+- **`sections/_abonements.scss`** - Abonements section:
+  - Studio Memberships
+- **`sections/_studio.scss`** - Studio section:
+  - Theatre Studio Details
+- **`sections/_films.scss`** - Films section:
+  - Film School
+- **`sections/_casting.scss`** - Casting section:
+  - Casting Calls
+- **`sections/_branches.scss`** - Branches section
+  
 - **`sections/_contacts.scss`** - Contacts section:
   - Contact information layout
   - Map integration
@@ -103,16 +118,12 @@ assets/scss/
 ## Remaining Work
 
 ### Archive Sections (Not Actively Used)
-All remaining sections in `_legacy.scss` are archive/deprecated sections that are not actively displayed on the main site:
+All remaining sections in `archive/scss-legacy.scss` are archive/deprecated sections that are not actively displayed on the main site:
 
-1. **Studio** - Old studio information (~800 lines) - **DEPRECATED**
-2. **Films Showcase** - Old films section (~600 lines) - **DEPRECATED**
-3. **Casting** - Casting information (~400 lines) - **DEPRECATED**
-4. **Abonements** - Subscription packages (~800 lines) - **DEPRECATED**
-5. **Documents Section** - Document links (~100 lines) - **ARCHIVE**
-6. **Archive components** - Various old components (~5,000+ lines) - **DEPRECATED**
+1. **Documents Section** - Document links (~100 lines) - **ARCHIVE**
+2. **Archive components** - Various old components (~5,000+ lines) - **DEPRECATED**
 
-**Note:** These sections can be kept in `_legacy.scss` as they are not actively used and don't need to be modularized. They serve as historical reference and can be removed entirely in a future cleanup.
+**Note:** The legacy file was moved to `archive/scss-legacy.scss`.
 
 ## Benefits Achieved
 1. ✅ **Modularity** - Code is now organized by function and purpose
