@@ -16,9 +16,9 @@
 @use "sections/snow-queen";
 @use "sections/people";
 @use "sections/awards";
+@use "sections/reviews";
+@use "sections/gallery";
+@use "sections/faq";
 @use "sections/branches";
 @use "sections/contacts";
 @use "sections/footer";
-
-// Legacy styles (to be gradually removed)
-@use "legacy";
