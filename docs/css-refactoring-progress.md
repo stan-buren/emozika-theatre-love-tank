@@ -42,6 +42,18 @@ This document tracks the ongoing refactoring of the CSS architecture from a mono
   - Full-screen hero layout
   - Content and visual areas
   - Mobile responsive adjustments
+
+- **`sections/_afisha.scss`** - Afisha (Schedule) section:
+  - Show strip with horizontal scroll
+  - Play modal window
+  - Card animations with stage effects
+  - Poster and badge styles
+  
+- **`sections/_snow-queen.scss`** - Snow Queen seasonal section:
+  - Animated header with glow effect
+  - Falling snow animation
+  - Cards for schools and families
+  - Responsive mobile/desktop layouts
   
 - **`sections/_contacts.scss`** - Contacts section:
   - Contact information layout
@@ -74,17 +86,19 @@ assets/scss/
 ├── sections/
 │   ├── _header.scss           [NEW]
 │   ├── _hero.scss             [NEW]
+│   ├── _afisha.scss           [NEW - ~600 lines]
+│   ├── _snow-queen.scss       [NEW - ~500 lines]
 │   ├── _contacts.scss         [NEW]
 │   └── _footer.scss           [NEW]
-├── _legacy.scss               [TO BE GRADUALLY REMOVED]
+├── _legacy.scss               [~4,100 lines remaining]
 └── style.scss                 [UPDATED]
 ```
 
 ## Remaining Work
 
 ### High Priority Sections to Extract
-1. **Afisha (Schedule)** - Large section with modal, ~400 lines
-2. **Snow Queen** - Special seasonal section, ~500 lines
+1. ~~**Afisha (Schedule)**~~ ✅ **DONE** - Extracted with modal
+2. ~~**Snow Queen**~~ ✅ **DONE** - Special seasonal section with animations
 3. **People** - Team/people section, ~200 lines
 4. **Awards** - Awards carousel and festival cards, ~600 lines
 5. **Branches** - Locations section, ~400 lines
@@ -107,15 +121,17 @@ assets/scss/
 3. ✅ **Readability** - Clear file structure with descriptive names
 4. ✅ **Build Success** - All imports working correctly without errors
 5. ✅ **No Breaking Changes** - Site continues to function as before
+6. ✅ **Reduced Legacy** - Extracted ~3,600 lines so far
 
 ## Next Steps
-1. Continue extracting major sections (Afisha, Snow Queen, etc.)
+1. Continue extracting major sections (People, Awards, Branches)
 2. Remove extracted styles from `_legacy.scss`
 3. Eventually eliminate `_legacy.scss` completely
 4. Consider performance optimizations (CSS splitting, critical CSS)
 
 ## Notes
-- Build time: ~593ms (production build successful)
+- Build time: ~630ms (production build successful)
 - No visual changes to the site
 - All functionality preserved
-- Legacy file remains as fallback during migration
+- **Extracted:** ~3,600 lines from legacy file
+- **Remaining:** ~4,100 lines still in `_legacy.scss`
