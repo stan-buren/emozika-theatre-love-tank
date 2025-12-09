@@ -1,43 +1,44 @@
-# 🏗 Site Structure & Navigation
+# 🏗 Структура Сайта и Навигация
 
-## Overview
-The website must serve two main audiences:
-1.  **New Parents**: "Why should I bring my child here?" (Trust, Results, Location).
-2.  **Current Students/Parents**: "See my child's success" (Photos, Videos, News).
+## Обзор
+Сайт больше не монолит. Мы разделяем потоки трафика.
 
-## Sitemap
+## Карта Сайта (Sitemap)
 
-### 1. Home (`/`)
-*   **Hero Section**: Stunning video background (Best shots from "Real Time" or "Alice").
-*   **Value Prop**: "Theatre & Cinema School for the New Generation".
-*   **Split Chooser**: "I want Theater" vs "I want Cinema".
-*   **Proof**: Awards Strip (Grand Prix).
-*   **Call to Action**: "Book a Trial Lesson".
+### 1. Главная (Hub) - `index.astro`
+*   **Задача**: Распределить трафик за 3 секунды.
+*   **Hero-экран (Split)**: Выбор пути — "Я хочу на Сцену" (Театр) vs "Я хочу в Кино" (Киношкола).
+*   **Social Proof**: Лента "Наши дети в кино/на сцене".
+*   **Карта**: "Мы рядом" (4 филиала).
 
-### 2. Studio / Theatre (`/studio`)
-*   **Focus**: Acting, Speech, Movement.
-*   **Content**:
-    *   Methodology ("Silence Lessons" etc).
-    *   Age Groups (3-5, 6-9, 10+).
-    *   Teachers (Photos + Bio).
-    *   **Gallery**: Best theatrical photos from VK (filtered).
+### 2. Студия / Театр (`/studio`)
+*   **Фокус**: Актерское мастерство, Речь, Сцена.
+*   **Фишка**: **"Калькулятор Мечты"**:
+    *   *Ввод*: Возраст ребенка + Район + Цель.
+    *   *Вывод*: Подходящая группа, расписание и цена.
+*   **Контент**:
+    *   Методика ("Уроки тишины").
+    *   Педагоги (Звезды).
+    *   Залы (Атмосфера).
+    *   **Галерея**: Лучшие театральные фото из VK.
 
-### 3. Cinema School (`/cinema`) – *New Focus!*
-*   **Focus**: Dubbing, Filming, Camera work.
-*   **Content**:
-    *   "Real Time" & "Path to Memory" trailers.
-    *   Cinema discipline descriptions.
-    *   **Filmography**: Grid of films (using `vk_films.json`).
+### 3. Киношкола (`/cinema`) – *Новый Фокус!*
+*   **Фокус**: Дубляж, Съемки, Операторское дело.
+*   **Контент**:
+    *   Трейлеры фильмов ("Настоящее время", "Путь к памяти").
+    *   Дисциплины кино.
+    *   **Фильмография**: Сетка фильмов (данные из `vk_films.json`).
+    *   **Истории Успеха**: Кейсы детей, получивших роли (Никита Малинников и др.).
 
-### 4. History / About (`/about` or `/history`)
-*   **The Narrative**: Embedding `GOLD_BIOGRAPHY.md` content here.
-*   **Timeline**: Visual timeline component (2014->2025).
-*   **Awards Hall**: Grid of certificates (`vk_awards.json`).
+### 4. О нас / История (`/about`)
+*   **Нарратив**: Текст из `GOLD_BIOGRAPHY.md`.
+*   **Таймлайн**: Визуальная история (2014–2025).
+*   **Зал Славы**: Сетка дипломов и кубков Гран-при.
 
-### 5. Locations & Contact (`/contact`)
-*   Map with branches (Parnas, Pioneer, Ozerki, Komendantsky).
-*   Enrollment Form.
+### 5. Контакты (`/contact`)
+*   Карта всех филиалов (Парнас, Пионерская, Озерки, Комендантский, Академическая, Гранд Каньон).
+*   Форма записи.
 
-## Navigation
-*   **Header**: Sticky, Transparent-to-Solid. Links: `Studio`, `Cinema`, `About`, `Gallery`, `Contacts`. CTA: `Enroll`.
-*   **Footer**: Social links (VK, TG), Legal Info, Quick Links.
+## Навигация
+*   **Header**: Липкий, прозрачный. Ссылки: `Студия`, `Киношкола`, `О нас`, `Галерея`, `Контакты`. CTA: **Записаться**.
+*   **Footer**: Соцсети (VK, TG), Юридическая инфо, Быстрые ссылки.

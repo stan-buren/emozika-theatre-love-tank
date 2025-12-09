@@ -1,27 +1,34 @@
-# 📝 Content & Data Integration
+# 📝 Контент-стратегия и Данные
 
-## Source of Truth: `vk_cache.db` + Generated JSONs
+## Аудитория и Целевые Архетипы
+1.  **Родители малышей (3-7 лет)**: Архетип **"Заботливый Наставник"**.
+    *   *Потребности*: Безопасность, мягкая адаптация, развитие речи.
+    *   *Ключевые слова*: Дружба, Раскрепощение, Комфорт.
+2.  **Подростки и их родители (8-16 лет)**: Архетип **"Творец / Звезда"**.
+    *   *Потребности*: Карьера, Тусовка, Реальные съемки, Заработок.
+    *   *Ключевые слова*: Кино, Кастинг, Успех, Профессия.
 
-### 1. The History Page
-*   **Source**: `history_project/GOLD_BIOGRAPHY.md`.
-*   **Implementation**: Parse MD, render with interspersed full-width images from the relevant era (Using Album IDs from Silver Milestones).
+## Уникальное Торговое Предложение (USP)
+1.  **Собственный Театр**: Мы не арендуем ДК. У нас свой камерный театр в Гранд Каньоне. Это Дом.
+2.  **Карьерный Лифт**: Лучшие ученики играют в репертуарных спектаклях вместе с профессионалами.
+3.  **Кино-результат**: В конце года вы получаете профессиональный *Фильм*, а не просто видео с телефона.
 
-### 2. The Filmography (Cinema Page)
-*   **Source**: `src/data/vk_films.json`.
-*   **Display**: Netflix-style carousel or Masonry grid.
-*   **Features**: Click to play trailer (Youtube embed or VK player?), Release Year, Genre (Short/Feature).
+## Интеграция Данных (VK Sync)
 
-### 3. The Awards Hall
-*   **Source**: `src/data/vk_awards.json` + `silver_milestones.md`.
-*   **Display**: "Wall of Fame".
-*   **Highlight**: The "Grand Prix" cups should be visually prominent (Gold border/glow).
+### 1. Страница Истории (/about)
+*   **Источник**: `history_project/GOLD_BIOGRAPHY.md` ("10 лет вдохновения").
+*   **Реализация**: Длинный эмоциональный лонгрид с фото-вставками по Эпохам (2014-2025).
 
-### 4. Blog / News
-*   **Source**: `src/data/chronicle_full.json` (Bronze artifact).
-*   **Implementation**: A "News" section showing the last 3-5 major posts.
-*   **Filter**: Show only posts with >100 likes or specific tags?
+### 2. Фильмография (/cinema)
+*   **Источник**: `src/data/vk_films.json`.
+*   **Вид**: Сетка или Карусель в стиле Netflix.
+*   **Фичи**: Трейлеры, год выпуска, жанр.
 
-### 5. Testimonials
-*   **Source**: Discussion Topics (e.g., "Reviews" topic from VK).
-*   **Status**: Need to verify if `topics` table synced reviews? (Yes, `fetchAndSaveTopics` runs).
-*   **Implementation**: Carousel of happy parent quotes.
+### 3. Зал Славы (Награды)
+*   **Источник**: `src/data/vk_awards.json` + `silver_milestones.md`.
+*   **Вид**: "Стена Славы".
+*   **Акцент**: Гран-при должны светиться (effekt Glow).
+
+### 4. Отзывы
+*   **Источник**: Обсуждения VK (Топик "Отзывы").
+*   **Вид**: Карусель цитат счастливых родителей.

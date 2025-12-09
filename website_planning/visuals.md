@@ -1,24 +1,24 @@
-# 🎨 Visual Direction & UI Kit
+# 🎨 Визуальный Стиль и UI Kit
 
-## Core Aesthetic: "Cinematic Premium"
-*   **Dark Mode by Default**: Like a cinema hall or backstage. Deep purples, blacks, golds.
-*   **Typography**: Clean, modern sans-serif (e.g., 'Inter' or 'Montserrat') for readability, maybe a serif for "History" headers.
-*   **Imagery**: High-quality, professional photos (we have 15k to choose from!). No stock photos.
+## Эстетика: "Cinematic Premium"
+*   **Dark Mode (По умолчанию)**: Атмосфера кинозала или закулисья. Глубокий черный, золото, неон.
+*   **Типографика**: Чистый, современный Sans-serif (как у MFS - *Moscow Film School*). Крупные заголовки, "воздух".
+*   **Изображения**: Только качественный контент (у нас 15к фото). Никаких стоковых картинок.
 
-## Color Palette (Proposed)
-*   **Primary**: `Emozika Purple` (Deep Royal Purple) - Creative, Wisdom, Magic.
-*   **Secondary**: `Cinema Gold` (Metallic Gold) - Awards, Premium, Success.
-*   **Accent**: `Action Teal` (Vibrant Teal) - Modernity, Cinema, Digital.
-*   **Background**: `Stage Black` (Rich dark grey/black) - allowing content to shine.
+## Цветовая Палитра
+*   **Primary**: `Emozika Purple` (Глубокий Королевский Фиолетовый) — Творчество, Магия. *Референс: Kino.School*.
+*   **Secondary**: `Cinema Gold` (Металлическое Золото) — Награды, Премиум, Успех.
+*   **Accent**: `Action Teal` (Вибрирующий Тил/Бирюза) — Современность, Digital, Кино.
+*   **Background**: `Stage Black` (Насыщенный темно-серый/черный) — чтобы контент сиял.
 
-## UI Elements
-*   **Cards**: Glassmorphism (frosted glass) effects for Film/Play cards.
-*   **Buttons**: Gradient borders, "Glow" effects on hover.
-*   **Animations**:
-    *   Scroll-triggered fade-ins.
-    *   Parallax effects for timelines.
-    *   Video auto-play (muted) on hover.
+## UI Элементы
+*   **Карточки**: Эффект Глассморфизма (матовое стекло) для карточек фильмов/спектаклей.
+*   **Кнопки**: Градиентные границы, эффект свечения (Glow) при наведении.
+*   **Анимации**:
+    *   Плавное появление при скролле (Fade-in).
+    *   Параллакс для таймлайна истории.
+    *   Авто-воспроизведение видео (без звука) при наведении.
 
-## Media Strategy
-*   **Video First**: Use the 800+ videos. Backgrounds, trailers.
-*   **Posters**: Use VK photo covers as "Movie Posters" for plays.
+## Медиа-стратегия
+*   **Video First**: Используем наши 800+ видео. Живые фоны, трейлеры.
+*   **Постеры**: Используем обложки фотоальбомов VK как "Кинопостеры" для спектаклей.
