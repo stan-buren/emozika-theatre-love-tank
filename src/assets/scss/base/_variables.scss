@@ -19,6 +19,12 @@
     /* Brand Purple */
     --radius-card: 16px;
     --radius-btn: 8px;
+
+    /* Header Default */
+    --header-bg: rgba(255, 255, 255, 0.8);
+    --header-border: rgba(122, 47, 180, 0.1);
+    --header-text: #222;
+    --header-accent: #7a2fb4;
 }
 
 /* --- THEME 1: STUDIO (Comfort & Warmth) --- */
@@ -41,6 +47,12 @@ html.studio {
 
     --shadow-card: 0 10px 30px rgba(122, 47, 180, 0.05);
     /* Soft Purple Shadow */
+
+    /* Header */
+    --header-bg: rgba(253, 252, 248, 0.85);
+    --header-border: rgba(122, 47, 180, 0.1);
+    --header-text: #2D2D2D;
+    --header-accent: #7a2fb4;
 }
 
 /* --- THEME 2: CINEMA (Dark & Sharp) --- */
@@ -62,6 +74,12 @@ html.cinema {
 
     --shadow-card: 0 0 20px rgba(0, 0, 0, 0.5);
     --neon-glow: 0 0 10px rgba(255, 215, 0, 0.3);
+
+    /* Header */
+    --header-bg: rgba(5, 5, 5, 0.85);
+    --header-border: rgba(255, 255, 255, 0.1);
+    --header-text: #ffffff;
+    --header-accent: #FFD700;
 }
 
 /* --- THEME 3: THEATRE (Velvet & Grand) --- */
@@ -84,6 +102,12 @@ html.theatre {
     --radius-btn: 4px;
 
     --shadow-card: 0 20px 50px rgba(0, 0, 0, 0.4);
+
+    /* Header */
+    --header-bg: rgba(26, 11, 46, 0.9);
+    --header-border: rgba(212, 175, 55, 0.2);
+    --header-text: #F0E6D2;
+    --header-accent: #D4AF37;
 }
 
 /* SCSS Variables Mappings (for existing SCSS code) */

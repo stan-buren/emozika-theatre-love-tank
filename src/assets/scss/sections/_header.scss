@@ -6,19 +6,15 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    /* Higher z-index just in case */
-    background-color: rgba(255, 255, 255, 0.75);
-    /* More transparent */
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    transition: all var(--motion-normal) ease;
+    background-color: var(--header-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--header-border);
+    transition: all 0.3s ease;
 }
 
 .site-header.is-scrolled {
-    background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 4px 20px rgba(8, 2, 26, 0.06);
-    border-bottom-color: transparent;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 .header-inner {
@@ -29,6 +25,7 @@
     gap: 12px;
 }
 
+/* --- LOGO --- */
 .logo-badge {
     display: inline-flex;
     align-items: center;
@@ -37,18 +34,13 @@
     border-radius: 999px;
     flex-shrink: 0;
     background: rgba(122, 47, 180, 0.08);
+    /* Keep this or make variable? Keep for branding */
     text-decoration: none;
-    color: var(--color-brand-dark);
-    transition:
-        background-color 0.18s ease,
-        box-shadow 0.18s ease,
-        transform 0.18s ease;
+    color: var(--header-text);
+    transition: transform 0.2s ease;
 }
 
-.logo-badge:hover,
-.logo-badge:focus-visible {
-    background: rgba(122, 47, 180, 0.16);
-    box-shadow: 0 8px 18px rgba(122, 47, 180, 0.18);
+.logo-badge:hover {
     transform: translateY(-1px);
 }
 
@@ -56,176 +48,172 @@
     width: 28px;
     height: 28px;
     flex: 0 0 28px;
-    aspect-ratio: 1 / 1;
     border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, rgba(213, 154, 255, 0.4), rgba(122, 47, 180, 0.18));
-    padding: 2px;
     object-fit: cover;
-    box-shadow:
-        0 0 0 1px rgba(122, 47, 180, 0.14),
-        0 4px 12px rgba(74, 23, 123, 0.18);
-    box-sizing: border-box;
 }
 
 .logo-text {
     font-family: var(--font-heading);
     font-weight: 600;
     font-size: 14px;
-    color: var(--color-brand-dark);
+    color: var(--header-text);
     line-height: 1.1;
 }
 
-@media (max-width: 640px) {
-    .logo-text {
-        display: none;
-    }
-
-    .logo-badge {
-        padding: 4px 8px;
-    }
-}
-
+/* --- NAV --- */
 .main-nav {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
 }
 
-.main-nav a,
-.main-nav button {
-    margin-left: 16px;
+.main-nav a {
+    margin-left: 20px;
     text-decoration: none;
-    background: none;
-    border: none;
-    font: inherit;
     font-size: 14px;
-    cursor: pointer;
-    padding: 0;
-    color: var(--color-brand-dark);
+    font-weight: 600;
+    color: var(--header-text);
+    transition: color 0.2s;
+    opacity: 0.9;
 }
 
-.main-nav a:hover,
-.main-nav button:hover {
-    color: var(--color-brand);
+.main-nav a:hover {
+    color: var(--header-accent);
+    opacity: 1;
 }
 
+/* Pill Link (Sign Up) */
 .nav-link-pill {
-    padding: 6px 14px;
+    padding: 6px 16px;
     border-radius: 999px;
-    border: 1px solid rgba(122, 47, 180, 0.25);
-    background: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 10px 24px rgba(8, 2, 26, 0.08);
-    transition:
-        background-color var(--motion-normal),
-        box-shadow var(--motion-normal),
-        transform var(--motion-fast);
+    border: 1px solid var(--header-accent);
+    color: var(--header-accent) !important;
+    background: transparent;
+    transition: all 0.2s;
 }
 
-.nav-link-pill:hover,
-.nav-link-pill:focus-visible {
-    background: linear-gradient(120deg, rgba(122, 47, 180, 0.12), rgba(255, 168, 88, 0.12));
-    box-shadow: 0 14px 30px rgba(74, 23, 123, 0.18);
-    transform: translateY(-1px);
+.nav-link-pill:hover {
+    background: var(--header-accent);
+    color: #fff !important;
 }
 
+/* CTA Button */
 .nav-link-cta {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 6px 16px;
+    padding: 8px 20px;
     border-radius: 999px;
+    background: var(--header-accent);
+    color: #fff !important;
+    /* Force white text on accent bg */
+    text-decoration: none;
+    font-weight: 700;
+    white-space: nowrap;
+    opacity: 1 !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.nav-link-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.desktop-only {
+    display: inline-flex;
+}
+
+.mobile-only {
+    display: none;
+}
+
+/* --- BURGER BUTTON --- */
+.mobile-toggle {
+    display: none;
+    width: 32px;
+    height: 32px;
+    background: none;
     border: none;
-    background: var(--color-brand);
-    color: #ffffff;
-    box-shadow: 0 6px 16px rgba(74, 23, 123, 0.3);
-    text-decoration: none;
-    white-space: nowrap;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    padding: 4px;
+    z-index: 102;
+    /* Above menu */
 }
 
-.main-nav .nav-link-cta {
-    margin-left: 24px;
+.mobile-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--header-text);
+    border-radius: 2px;
+    transition: all 0.3s ease;
 }
 
-.main-nav .nav-link-cta:hover {
-    background: var(--color-brand-light);
+/* Burger Animation */
+.mobile-toggle.is-active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
 }
 
-.header-cta {
-    flex: 0 0 auto;
-    margin-left: 16px;
-    white-space: nowrap;
+.mobile-toggle.is-active span:nth-child(2) {
+    opacity: 0;
 }
 
-.top-banner {
-    background: #ffe0b2;
-    font-size: 13px;
+.mobile-toggle.is-active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
 }
 
-.top-banner-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 6px 0;
-    gap: 10px;
-}
-
-.top-banner-link {
-    font-weight: 600;
-    text-decoration: none;
-    color: var(--color-stage-wood);
-    border-bottom: 1px solid rgba(75, 44, 37, 0.5);
-}
-
+/* --- MOBILE MENU --- */
 @media (max-width: 768px) {
-    .header-inner {
-        flex-wrap: nowrap;
-        gap: 8px;
-        padding: 8px 0;
-        min-width: 0;
+    .logo-text {
+        display: none;
+        /* Hide text on mobile to save space */
     }
 
-    .logo-text {
-        font-size: 13px;
+    .desktop-only {
+        display: none;
+    }
+
+    .mobile-only {
+        display: inline-flex;
+        width: 100%;
+        margin-left: 0 !important;
+        margin-top: 1rem;
+    }
+
+    .mobile-toggle {
+        display: flex;
     }
 
     .main-nav {
-        flex: 1 1 auto;
-        min-width: 0;
-        flex-wrap: nowrap;
-        gap: 10px;
-        justify-content: flex-end;
-        overflow-x: auto;
-        padding: 4px 0 6px;
-        -webkit-overflow-scrolling: touch;
-        white-space: nowrap;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 100vh;
+        background-color: var(--bg-body);
+        /* Use body bg for menu */
+        flex-direction: column;
+        justify-content: center;
+        padding: 2rem;
+        transform: translateY(-100%);
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 101;
+        /* Below toggle */
     }
 
-    .main-nav::-webkit-scrollbar {
-        height: 4px;
+    .main-nav.is-active {
+        transform: translateY(0);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     }
 
-    .main-nav::-webkit-scrollbar-thumb {
-        background: rgba(122, 47, 180, 0.25);
-        border-radius: 999px;
-    }
-
-    .main-nav a,
-    .main-nav button {
-        margin-left: 0;
-        padding: 6px 12px;
-        border-radius: 999px;
-        background: rgba(122, 47, 180, 0.08);
-        white-space: nowrap;
-    }
-
-    .main-nav .nav-link-cta {
-        padding: 8px 14px;
-    }
-
-    .header-cta {
-        flex: 0 0 auto;
-        margin-left: 8px;
-        padding: 8px 12px;
-        white-space: nowrap;
+    .main-nav a {
+        margin: 0;
+        margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+        font-family: var(--font-heading);
+        font-weight: 700;
     }
 }

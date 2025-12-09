@@ -7,7 +7,14 @@
         <span class="logo-text">Театр «Эмоцика»</span>
       </a>
 
-      <nav class="main-nav" aria-label="Основная навигация">
+      <!-- Mobile Toggle -->
+      <button class="mobile-toggle" aria-label="Меню" data-mobile-toggle>
+          <span></span>
+          <span></span>
+          <span></span>
+      </button>
+
+      <nav class="main-nav" aria-label="Основная навигация" data-mobile-menu>
         <a href="/theatre" class="nav-link">Театр</a>
         <a href="/studio" class="nav-link">Студия</a>
         <a href="/cinema" class="nav-link">Киношкола</a>
@@ -15,10 +22,37 @@
         <a href="/about#contacts" class="nav-link nav-link-pill">
           Записаться
         </a>
+        <!-- Mobile Only CTA -->
+        <a href="https://clck.ru/3QWtC2" class="nav-link nav-link-cta mobile-only" target="_blank" rel="noopener">
+            Купить билеты
+        </a>
       </nav>
-      <a href="https://clck.ru/3QWtC2" class="nav-link nav-link-cta header-cta" target="_blank" rel="noopener">
+      
+      <a href="https://clck.ru/3QWtC2" class="nav-link nav-link-cta header-cta desktop-only" target="_blank" rel="noopener">
         Купить билеты
       </a>
 
     </div>
 </header>
+
+<script>
+    const toggle = document.querySelector('[data-mobile-toggle]');
+    const menu = document.querySelector('[data-mobile-menu]');
+    
+    if (toggle && menu) {
+        toggle.addEventListener('click', () => {
+            const isOpen = toggle.classList.toggle('is-active');
+            menu.classList.toggle('is-active');
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        });
+
+        // Close on link click
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                toggle.classList.remove('is-active');
+                menu.classList.remove('is-active');
+                document.body.style.overflow = '';
+            });
+        });
+    }
+</script>
