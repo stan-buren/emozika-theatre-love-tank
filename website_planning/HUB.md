@@ -1,46 +1,46 @@
-# 🧭 Emozika Website Planning HUB
+# 🧭 Центр Планирования Сайта Эмоцика (HUB)
 
-**Status**: 🚧 Planning Phase
-**Goal**: Create a premium, cinematic, and emotional website for "Emozika Theatre".
+**Статус**: 🚧 Этап планирования
+**Цель**: Создать премиальный, кинематографичный и эмоциональный сайт для театра "Эмоцика".
 
-This is the **Central Command** file. Read this to understand the big picture. Dive into linked files for details.
-
----
-
-## 1. 🏗 Structure & Navigation
-**Goal**: Simple, intuitive, but deep. Separating "Cinema" and "Theatre".
-👉 [Detailed Sitemap & User Flow](./structure.md)
-*   **Key Pages**: Home, Studio (Theatre), Cinema (Film School), About (History), Enroll.
-*   **Navigation**: Sticky header, distinct visual separation for Cinema/Theatre sections?
-
-## 2. 🎨 Visual Style & UX
-**Goal**: "Wow" effect. Dark mode? Glassmorphism? Motion?
-👉 [Visual Direction & UI Kit](./visuals.md)
-*   **Vibe**: Emotional, Professional, Cinematic.
-*   **Colors**: Deep distinct colors (Theatre=Purple/Gold? Cinema=Teal/Tech?).
-*   **Interactions**: Micro-animations, video backgrounds.
-
-## 3. 📝 Content Strategy
-**Goal**: Use our distinct data (History, Awards, Films) to tell a story.
-👉 [Content Map](./content.md)
-*   **History**: Integrate the *"10 Years of Inspiration"* Biography.
-*   **Data**: Display the 15k Photos, 800 Videos, and Grand Prix awards dynamically.
-*   **Copywriting**: Tone of voice – warm but professional.
-
-## 4. 🕵️ Competitor Analysis (Refined)
-**Goal**: Be better than the rest.
-👉 [Market Analysis](./competitors.md)
-*   *Pending deeper dive.*
-
-## 5. 🛠 Technical Stack
-*   **Framework**: Astro (Current).
-*   **Data Source**: Local SQLite (synced from VK) -> Generated JSON.
-*   **Styling**: Tailwind / Custom CSS.
+Это **Центральный Командный Пункт**. Читайте этот файл, чтобы видеть общую картину. Для деталей переходите по ссылкам.
 
 ---
 
-## ✅ Action Plan
-1. [ ] Define Structure (Sitemap).
-2. [ ] Approve Visual Style (Mockups?).
-3. [ ] Map Content to Pages.
-4. [ ] Implementation.
+## 1. 🏗 Структура и Навигация
+**Цель**: Простая, интуитивная, но глубокая структура. Чёткое разделение "Кино" и "Театра".
+👉 [Карта сайта и Путь пользователя](./structure.md)
+*   **Ключевые страницы**: Главная, Студия (Театр), Киношкола, О нас (История), Запись.
+*   **Навигация**: "Липкий" хедер, визуальное различие разделов Кино/Театр?
+
+## 2. 🎨 Визуальный Стиль и UX
+**Цель**: Эффект "WOW". Темная тема (Dark mode)? Глассморфизм? Движение?
+👉 [Визуальное направление и UI Kit](./visuals.md)
+*   **Вайб**: Эмоциональный, Профессиональный, Кинематографичный.
+*   **Цвета**: Глубокие, характерные (Театр = Фиолетовый/Золотой? Кино = Тил/Техно?).
+*   **Взаимодействие**: Микро-анимации, видео-фоны.
+
+## 3. 📝 Контент-стратегия
+**Цель**: Рассказать историю через наши уникальные данные (История, Награды, Фильмы).
+👉 [Карта контента](./content.md)
+*   **История**: Интеграция биографии *"10 лет вдохновения"*.
+*   **Данные**: Динамическое отображение 15к фото, 800 видео и наград Гран-при.
+*   **Копирайтинг**: Tone of voice – теплый, но профессиональный.
+
+## 4. 🕵️ Анализ Конкурентов
+**Цель**: Быть лучше остальных.
+👉 [Анализ рынка](./competitors.md)
+*   *В ожидании глубокого анализа.*
+
+## 5. 🛠 Технический Стек
+*   **Фреймворк**: Astro (Текущий).
+*   **Источник данных**: Локальный SQLite (синхронизация с VK) -> Генерация JSON.
+*   **Стили**: Tailwind / Custom CSS.
+
+---
+
+## ✅ План Действий
+1. [ ] Утвердить Структуру (Карта сайта).
+2. [ ] Утвердить Визуальный стиль (Макеты?).
+3. [ ] Распределить контент по страницам.
+4. [ ] Этап реализации.
