@@ -44,14 +44,15 @@
     }
 
     .profession-card {
-        background-color: #1a1a1a;
+        background-color: var(--bg-card);
         padding: 1.5rem;
-        border-radius: 1rem;
-        border: 1px solid #333;
+        border-radius: var(--radius-card);
+        border: 1px solid var(--border-card);
         transition: all 0.3s;
         
         &:hover {
-            border-color: #fff;
+            border-color: var(--text-accent); // Gold/Neon
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
             transform: translateY(-5px);
         }
 
@@ -61,14 +62,16 @@
         }
 
         &__title {
-            color: #fff;
+            color: var(--text-main);
             font-weight: 700;
             font-size: 1.25rem;
             margin-bottom: 0.5rem;
+            font-family: var(--font-heading);
+            text-transform: uppercase;
         }
 
         &__desc {
-            color: #888;
+            color: var(--text-muted);
             font-size: 0.875rem;
         }
     }

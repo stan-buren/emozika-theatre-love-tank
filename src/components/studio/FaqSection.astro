@@ -1,0 +1,31 @@
+---
+import FaqList from '../FaqList.astro';
+import faqData from '../../data/faq.json';
+---
+
+<section id="faq" class="section section--faq reveal-on-scroll">
+  <div class="container">
+    <header class="section-header">
+      <h2 class="section-title">Частые вопросы</h2>
+      <p class="section-subtitle">
+        Ответы на самые частые вопросы о занятиях.
+      </p>
+    </header>
+
+    <div class="faq">
+      <div class="faq-search" data-faq-search>
+        <label class="faq-search__field">
+          <span>Найдите ответ</span>
+          <input type="search" placeholder="Например: оплата, возраст, расписание" data-faq-query />
+        </label>
+        <div class="faq-search__meta">
+          <button type="button" class="btn btn-ghost btn-compact-mobile" data-faq-reset>Сбросить</button>
+          <span class="faq-search__count" data-faq-count aria-live="polite"></span>
+        </div>
+      <div class="faq-list-wrapper">
+        <FaqList faqItems={faqData} />
+      </div>
+
+    </div>
+  </div>
+</section>

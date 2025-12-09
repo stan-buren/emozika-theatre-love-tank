@@ -1,0 +1,51 @@
+---
+import ReviewsGrid from '../ReviewsGrid.astro';
+import reviewsData from '../../data/reviews.json';
+---
+
+<section id="reviews" class="section section-reviews reveal-on-scroll">
+  <div class="container">
+    <div class="section-header section-header--center">
+      <p class="eyebrow" style="color: var(--text-muted);">Отзывы</p>
+      <h2 class="section-title">Истории родителей</h2>
+      <p class="section-subtitle">
+        Живые впечатления мам, пап и детей после занятий.
+      </p>
+    </div>
+
+    <div class="reviews-strip-shell">
+      <button class="reviews-strip__arrow reviews-strip__arrow--left" type="button" aria-label="Предыдущий отзыв"
+        data-reviews-arrow="left">
+        ‹
+      </button>
+
+      <ReviewsGrid reviews={reviewsData} />
+
+      <button class="reviews-strip__arrow reviews-strip__arrow--right" type="button" aria-label="Следующий отзыв"
+        data-reviews-arrow="right">
+        ›
+      </button>
+    </div>
+
+    <!-- Лайтбокс для просмотра выбранного видеоотзыва -->
+    <div class="review-lightbox" data-review-lightbox aria-hidden="true" hidden>
+      <div class="review-lightbox__backdrop" data-review-lightbox-backdrop></div>
+
+      <div class="review-lightbox__dialog" role="dialog" aria-modal="true" aria-labelledby="review-lightbox-title">
+        <button class="review-lightbox__close" type="button" aria-label="Закрыть отзыв" data-review-lightbox-close>
+          ✕
+        </button>
+
+        <div class="review-lightbox__video">
+          <!-- Видеоплеер подставляется через JavaScript -->
+        </div>
+
+        <div class="review-lightbox__body">
+          <h3 class="review-lightbox__title" id="review-lightbox-title"></h3>
+          <p class="review-lightbox__quote"></p>
+          <p class="review-lightbox__meta"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

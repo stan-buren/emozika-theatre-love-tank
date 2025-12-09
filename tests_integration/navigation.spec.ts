@@ -30,9 +30,9 @@ test.describe('Emozika Website Structure', () => {
 
         await expect(page).toHaveURL(/.*cinema/);
 
-        // Check for text presence matching new Cinema/index.astro
-        await expect(page.locator('body')).toContainText('СТАРТ ТВОЕЙ КАРЬЕРЫ');
-        await expect(page.locator('body')).toContainText('HALL OF FAME');
+        // Check for text presence matching new Cinema/index.astro (Content Polish)
+        await expect(page.locator('body')).toContainText('ЭТО НЕ КРУЖОК');
+        await expect(page.locator('body')).toContainText('ЭТО ПРОДАКШН');
 
         // Check for specific styling class presence (verifying SCSS loaded)
         await expect(page.locator('.cinema-hero')).toBeVisible();

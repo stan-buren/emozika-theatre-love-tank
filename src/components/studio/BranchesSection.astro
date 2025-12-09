@@ -1,0 +1,103 @@
+---
+import BranchesGrid from '../BranchesGrid.astro';
+import branchesData from '../../data/branches.json';
+
+const branches = branchesData.branches || [];
+const sortedBranches = [...branches].sort((a, b) => {
+    // 1. Сначала площадки с группами 18+
+    if (a.isAdults && !b.isAdults) return -1;
+    if (!a.isAdults && b.isAdults) return 1;
+
+    // 2. Потом по станции метро (по алфавиту)
+    var metroA = (a.metro || "").toLowerCase();
+    var metroB = (b.metro || "").toLowerCase();
+    if (metroA < metroB) return -1;
+    if (metroA > metroB) return 1;
+
+    // 3. Город (на всякий случай)
+    var cityA = (a.city || "").toLowerCase();
+    var cityB = (b.city || "").toLowerCase();
+    if (cityA < cityB) return -1;
+    if (cityA > cityB) return 1;
+
+    // 4. Название площадки
+    var placeA = (a.place || "").toLowerCase();
+    var placeB = (b.place || "").toLowerCase();
+    if (placeA < placeB) return -1;
+    if (placeA > placeB) return 1;
+
+    return 0;
+});
+---
+
+<section id="branches" class="section section-branches reveal-on-scroll">
+  <div class="container">
+    <div class="branches-top-layout">
+      <div class="branches-top-main">
+        <header class="branches-header">
+          <p class="section-kicker">Где проходят занятия</p>
+          <h2 class="section-title">Филиалы и площадки</h2>
+          <p class="section-intro">
+            Занятия студии «Эмоция» проходят в разных районах
+            Петербурга и в Кудрово. Выберите удобную площадку.
+          </p>
+          <div class="section-chips section-chips--left">
+            <span class="chip">15 филиалов</span>
+            <span class="chip">Метро рядом</span>
+            <span class="chip">Кудрово</span>
+          </div>
+        </header>
+
+        <div class="branches-preferences">
+          <label class="branches-my-metro">
+            <span class="branches-my-metro-label">Моя станция метро:</span>
+            <select class="branches-filter__select" data-branch-my-metro aria-label="Выберите вашу станцию метро">
+            <option value="">Не выбрано</option>
+            {(() => {
+               const uniqueMetros = [...new Set(sortedBranches.map(b => b.metro).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'ru'));
+               return uniqueMetros.map(metro => (
+                 <option value={metro}>{metro}</option>
+               ));
+            })()}
+          </select>
+          </label>
+        </div>
+
+        <div class="branches-filters" aria-label="Фильтр по филиалам">
+          <button type="button" class="branches-filter is-active" data-branch-filter="all">
+            Все филиалы
+          </button>
+          <button type="button" class="branches-filter" data-branch-filter="adults">
+            Группы 18+
+          </button>
+        </div>
+      </div>
+
+      <figure class="branches-map">
+        <img src="/assets/img/branches-map.svg"
+          alt="Карта с отмеченными районами" class="branches-map-image" />
+        <figcaption class="branches-map-legend">
+          <p class="branches-map-legend-title">Районы, где идут занятия:</p>
+          <div class="branches-map-legend" data-branches-areas>
+          {(() => {
+            const uniqueAreas = [...new Set(sortedBranches.map(b => b.area).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'ru'));
+            if (uniqueAreas.length === 0) return <li class="branches-area-item">Санкт-Петербург и Кудрово</li>;
+            return uniqueAreas.map(area => (
+              <li class="branches-area-item">{area}</li>
+            ));
+          })()}
+        </div>
+        </figcaption>
+      </figure>
+    </div>
+
+      <BranchesGrid branches={sortedBranches} />
+
+    <p class="branches-note">
+      Полный список филиалов и набор в группы уточняйте у администратора.
+      <a href="/about#contacts" class="branches-note-link">
+        Контакты администратора →
+      </a>
+    </p>
+  </div>
+</section>

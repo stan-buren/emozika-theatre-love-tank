@@ -1,0 +1,29 @@
+---
+interface Props {
+    title?: string;
+}
+
+const { title = "Почему мамы выбирают «Эмоцику»?" } = Astro.props;
+
+const benefits = [
+    { icon: "👗", title: "Костюмерная включена", text: "Вам не нужно шить костюмы ночами или искать реквизит. Мы всё предоставляем сами." },
+    { icon: "📸", title: "Контент в подарок", text: "Профессиональные фото и видео со спектаклей уже включены в абонемент." },
+    { icon: "🎭", title: "Своя сцена", text: "Мы не арендуем ДК. Дети выступают на профессиональной сцене в Гранд Каньоне." }
+];
+---
+
+<section class="section benefits-section">
+    <div class="container">
+        <h2 class="section-title text-center" style="display: block; text-align: center;">{title}</h2>
+        
+        <div class="benefits-grid mt-12">
+            {benefits.map(item => (
+                <div class="benefit-card">
+                    <div class="benefit-card__icon">{item.icon}</div>
+                    <h3 class="benefit-card__title">{item.title}</h3>
+                    <p class="benefit-card__text">{item.text}</p>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>

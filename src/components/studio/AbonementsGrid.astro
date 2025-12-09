@@ -1,0 +1,25 @@
+---
+import abonementsData from '../../data/abonements.json';
+---
+
+<div class="abonements-grid">
+  {(abonementsData || []).filter(item => !item.draft).map(item => (
+    <article class="abonement-card">
+      {item.badge && <span class="abonement-card__badge">{item.badge}</span>}
+      
+      <h3 class="abonement-card__title">{item.name}</h3>
+      {item.age && <p class="abonement-card__age">{item.age}</p>}
+      
+      {item.bullets && item.bullets.length > 0 && (
+        <ul class="abonement-card__list">
+          {item.bullets.map(bullet => <li>{bullet}</li>)}
+        </ul>
+      )}
+      
+      <div class="abonement-card__bottom">
+        {item.price && <p class="abonement-card__price">{item.price}</p>}
+        {item.note && <p class="abonement-card__note">{item.note}</p>}
+      </div>
+    </article>
+  ))}
+</div>

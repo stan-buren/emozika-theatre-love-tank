@@ -1,96 +1,91 @@
 :root {
-    /* 1. Базовые фоны и поверхности */
-    --color-bg: #f9f4ff;
-    /* общий фон страницы */
-    --color-surface: #ffffff;
-    /* белая «карта» / карточки */
+    /* --- GLOBAL CORE --- */
+    --color-white: #ffffff;
+    --color-black: #000000;
 
-    /* Расширенные фоны для разных типов секций */
-    --color-bg-warm: #fff8f2;
-    /* тёплый кремовый фон (процессы, студия, направления) */
-    --color-bg-paper: #fffaf4;
-    /* «бумажный» фон (архив, документы, афиша, FAQ) */
-    --color-bg-lilac: #f7f4ff;
-    /* мягкий лиловый фон (абонементы, детские блоки) */
-    --color-bg-film: #fdf8ff;
-    /* кино / галерея, лёгкий фиолетовый фон */
+    /* Fonts */
+    --font-primary: 'Montserrat', sans-serif;
+    /* Setup / Cinema */
+    --font-friendly: 'Nunito', sans-serif;
+    /* Studio */
+    --font-serif: 'Playfair Display', serif;
+    /* Theatre */
 
-    /* 2. Текст */
-    --color-text: #333333;
-    /* основной текст */
-    --color-text-main: #222222;
-    /* плотный текст для ключевых фраз и заголовков */
-    --color-text-muted: #6d5c52;
-    /* подписи, подзаголовки */
-    --color-text-soft: #666666;
-    /* вторичный текст, хинты, мелкие подписи */
-
-    /* 3. Фиолетовый дизайн-код Эмоцики */
-    --color-brand: #7a2fb4;
-    --color-brand-dark: #4a177b;
-    --color-brand-light: #d59aff;
-    --brand-dark: var(--color-brand-dark);
-
-    /* 4. Сцена и «дерево» */
-    --color-stage-deep: #0d0418;
-    /* глубокий фон сценических / кино-карточек (галерея) */
-    --color-stage-wood: #4b2c25;
-    /* тёплый «деревянный» коричневый для акцентного текста */
-
-    /* 5. Акценты и статусы */
-    --color-accent: #FFCC80;
-    /* тёплый акцент (забота, атмосфера, комфорт) */
-    --color-accent-2: #FFD1DC;
-    /* розовый акцент (младшие группы, нежные блоки) */
-    --color-muted: #C5E1A5;
-    /* мягкий зелёный (развитие, поддержка, «экология» среды) */
-    --color-accent-gold: #ffb74d;
-    /* золото наград, фестивали, цифры успеха */
-    --color-accent-soft: #4b2c25;
-    /* мягкий тёмный акцент для бейджей */
-
-    /* 6. Футер и бордеры */
-    --footer-bg: #050505;
-    /* базовый фон футера (ночной) */
-    --footer-text: #f5f5f5;
-    /* текст в футере */
-    --border-soft: rgba(8, 2, 26, 0.08);
-    /* мягкая тень/граница для карточек */
-    --border-brand-soft: rgba(122, 47, 180, 0.12);
-    /* бордер с фиолетовым оттенком */
-
-    /* 7. Типографика и ручной штрих */
-    --font-main: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-heading: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-
-    --hand-underline-width: 140px;
-    --hand-underline-height: 14px;
-    --hand-underline-opacity: 0.5;
-
-    /* 8. Motion */
-    --motion-fast: 0.15s;
-    --motion-normal: 0.2s;
-    --motion-ease-soft: cubic-bezier(0.19, 0.72, 0.26, 0.99);
-    --motion-snow: 26s;
-    /* медленная плавная анимация снега */
-
-    /* 9. Premium Effects (Glass, Shadows) */
-    --shadow-luxe: 0 10px 40px rgba(8, 2, 26, 0.08), 0 4px 12px rgba(8, 2, 26, 0.05);
-    --shadow-float: 0 20px 50px rgba(74, 23, 123, 0.15), 0 10px 20px rgba(74, 23, 123, 0.1);
-    --glass-bg: rgba(255, 255, 255, 0.7);
-    --glass-border: 1px solid rgba(255, 255, 255, 0.5);
-    --glass-blur: blur(16px);
-
-    --gradient-hero: radial-gradient(circle at top left, #531a88 0%, #2b0c4e 50%, #0d0418 100%);
-    --gradient-glow: radial-gradient(circle, rgba(255, 209, 220, 0.6) 0%, rgba(255, 255, 255, 0) 70%);
+    /* --- THEME: DEFAULT (Light/Hub) --- */
+    --bg-body: #ffffff;
+    --text-main: #222222;
+    --text-muted: #666666;
+    --accent: #7a2fb4;
+    /* Brand Purple */
+    --radius-card: 16px;
+    --radius-btn: 8px;
 }
 
-// SCSS Variables Mapping (for use in mixins/functions or direct values if needed)
-$color-white: #ffffff;
-$color-black: #000000;
-$font-family-heading: var(--font-heading);
-$font-family-main: var(--font-main);
-$color-text-secondary: var(--color-text-soft);
+/* --- THEME 1: STUDIO (Comfort & Warmth) --- */
+html.studio {
+    --bg-body: #FDFCF8;
+    /* Warm White */
+    --text-main: #2D2D2D;
+    --text-muted: #5C5C5C;
+    --text-accent: #7a2fb4;
+    /* Soft Purple */
 
-$z-index-header: 100;
-$z-index-modal: 1000;
+    --bg-card: #ffffff;
+    --border-card: rgba(0, 0, 0, 0.05);
+
+    --font-heading: var(--font-friendly);
+    --radius-card: 24px;
+    /* XL Rounded */
+    --radius-btn: 99px;
+    /* Pill */
+
+    --shadow-card: 0 10px 30px rgba(122, 47, 180, 0.05);
+    /* Soft Purple Shadow */
+}
+
+/* --- THEME 2: CINEMA (Dark & Sharp) --- */
+html.cinema {
+    --bg-body: #050505;
+    /* True Black */
+    --text-main: #ffffff;
+    --text-muted: #888888;
+    --text-accent: #FFD700;
+    /* Electric Gold */
+
+    --bg-card: #0F0F0F;
+    --border-card: rgba(255, 255, 255, 0.1);
+
+    --font-heading: var(--font-primary);
+    --radius-card: 4px;
+    /* Sharp */
+    --radius-btn: 2px;
+
+    --shadow-card: 0 0 20px rgba(0, 0, 0, 0.5);
+    --neon-glow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+/* --- THEME 3: THEATRE (Velvet & Grand) --- */
+html.theatre {
+    --bg-body: #1A0B2E;
+    /* Deep Velvet */
+    --text-main: #F0E6D2;
+    /* Paper White */
+    --text-muted: rgba(240, 230, 210, 0.6);
+    --text-accent: #D4AF37;
+    /* Antique Gold */
+
+    --bg-card: #251240;
+    --border-card: rgba(212, 175, 55, 0.2);
+    /* Gold Border */
+
+    --font-heading: var(--font-serif);
+    --radius-card: 8px;
+    /* Classic */
+    --radius-btn: 4px;
+
+    --shadow-card: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+/* SCSS Variables Mappings (for existing SCSS code) */
+$color-text: var(--text-main);
+$color-bg: var(--bg-body);
