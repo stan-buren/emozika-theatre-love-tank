@@ -1,0 +1,169 @@
+---
+const steps = [
+    {
+        icon: "🐣",
+        title: "Первый шаг",
+        subtitle: "Сентябрь",
+        desc: "Застенчивый новичок приходит в класс. Знакомство, игры на раскрепощение, поиск друзей.",
+        color: "#FFD700"
+    },
+    {
+        icon: "🎭",
+        title: "Поиск Роли",
+        subtitle: "Ноябрь",
+        desc: "Читка сценария. Кто я — Волк или Красная Шапочка? Примерка характеров и первые этюды.",
+        color: "#FFA500"
+    },
+    {
+        icon: "🧱",
+        title: "Стройка Спектакля",
+        subtitle: "Январь—Март",
+        desc: "Погружение в репетиции. Зубрежка текста, постановка света, выбор костюмов. Работа в команде.",
+        color: "#FF4500"
+    },
+    {
+        icon: "🎪",
+        title: "Генеральный Прогон",
+        subtitle: "Апрель",
+        desc: "Магия начинается. Полный свет, звук, костюмы. Волнение перед выходом на большую сцену.",
+        color: "#C71585"
+    },
+    {
+        icon: "🏆",
+        title: "Премьера!",
+        subtitle: "Май",
+        desc: "Цветы, аплодисменты зала, поклон. Твой ребенок — настоящая звезда. Уверенность навсегда.",
+        color: "#800080"
+    }
+];
+---
+
+<section id="studio-journey" class="section section-journey">
+    <div class="container overflow-hidden">
+        <div class="text-center mb-12">
+            <h2 class="section-title">Путь от новичка до звезды</h2>
+            <p class="section-subtitle">Один учебный год — как маленькая жизнь.</p>
+        </div>
+
+        <div class="journey-track-wrapper">
+            <div class="journey-track">
+                {steps.map((step, index) => (
+                    <div class="journey-card" style={`--accent: ${step.color}`}>
+                        <div class="card-number">0{index + 1}</div>
+                        <div class="card-icon">{step.icon}</div>
+                        <div class="card-content">
+                             <span class="card-meta">{step.subtitle}</span>
+                             <h3 class="card-title">{step.title}</h3>
+                             <p class="card-desc">{step.desc}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <!-- Dashed Path Line (Canvas or SVG could be better, simplified here) -->
+            <div class="journey-path-line"></div>
+        </div>
+    </div>
+</section>
+
+<style lang="scss">
+    .section-journey {
+        background: #fdfcf8;
+        padding: 4rem 0;
+        overflow: hidden;
+    }
+
+    .journey-track-wrapper {
+        position: relative;
+        padding: 2rem 0;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        /* Hide scrollbar */
+        &::-webkit-scrollbar { display: none; }
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+
+    .journey-track {
+        display: flex;
+        gap: 2rem;
+        padding: 0 1rem;
+        width: max-content; /* Ensure connection line spans all */
+    }
+
+    .journey-path-line {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: repeating-linear-gradient(to right, #e0e0e0 0, #e0e0e0 10px, transparent 10px, transparent 20px);
+        z-index: 0;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+
+    .journey-card {
+        position: relative;
+        z-index: 1;
+        flex: 0 0 300px;
+        background: white;
+        border: 2px solid var(--accent);
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        &:hover {
+            transform: translateY(-10px);
+        }
+    }
+
+    .card-number {
+        font-family: var(--font-heading);
+        font-size: 4rem;
+        font-weight: 800;
+        color: rgba(0,0,0,0.03);
+        position: absolute;
+        top: 0;
+        right: 1rem;
+        line-height: 1;
+    }
+
+    .card-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        background: var(--bg-body);
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid var(--accent);
+    }
+
+    .card-meta {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #888;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        color: var(--text-main);
+    }
+
+    .card-desc {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        color: var(--text-muted);
+    }
+</style>

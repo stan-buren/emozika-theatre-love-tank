@@ -96,6 +96,11 @@
         z-index: 5;
         background: linear-gradient(to bottom, var(--color-bg-film), rgba(253, 248, 255, 0.92));
         padding-block: 8px;
+        transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    body.header-hidden .section-studio .studio-subnav {
+        top: 0;
     }
 }
 

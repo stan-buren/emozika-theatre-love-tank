@@ -3,7 +3,8 @@ import Layout from '../../layouts/Layout.astro';
 import CinemaHero from '../../components/cinema/CinemaHero.astro';
 import TracksSplit from '../../components/cinema/TracksSplit.astro';
 import ProfessionsGrid from '../../components/cinema/ProfessionsGrid.astro';
-import SuccessStories from '../../components/cinema/SuccessStories.astro';
+import VideoLibrary from '../../components/cinema/VideoLibrary.astro';
+import ActorCardGenerator from '../../components/cinema/ActorCardGenerator.astro';
 ---
 
 <Layout title="Киношкола Эмоцика | Старт карьеры в кино" description="Киношкола для подростков в Санкт-Петербурге. Актерское мастерство, режиссура, блогинг. Съемки в реальных проектах." theme="dark">
@@ -17,8 +18,11 @@ import SuccessStories from '../../components/cinema/SuccessStories.astro';
         <!-- Professions: Кем я стану? -->
         <ProfessionsGrid />
         
-        <!-- Social Proof: Наши дети на ТВ -->
-        <SuccessStories />
+        <!-- Social Proof: Наши дети на ТВ (Video Library) -->
+        <VideoLibrary />
+
+        <!-- Interactive: Generator (Point B) -->
+        <ActorCardGenerator />
         
         <!-- CTA Section -->
         <section id="casting" class="section-dark" style="text-align: center;">

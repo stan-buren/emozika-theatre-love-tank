@@ -1,0 +1,141 @@
+---
+import newsData from '../../data/vk_news.json';
+
+// Get just the last 6 items for the "Moments" feel
+const moments = newsData.slice(0, 6);
+---
+
+<section class="section-moments">
+    <div class="container">
+        <div class="moments-header">
+            <h2 class="section-title">Жизнь в студии</h2>
+            <div class="moments-actions">
+                 <a href="https://vk.com/emozika" target="_blank" class="btn-subscribe">
+                    <span class="vk-icon">VK</span> Подписаться
+                 </a>
+            </div>
+        </div>
+
+        <div class="moments-grid">
+            {moments.map(item => (
+                <a href={item.link} target="_blank" rel="noopener" class="moment-card">
+                    <div class="moment-image-wrapper">
+                         <img src={item.image} alt="Moment" class="moment-image" loading="lazy" />
+                         <div class="moment-overlay">
+                            <span class="moment-date">{item.date}</span>
+                         </div>
+                    </div>
+                    <div class="moment-caption">
+                        <p>{item.excerpt}</p>
+                    </div>
+                </a>
+            ))}
+        </div>
+    </div>
+</section>
+
+<style lang="scss">
+    .section-moments {
+        padding: 2rem 0 4rem;
+        background: #fff;
+    }
+
+    .moments-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .btn-subscribe {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #0077FF; /* VK Blue */
+        color: white;
+        padding: 0.5rem 1.25rem;
+        border-radius: 99px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: transform 0.2s, box-shadow 0.2s;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 119, 255, 0.3);
+        }
+    }
+
+    .vk-icon {
+        font-weight: 900;
+    }
+
+    .moments-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .moment-card {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        transition: transform 0.3s ease;
+
+        &:hover {
+             transform: translateY(-5px);
+             .moment-overlay { opacity: 1; }
+        }
+    }
+
+    .moment-image-wrapper {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        aspect-ratio: 1; /* Square for Insta-feel */
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .moment-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    
+    .moment-card:hover .moment-image {
+        transform: scale(1.05);
+    }
+
+    .moment-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.3);
+        display: flex;
+        align-items: flex-end;
+        padding: 1.5rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .moment-date {
+        color: white;
+        font-size: 0.85rem;
+        font-weight: 600;
+        background: rgba(0,0,0,0.5);
+        padding: 4px 8px;
+        border-radius: 4px;
+        backdrop-filter: blur(4px);
+    }
+
+    .moment-caption {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        color: #333;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+</style>

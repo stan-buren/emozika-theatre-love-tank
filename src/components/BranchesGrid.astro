@@ -9,7 +9,7 @@ const { branches } = Astro.props;
 <div class="branch-cards-grid">
     {branches.map(branch => {
         const isAdults = branch.isAdults; 
-        const link = branch.mapLink || "#contacts";
+        const link = branch.mapLink || "#yandex-map";
         /* data-adults attribute: if true, set it. if false, don't set it (or set to "false"?)
            In HTML attribute existence is enough. 
            But let's follow the previous logic: data-adults if isAdults.

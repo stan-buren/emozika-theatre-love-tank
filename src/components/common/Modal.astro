@@ -1,0 +1,141 @@
+---
+interface Props {
+  id: string;
+  title?: string;
+}
+
+const { id, title = "Заявка" } = Astro.props;
+---
+
+<dialog id={id} class="dialog-modal" aria-hidden="true">
+  <div class="dialog-backdrop" data-close-modal></div>
+  <div class="dialog-content">
+    <div class="dialog-header">
+      <h3 class="dialog-title">{title}</h3>
+      <button type="button" class="dialog-close" data-close-modal aria-label="Закрыть">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="dialog-body">
+      <slot />
+    </div>
+  </div>
+</dialog>
+
+<style lang="scss">
+  .dialog-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+    border: none;
+    padding: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    
+    &[open] {
+      display: flex;
+    }
+  }
+
+  .dialog-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    animation: fade-in 0.3s ease-out;
+  }
+
+  .dialog-content {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    background: var(--bg-card, #fff);
+    border-radius: var(--radius-card, 16px);
+    box-shadow: var(--shadow-card, 0 10px 40px rgba(0,0,0,0.2));
+    z-index: 2;
+    overflow: hidden;
+    animation: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 1.5rem 1rem;
+  }
+
+  .dialog-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-main);
+  }
+
+  .dialog-close {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    transition: background 0.2s;
+
+    &:hover {
+        background: rgba(0,0,0,0.05);
+        color: var(--text-main);
+    }
+  }
+
+  .dialog-body {
+    padding: 0 1.5rem 2rem;
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slide-up {
+    from { transform: translateY(20px) scale(0.96); opacity: 0; }
+    to { transform: translateY(0) scale(1); opacity: 1; }
+  }
+</style>
+
+<script>
+    function initModals() {
+        const triggers = document.querySelectorAll('[data-open-modal]');
+        
+        triggers.forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                const modalId = trigger.getAttribute('data-open-modal');
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.showModal();
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        const closers = document.querySelectorAll('[data-close-modal]');
+        closers.forEach(closer => {
+            closer.addEventListener('click', () => {
+                const modal = closer.closest('dialog');
+                if (modal) {
+                    modal.close();
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+    }
+
+    document.addEventListener('astro:page-load', initModals);
+    document.addEventListener('DOMContentLoaded', initModals);
+</script>

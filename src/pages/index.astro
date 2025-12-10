@@ -1,9 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import HeroParticles from '../components/hub/HeroParticles.astro';
+import NewsTicker from '../components/hub/NewsTicker.astro';
 ---
 
 <Layout title="Театр-студия «Эмоцика» | Спектакли и обучение" description="Детский театр и киношкола в Санкт-Петербурге. Обучение актерскому мастерству, съемки в кино и спектакли для всей семьи.">
   <main id="main-content">
+    <HeroParticles />
     <section class="hub-hero">
       <div class="container hub-hero__content">
         <h1 class="hub-hero__title">
@@ -15,6 +18,8 @@ import Layout from '../layouts/Layout.astro';
         </p>
       </div>
     </section>
+    
+    <NewsTicker />
 
     <section class="hub-nav">
         <div class="container hub-nav__grid">
@@ -72,9 +77,13 @@ import Layout from '../layouts/Layout.astro';
 <style>
     /* Hub Hero */
     .hub-hero {
+        position: relative;
+        z-index: 1; /* Content above particles */
         padding: 6rem 0 4rem;
-        background: radial-gradient(circle at top right, rgba(162, 89, 255, 0.15), transparent 60%),
-                    radial-gradient(circle at bottom left, rgba(64, 224, 208, 0.1), transparent 60%);
+        background: transparent; /* Remove gradient, let particles shine or mix */
+        /* keep subtle gradient if needed, but particles provide depth now */
+        background: radial-gradient(circle at top right, rgba(162, 89, 255, 0.05), transparent 60%),
+                    radial-gradient(circle at bottom left, rgba(64, 224, 208, 0.05), transparent 60%);
         text-align: center;
     }
 

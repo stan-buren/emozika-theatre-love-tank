@@ -1,0 +1,362 @@
+---
+---
+
+<section class="section section-story">
+  <div class="story-artist-container">
+    
+    <!-- Background Decor -->
+    <div class="decor-year">10</div>
+
+    <div class="story-content-wrapper">
+      <div class="story-header reveal-on-scroll">
+        <span class="story-label">История в лицах</span>
+        <h2 class="story-title">От маленькой студии<br/>к большому Театру</h2>
+      </div>
+
+      <div class="story-body">
+        <div class="text-block reveal-on-scroll">
+          <p class="lead-paragraph">
+            <span class="drop-cap">В</span>сё началось осенью 2014 года. Тогда, под руководством педагогов Елены Анатольевны и Юлии Давидовны, состоялись первые занятия. Студия делала свои первые робкие шаги, а дети показывали свои первые этюды.
+          </p>
+          <p>
+            Мы учились не просто играть, а <span class="highlight">жить на сцене</span>.
+          </p>
+          <p>
+            За 10 лет мы прошли путь от районного кружка до Театра, который берет Гран-при международных фестивалей. Мы открыли мир кино, запустили собственное производство и воспитали поколение детей, для которых творчество стало частью жизни.
+          </p>
+        </div>
+
+        <div class="media-collage reveal-on-scroll">
+            <div class="collage-track">
+                <!-- 2014 Card -->
+                <div class="collage-card card-past">
+                   <div class="card-inner">
+                       <img src="/assets/img/history/2014-start.webp" alt="Первые шаги" loading="lazy" />
+                       <div class="card-badge badge-start">2014</div>
+                   </div>
+                   <span class="img-caption">Начало</span>
+                </div>
+                
+                <!-- Connector Arrow -->
+                <div class="collage-connector">
+                    <svg viewBox="0 0 100 20" class="connector-line">
+                        <path d="M0,10 Q50,20 100,10" fill="none" stroke="currentColor" stroke-width="2" />
+                    </svg>
+                </div>
+
+                <!-- 2025 Card -->
+                <div class="collage-card card-present">
+                   <div class="card-inner">
+                       <img src="/assets/img/history/2025-rebrand.webp" alt="Ребрендинг" loading="lazy" />
+                       <div class="card-badge badge-now">2025</div>
+                   </div>
+                   <span class="img-caption">Эмоцика</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-block text-block--end reveal-on-scroll">
+          <p>
+            <strong>21 ноября 2025 года</strong> мы стали Театром «Эмоцика». Это не просто смена имени — это обещание быть еще ярче, современнее и профессиональнее.
+          </p>
+          <blockquote class="story-quote">
+            «История Эмоцики продолжается.<br>И вы — её часть.»
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .section-story {
+    position: relative;
+    padding: 8rem 0;
+    background-color: var(--bg-body, #fff);
+    overflow: hidden;
+    color: var(--text-main, #333);
+  }
+
+  .story-artist-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    position: relative;
+  }
+
+  /* Giant Background Year */
+  .decor-year {
+    position: absolute;
+    top: -4rem;
+    left: -2rem;
+    font-size: 25rem;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--accent-gold, #f0e6d2); 
+    opacity: 0.06;
+    z-index: 0;
+    font-family: var(--font-primary);
+    pointer-events: none;
+    user-select: none;
+    
+    @media (max-width: 1200px) {
+        font-size: 20rem;
+    }
+
+    @media (max-width: 768px) {
+        font-size: 15rem;
+        top: 0;
+        left: -1rem;
+    }
+  }
+
+  .story-content-wrapper {
+    position: relative;
+    z-index: 10; /* Ensure strictly above background */
+  }
+
+  .story-header {
+    margin-bottom: 4rem;
+    text-align: left;
+    max-width: 800px;
+    position: relative;
+    z-index: 11;
+  }
+
+  .story-label {
+    display: block;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--accent, #7a2fb4);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+
+  .story-title {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1.05;
+    font-family: var(--font-serif, serif);
+    font-weight: 400; /* Sophisticated thin/regular */
+    text-shadow: 0 20px 40px rgba(255,255,255,0.8); /* Enhance readability over large number */
+  }
+
+  /* Main Layout Grid */
+  .story-body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    position: relative;
+    z-index: 11;
+    
+    @media (min-width: 992px) {
+        grid-template-columns: 1.2fr 1fr;
+        align-items: center; /* Center align collage with text */
+        gap: 6rem;
+    }
+  }
+
+  .text-block {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--text-muted, #555);
+    
+    p { margin-bottom: 1.5rem; }
+  }
+
+  .drop-cap {
+    float: left;
+    font-size: 4.5rem;
+    line-height: 0.85;
+    font-weight: 700;
+    margin-right: 1rem;
+    margin-top: 0.1rem;
+    color: var(--accent, #7a2fb4);
+  }
+
+  .highlight {
+    background: linear-gradient(120deg, transparent 0%, transparent 100%);
+    box-shadow: inset 0 -0.5em 0 rgba(122, 47, 180, 0.2); 
+    color: var(--text-main);
+    font-weight: 600;
+  }
+
+  /* Collage / Gallery Redesign */
+  .media-collage {
+    position: relative;
+    width: 100%;
+    margin: 0;
+  }
+
+  .collage-track {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    position: relative;
+  }
+
+  .collage-card {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    z-index: 1;
+    
+    &:hover {
+        z-index: 10;
+        transform: scale(1.05) translateY(-10px);
+    }
+  }
+
+  .card-past {
+    transform: rotate(-3deg);
+  }
+
+  .card-present {
+    transform: rotate(3deg);
+  }
+
+  .card-inner {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    border: 4px solid #fff;
+    aspect-ratio: 4/5;
+    
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.6s ease;
+    }
+  }
+
+  .collage-card:hover .card-inner img {
+    transform: scale(1.1);
+  }
+
+  .card-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    backdrop-filter: blur(4px);
+    color: var(--text-main);
+  }
+
+  .badge-start { color: #888; }
+  .badge-now { color: var(--accent); }
+
+  .img-caption {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--text-muted);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
+  }
+
+  .collage-card:hover .img-caption {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Connector */
+  .collage-connector {
+    position: absolute;
+    width: 100px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(90deg);
+    z-index: 0;
+    opacity: 0.3;
+    pointer-events: none;
+    color: var(--accent);
+    
+    @media (max-width: 500px) {
+        display: none;
+    }
+  }
+
+  /* Text Block End - Fixed Flow */
+  .text-block--end {
+    grid-column: 1 / -1;
+    max-width: 700px;
+    margin: 2rem auto 0; /* Clean margin, centered */
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0,0,0,0.05);
+
+    @media (min-width: 992px) {
+        /* If we want it to sit nicely below the grid */
+        margin-top: 4rem; 
+    }
+  }
+
+  .story-quote {
+    margin-top: 2.5rem;
+    font-family: var(--font-serif, serif);
+    font-size: 1.75rem;
+    line-height: 1.3;
+    color: var(--accent, #7a2fb4);
+    position: relative;
+    padding: 0 2rem;
+    
+    &::before, &::after {
+        content: '“';
+        font-size: 4rem;
+        position: absolute;
+        opacity: 0.2;
+        line-height: 0;
+        top: 1rem;
+    }
+    
+    &::before { left: 0; }
+    &::after { 
+        content: '”';
+        right: 0; 
+        top: auto;
+        bottom: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .collage-track {
+        flex-direction: row;
+        gap: 0;
+    }
+    
+    .card-past { 
+        margin-right: -1rem; 
+        width: 55%;
+    }
+    .card-present { 
+        margin-top: 3rem; 
+        margin-left: -1rem;
+        width: 55%;
+    }
+    
+    .text-block--end {
+        text-align: left;
+    }
+    
+    .story-quote {
+        padding: 0;
+        border-left: 3px solid var(--accent);
+        padding-left: 1.5rem;
+        
+        &::before, &::after { display: none; }
+    }
+  }

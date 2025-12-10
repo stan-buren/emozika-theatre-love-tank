@@ -3,6 +3,6 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://emozika-spb.ru', // TODO: Update with actual domain
+    site: 'https://emozika.ru',
     integrations: [sitemap()],
 });

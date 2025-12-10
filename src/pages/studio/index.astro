@@ -2,67 +2,59 @@
 import Layout from '../../layouts/Layout.astro';
 import PeopleSection from '../../components/PeopleSection.astro';
 import BenefitsGrid from '../../components/studio/BenefitsGrid.astro';
-import AbonementsGrid from '../../components/studio/AbonementsGrid.astro';
-import StudioPathway from '../../components/studio/StudioPathway.astro';
+import TicketOffice from '../../components/studio/TicketOffice.astro';
 // Migrated Components
 import BranchesSection from '../../components/studio/BranchesSection.astro';
 import ReviewsSection from '../../components/studio/ReviewsSection.astro';
+import StudioMoments from '../../components/studio/StudioMoments.astro';
+import AwardsShelf from '../../components/studio/AwardsShelf.astro';
+import MerchGrid from '../../components/studio/MerchGrid.astro';
+import TeacherSuperheroes from '../../components/studio/TeacherSuperheroes.astro';
+import StudioStageHero from '../../components/studio/StudioStageHero.astro';
+import StudioJourneyMap from '../../components/studio/StudioJourneyMap.astro';
 import FaqSection from '../../components/studio/FaqSection.astro';
 ---
 
 <Layout title="Театральная Студия Эмоцика | Развитие через сцену" description="Театральная студия для детей от 4 до 16 лет. Спектакли на профессиональной сцене, костюмы включены." theme="studio">
   <main class="studio-page">
     
-    <!-- Hero Section -->
-    <section class="section section-page-header">
-      <div class="container">
-        <h1 class="page-title">Театральная Студия</h1>
-        <p class="text-xl mt-4 max-w-2xl">
-            Место, где ребенок обретает уверенность, друзей и веру в себя через магию театра.
-        </p>
-      </div>
-    </section>
+    <!-- Hero Section (Point B) -->
+    <StudioStageHero />
 
     <!-- 1. Pain Points Solver (Warm Grid) -->
     <BenefitsGrid title="Почему мамы выбирают «Эмоцику»?" />
 
-    <!-- 2. Abonements (Pricing) -->
-    <section id="abonements" class="section">
-      <div class="container">
-        <header class="section-header">
-          <h2 class="section-title">Абонементы студии</h2>
-          <p class="section-subtitle">
-            Группы разделены по возрасту. В каждой — не более 15 человек.
-          </p>
-        </header>
-        
-        <AbonementsGrid />
-      </div>
-    </section>
+    <!-- 2. Abonements (Ticket Office - Point B) -->
+    <TicketOffice />
 
-    <!-- 3. Studio Journey -->
-    <section id="studio-journey" class="section section-studio">
-      <div class="container">
-          <div class="studio-column mx-auto max-w-4xl">
-             <div class="text-center mb-10">
-                <h2 class="section-title">Путь вашего ребенка</h2>
-                <p class="text-xl">От первого робкого шага до громких аплодисментов.</p>
-             </div>
-             
-             <!-- Interactive Timeline -->
-             <StudioPathway />
-          </div>
-      </div>
-    </section>
+    <!-- 3. Studio Journey (Point B) -->
+    <StudioJourneyMap />
 
-    <!-- 4. People (Team) -->
-    <PeopleSection />
+    <!-- 4. Super Teachers (Point B) -->
+    <TeacherSuperheroes />
 
-    <!-- 5. Branches (Moved from About) -->
+    <!-- 5. Branches (Interactive Point B) -->
     <BranchesSection />
 
-    <!-- 6. Reviews (Moved from About) -->
+    <!-- 6. Reviews (Polished) -->
     <ReviewsSection />
+    
+    <!-- 7. Studio Moments (Insta-Pulse Point B) -->
+    <StudioMoments />
+    
+    <!-- 8. Awards (Trophy Shelf Point B) -->
+    <section class="section">
+         <div class="container">
+             <header class="section-header text-center">
+                 <h2 class="section-title">Наши Победы</h2>
+                 <p class="section-subtitle">Дипломы и кубки с городских и международных фестивалей.</p>
+             </header>
+             <AwardsShelf limit={8} />
+         </div>
+    </section>
+
+    <!-- 9. Merch (Fantasy Shop) -->
+    <MerchGrid />
 
     <!-- 7. Contacts -->
     <section id="contacts" class="section section--contacts">

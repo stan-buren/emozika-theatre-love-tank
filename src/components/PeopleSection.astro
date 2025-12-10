@@ -35,22 +35,24 @@ const { class: className } = Astro.props;
         <!-- People Grid -->
         <div class="people-grid" data-people-grid>
             {(peopleData.groups || []).map((group, groupIndex) => 
-            (group.items || []).map((person, itemIndex) => (
+            (group.people || []).map((person, itemIndex) => (
                 <article 
-                class={`people-card ${groupIndex !== 0 ? 'hidden-group' : ''} ${itemIndex >= 8 ? 'hidden-item' : ''}`}
+                class={`person-card ${groupIndex !== 0 ? 'hidden-group' : ''}`}
                 data-group={group.id}
                 data-role={person.role}
                 style={groupIndex !== 0 || itemIndex >= 8 ? 'display: none;' : ''}
                 >
-                <div class="people-card__image-wrapper">
+                <div class="person-photo">
                     {person.photoUrl 
-                    ? <img src={person.photoUrl} alt={person.name} class="people-card__image" loading="lazy" />
-                    : <div class="people-card__placeholder">{person.name[0]}</div>
+                    ? <img src={`/${person.photoUrl}`} alt={person.name} loading="lazy" />
+                    : <div class="person-placeholder">{person.name[0]}</div>
                     }
                 </div>
-                <h3 class="people-card__name">{person.name}</h3>
-                <p class="people-card__role">{person.role}</p>
-                {person.bio && <p class="people-card__bio">{person.bio}</p>}
+                <div class="person-content">
+                    <h3 class="person-name">{person.name}</h3>
+                    <p class="person-role">{person.role}</p>
+                    {person.bio && <p class="person-bio">{person.bio}</p>}
+                </div>
                 </article>
             ))
             )}

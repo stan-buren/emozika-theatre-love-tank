@@ -1,0 +1,161 @@
+---
+import awardsData from '../../data/vk_awards.json';
+
+interface Props {
+  limit?: number;
+}
+
+const { limit } = Astro.props;
+const displayItems = limit ? awardsData.slice(0, limit) : awardsData;
+---
+
+<div class="awards-shelf">
+    <div class="shelf-grid">
+    {displayItems.map((award, index) => (
+        <article class="trophy-card" style={`--delay: ${index * 0.1}s`}>
+            <div class="trophy-frame">
+                {award.image ? (
+                    <img src={award.image} alt={award.sublabel} class="trophy-img" loading="lazy" />
+                ) : (
+                    <div class="trophy-placeholder">🏆</div>
+                )}
+                <div class="trophy-shine"></div>
+            </div>
+            
+            <div class="trophy-base">
+                <span class="trophy-year">{new Date(award.date).getFullYear()}</span>
+                <h4 class="trophy-title">{award.label}</h4>
+                <p class="trophy-desc">{award.sublabel}</p>
+            </div>
+        </article>
+    ))}
+    </div>
+</div>
+
+<style lang="scss">
+    .awards-shelf {
+        padding: 2rem 0;
+        /* Optional: Wooden shelf background or similar texture could go here */
+    }
+
+    .shelf-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 3rem 2rem;
+    }
+
+    .trophy-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        animation: fadeUp 0.6s ease forwards;
+        animation-delay: var(--delay);
+        opacity: 0;
+        transform: translateY(20px);
+        
+        &:hover {
+            .trophy-frame {
+                transform: translateY(-10px) scale(1.02);
+                box-shadow: 0 15px 35px rgba(255, 215, 0, 0.3);
+                border-color: #FFD700;
+            }
+            .trophy-shine {
+                opacity: 1;
+                transform: translateX(100%);
+            }
+        }
+    }
+
+    .trophy-frame {
+        width: 100%;
+        aspect-ratio: 4/3;
+        background: #fff;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 8px; /* Inner matte frame */
+        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 1.5rem;
+    }
+
+    .trophy-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 4px;
+        border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .trophy-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        background: #f9f9f9;
+        color: #ddd;
+    }
+
+    /* Shine Effect */
+    .trophy-shine {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(
+            to right,
+            rgba(255,255,255,0) 0%,
+            rgba(255,255,255,0.4) 50%,
+            rgba(255,255,255,0) 100%
+        );
+        transform: skewX(-25deg);
+        pointer-events: none;
+        transition: 0.5s;
+        opacity: 0;
+    }
+
+    .trophy-base {
+        position: relative;
+        width: 100%;
+    }
+
+    .trophy-year {
+        display: inline-block;
+        background: linear-gradient(45deg, #FFD700, #FDB931);
+        color: #fff;
+        font-weight: 800;
+        font-size: 0.75rem;
+        padding: 4px 10px;
+        border-radius: 99px;
+        margin-bottom: 0.75rem;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+    }
+
+    .trophy-title {
+        font-family: var(--font-heading);
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+        color: #2b2b2b;
+        line-height: 1.3;
+    }
+
+    .trophy-desc {
+        font-size: 0.9rem;
+        color: #666;
+        line-height: 1.4;
+    }
+
+    @keyframes fadeUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>

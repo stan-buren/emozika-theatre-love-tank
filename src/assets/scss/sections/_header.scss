@@ -10,11 +10,16 @@
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--header-border);
-    transition: all 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform;
 }
 
 .site-header.is-scrolled {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.site-header.is-hidden {
+    transform: translateY(-100%);
 }
 
 .header-inner {

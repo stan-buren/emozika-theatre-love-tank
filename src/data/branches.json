@@ -3,6 +3,7 @@
     {
       "city": "Санкт-Петербург",
       "metro": "Проспект Просвещения",
+      "photoUrl": "purple",
       "area": "Выборгский район",
       "place": "ТРК «Гранд Каньон»",
       "address": "пр. Энгельса, 154, 3 этаж",
@@ -10,137 +11,206 @@
       "phones": [
         "+7 (921) 648-62-87"
       ],
-      "isAdults": true
+      "isAdults": true,
+      "coords": [
+        60.05943,
+        30.3344
+      ]
     },
     {
       "city": "Санкт-Петербург",
       "metro": "Академическая",
+      "photoUrl": "blue",
       "area": "Выборгский район",
       "place": "частный д/с «Гнездо»",
       "address": "ул. Гжатская, 22, корп. 2",
       "comment": "",
       "phones": [],
-      "isAdults": false
+      "isAdults": false,
+      "coords": [
+        60.00949,
+        30.3857
+      ]
     },
     {
       "city": "Санкт-Петербург",
       "metro": "Академическая",
+      "photoUrl": "blue",
       "area": "Выборгский район",
       "place": "Детский центр «Солнышко»",
       "address": "ул. Гжатская, 22, корп. 1",
       "comment": "",
       "phones": [],
-      "isAdults": false
+      "isAdults": false,
+      "coords": [
+        60.00918,
+        30.3846
+      ]
     },
     {
       "city": "Санкт-Петербург",
       "metro": "Парнас",
+      "photoUrl": "orange",
       "area": "Выборгский район",
       "place": "Пространство «ART ZONE»",
       "address": "ул. Заречная, 41, стр. 1",
       "comment": "",
       "phones": [],
-      "isAdults": false
+      "isAdults": false,
+      "coords": [
+        60.0768,
+        30.3424
+      ]
     },
     {
       "city": "Кудрово",
       "metro": "Кудрово",
+      "photoUrl": "green",
       "area": "Кудрово",
       "place": "ДЦ «Лимпик»",
       "address": "ул. Ленинградская, 5, корп. 2",
       "comment": "район Оккервиль",
       "phones": [],
-      "isAdults": false
+      "isAdults": false,
+      "coords": [
+        59.9142,
+        30.5098
+      ]
     },
     {
       "city": "Кудрово",
       "metro": "Кудрово",
+      "photoUrl": "green",
       "area": "Кудрово",
       "place": "Детский клуб «Эрудит»",
       "address": "ул. Столичная, 4, корп. 1",
       "comment": "",
       "phones": [],
-      "isAdults": false
+      "isAdults": false,
+      "coords": [
+        59.9048,
+        30.5186
+      ]
     },
     {
       "city": "Санкт-Петербург",
       "metro": "Беговая",
+      "photoUrl": "cyan",
       "area": "Приморский район",
       "place": "Детский клуб «Гнездо»",
       "address": "Богатырский пр., 64, корп. 1",
       "comment": "",
       "phones": [],
-      "isAdults": false
+      "isAdults": false,
+      "coords": [
+        60.0062,
+        30.2229
+      ]
     },
     {
       "city": "Санкт-Петербург",
       "metro": "Звёздная",
+      "photoUrl": "red",
       "area": "Московский район",
       "place": "Детский клуб «Чудо Остров»",
       "address": "пр. Космонавтов, 61, корп. 1",
       "comment": "",
       "phones": [],
-      "isAdults": false
+      "isAdults": false,
+      "coords": [
+        59.8454,
+        30.3541
+      ]
     },
     {
       "city": "Санкт-Петербург",
       "metro": "Международная",
+      "photoUrl": "purple",
       "area": "Фрунзенский район",
       "place": "Детский центр «Эрудит»",
       "address": "ул. Бухарестская, 80, корп. 1",
       "comment": "",
       "phones": [],
-      "isAdults": false
+      "isAdults": false,
+      "coords": [
+        59.8787,
+        30.3752
+      ]
     },
     {
       "city": "Санкт-Петербург",
       "metro": "Шушары",
+      "photoUrl": "orange",
       "area": "Пушкинский район",
       "place": "Школа «Бенуа»",
       "address": "ул. Вишерская, 22",
       "comment": "",
       "phones": [],
-      "isAdults": false
+      "isAdults": false,
+      "coords": [
+        59.7997,
+        30.3804
+      ]
     },
     {
       "city": "Санкт-Петербург",
       "metro": "Комендантский проспект",
+      "photoUrl": "cyan",
       "area": "Приморский район",
       "place": "Детский клуб «Эрудит»",
       "address": "Комендантский пр., 8, корп. 1",
       "comment": "",
       "phones": [],
-      "isAdults": false
+      "isAdults": false,
+      "coords": [
+        60.0065,
+        30.2608
+      ]
     },
     {
       "city": "Санкт-Петербург",
       "metro": "Проспект Ветеранов",
+      "photoUrl": "blue",
       "area": "Кировский район",
       "place": "Детский сад «Эрудит»",
       "address": "ул. Солдата Корзуна, 4",
       "comment": "",
       "phones": [],
-      "isAdults": false
+      "isAdults": false,
+      "coords": [
+        59.8398,
+        30.2312
+      ]
     },
     {
       "city": "Мурино",
       "metro": "Мурино",
+      "photoUrl": "green",
       "area": "Мурино",
       "place": "Детский центр «Эрудит»",
       "address": "Ручьёвский пр., 3, корп. 3",
       "comment": "",
       "phones": [],
-      "isAdults": false
+      "isAdults": false,
+      "coords": [
+        60.0528,
+        30.4326
+      ]
     },
     {
       "city": "Санкт-Петербург",
       "metro": "Лесная",
+      "photoUrl": "green",
       "area": "Калининский район",
       "place": "Учебный центр",
       "address": "Кондратьевский пр., 70, корп. 1",
       "comment": "",
       "phones": [],
-      "isAdults": false
+      "isAdults": false,
+      "coords": [
+        59.9804,
+        30.3812
+      ]
     }
   ]
 }

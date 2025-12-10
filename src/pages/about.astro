@@ -3,8 +3,9 @@ import Layout from '../layouts/Layout.astro';
 import PeopleSection from '../components/PeopleSection.astro';
 import AwardsStrip from '../components/AwardsStrip.astro';
 import FestivalsList from '../components/FestivalsList.astro';
-import galleryData from '../data/gallery.json';
-import vkGalleryData from '../data/vk_gallery.json';
+import MasonryGallery from '../components/common/MasonryGallery.astro';
+import InteractiveTimeline from '../components/about/InteractiveTimeline.astro';
+import StorySection from '../components/about/StorySection.astro';
 import statsData from '../data/stats.json';
 import awardsData from '../data/awards.json';
 import { getTopAwards, getSortedFestivals } from '../utils/awards-helpers.js';
@@ -16,37 +17,21 @@ const sortedFestivals = getSortedFestivals(awardsData);
 <Layout title="О театре и команде | Театр «Эмоцика»" description="История театра «Эмоцика», наша команда педагогов и режиссеров, отзывы родителей, фотогалерея и документы." theme="light">
   <main id="main-content">
     
-    <!-- Hero -->
-    <section class="section section-page-header">
-      <div class="container">
-        <h1 class="page-title">О театре</h1>
-        <p class="text-xl mt-4 max-w-2xl">
-          С 2012 года мы создаем пространство, где дети становятся свободными, счастливыми и творческими.
-        </p>
-      </div>
-    </section>
 
-    <!-- People (Team) -->
-    <section id="people" class="section section-people section-card reveal-on-scroll">
-      <div class="section-inner">
-        <div class="container">
-          <header class="section-header">
-            <h2 class="section-title section-title--handdrawn">Люди театра</h2>
-            <p class="section-subtitle">За спектаклями и занятиями в «Эмоцике» стоят режиссёры, педагоги, актёры и юные артисты.</p>
-          </header>
-          <div class="people-shell">
-            <div class="people-filters" data-people-filters role="tablist"></div>
-            <div class="people-layout" data-people-root></div>
-          </div>
-        </div>
-      </div>
-    </section>
+
+    <!-- People (Team) Removed -->
+
+    <!-- 10 Years Story -->
+    <StorySection />
 
     <!-- Stats (History) -->
-    <section id="stats" class="section section-facts reveal-on-scroll">
+    <section id="history" class="section section-history reveal-on-scroll">
       <div class="container">
-        <h2 class="section-title">Цифры и факты</h2>
-        <div class="facts-grid">
+        <h2 class="section-title" style="text-align: center; margin-bottom: 4rem;">Ключевые события</h2>
+        <InteractiveTimeline />
+        
+        <!-- Summary Stats below timeline -->
+        <div class="facts-grid" style="margin-top: 5rem;">
           {statsData.map(stat => (
             <article class="fact-card">
               <h3 class="fact-number stat-number" data-target={stat.number} data-suffix={stat.suffix}>{stat.label}</h3>
@@ -82,19 +67,7 @@ const sortedFestivals = getSortedFestivals(awardsData);
           </p>
         </header>
 
-        <div class="gallery">
-          <div class="gallery__scroller-wrapper">
-            <div class="gallery__scroller" data-gallery-scroller>
-              {[...vkGalleryData, ...galleryData].map((item, index) => (
-                <button type="button" class="gallery-card" data-gallery-id={item.id} data-gallery-index={index} data-category={item.category}>
-                  <div class="gallery-card__image-wrapper">
-                    <img src={item.src} alt={item.alt} class="gallery-card__image" loading="lazy" />
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
+        <MasonryGallery />
       </div>
     </section>
 

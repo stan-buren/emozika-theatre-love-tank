@@ -1,0 +1,216 @@
+---
+---
+<section class="stage-hero">
+    <div class="curtain curtain--left"></div>
+    <div class="curtain curtain--right"></div>
+    
+    <div class="stage-content">
+        <div class="spotlight"></div>
+        <div class="container text-center relative z-10">
+            <span class="eyebrow">Для детей 4–16 лет</span>
+            <h1 class="stage-title">
+                <span class="line reveal-text">Твой Выход</span>
+                <span class="line reveal-text delay-1">На Сцену</span>
+            </h1>
+            <p class="stage-subtitle reveal-text delay-2">
+                Студия, где застенчивость превращается в харизму, а игра — в искусство.
+            </p>
+            <div class="stage-actions reveal-text delay-3">
+                <button class="btn-stage-primary" data-open-modal="main-booking-modal">
+                    Записаться на пробу
+                </button>
+                <a href="#studio-journey" class="btn-stage-secondary">
+                    Узнать путь актера ↓
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function initHero() {
+        const stageHero = document.querySelector('.stage-hero');
+        const spotlight = document.querySelector('.spotlight') as HTMLElement;
+
+        if (stageHero) {
+            // Interactive Spotlight
+            if (spotlight) {
+                stageHero.addEventListener('mousemove', (e) => {
+                    const { clientX, clientY } = e as MouseEvent;
+                    const { left, top } = stageHero.getBoundingClientRect();
+                    
+                    const x = clientX - left;
+                    const y = clientY - top;
+                    
+                    spotlight.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.15) 0%, rgba(0, 0, 0, 0) 30%)`;
+                });
+            }
+
+            // Trigger curtain animation ONLY if we are on the stage page
+            // 1. Immediate reset to ensure closed state (in case of navigation back)
+            document.body.classList.remove('curtains-open');
+            
+            // 2. Open after small delay to allow repaint
+            setTimeout(() => {
+                document.body.classList.add('curtains-open');
+            }, 100);
+        } else {
+            // Ensure curtains are closed if we are on another page
+            document.body.classList.remove('curtains-open');
+        }
+    }
+
+    // Run on initial load
+    initHero();
+
+    // Run on view transitions navigation
+    document.addEventListener('astro:after-swap', initHero);
+</script>
+
+<style lang="scss">
+    .stage-hero {
+        position: relative;
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #1a0b2e; /* Deep Velvet */
+        overflow: hidden;
+        color: white;
+    }
+
+    /* Curtains */
+    .curtain {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 50%;
+        background: url('https://www.transparenttextures.com/patterns/velvet.png'), linear-gradient(90deg, #7a2fb4 0%, #4a1f6b 100%);
+        box-shadow: inset -10px 0 40px rgba(0,0,0,0.5);
+        z-index: 20;
+        transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1);
+        
+        &--left {
+            left: 0;
+            transform-origin: left top;
+        }
+        
+        &--right {
+            right: 0;
+            transform-origin: right top;
+            background: url('https://www.transparenttextures.com/patterns/velvet.png'), linear-gradient(-90deg, #7a2fb4 0%, #4a1f6b 100%);
+        }
+    }
+
+    /* Animation Trigger */
+    :global(body.curtains-open) .curtain--left {
+        transform: translateX(-100%);
+    }
+    :global(body.curtains-open) .curtain--right {
+        transform: translateX(100%);
+    }
+
+    /* Stage Content */
+    .stage-content {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: radial-gradient(circle at center, #2d1b4e 0%, #1a0b2e 100%);
+        padding: 2rem;
+    }
+
+    .spotlight {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        transition: background 0.1s ease;
+        mix-blend-mode: overlay;
+    }
+
+    .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-size: 0.9rem;
+        color: #d4af37; /* Gold */
+        margin-bottom: 1rem;
+        display: block;
+    }
+
+    .stage-title {
+        font-family: var(--font-heading, "Montserrat", sans-serif);
+        font-size: clamp(3rem, 8vw, 6rem);
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
+        text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        
+        .line {
+            display: block;
+        }
+    }
+
+    .stage-subtitle {
+        font-size: 1.25rem;
+        max-width: 600px;
+        margin: 0 auto 3rem;
+        color: rgba(255,255,255,0.8);
+        line-height: 1.6;
+    }
+
+    /* Buttons */
+    .stage-actions {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn-stage-primary {
+        background: #d4af37;
+        color: #1a0b2e;
+        padding: 1rem 2.5rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        border-radius: 99px;
+        transition: transform 0.2s, box-shadow 0.2s;
+        
+        &:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+    }
+
+    .btn-stage-secondary {
+        border: 1px solid rgba(255,255,255,0.3);
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 99px;
+        text-decoration: none;
+        transition: background 0.2s;
+        
+        &:hover {
+            background: rgba(255,255,255,0.1);
+        }
+    }
+
+    /* Text Reveal Animation */
+    .reveal-text {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 0.8s ease forwards;
+        
+        &.delay-1 { animation-delay: 1.6s; } /* Wait for curtains */
+        &.delay-2 { animation-delay: 1.8s; }
+        &.delay-3 { animation-delay: 2.0s; }
+    }
+
+    @keyframes fadeUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>

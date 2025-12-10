@@ -21,8 +21,8 @@
         "id": "rehearsal-elena",
         "category": "rehearsal",
         "categoryLabel": "Репетиции",
-        "src": "/assets/img/people/elena-molodan.jpg",
-        "full": "/assets/img/people/elena-molodan.jpg",
+        "src": "/assets/img/people/elena-molodan.webp",
+        "full": "/assets/img/people/elena-molodan.webp",
         "alt": "Педагог Елена Молудан на репетиции",
         "caption": "Рабочий момент с педагогом Еленой Молудан"
     },
@@ -30,8 +30,8 @@
         "id": "rehearsal-maria",
         "category": "rehearsal",
         "categoryLabel": "Репетиции",
-        "src": "/assets/img/people/maria-suvorova.jpg",
-        "full": "/assets/img/people/maria-suvorova.jpg",
+        "src": "/assets/img/people/maria-suvorova.webp",
+        "full": "/assets/img/people/maria-suvorova.webp",
         "alt": "Юная актриса Мария Суворова готовит роль",
         "caption": "Работа над ролью: Мария Суворова"
     },
@@ -39,8 +39,8 @@
         "id": "backstage-evgeny",
         "category": "backstage",
         "categoryLabel": "Закулисье",
-        "src": "/assets/img/people/evgeny-baranov.jpg",
-        "full": "/assets/img/people/evgeny-baranov.jpg",
+        "src": "/assets/img/people/evgeny-baranov.webp",
+        "full": "/assets/img/people/evgeny-baranov.webp",
         "alt": "Закулисье съёмочного дня с Евгением Барановым",
         "caption": "Закулисье съёмочного дня"
     },

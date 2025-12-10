@@ -2,6 +2,8 @@
 import { ViewTransitions } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import StickyCTA from '../components/common/StickyCTA.astro';
+import Modal from '../components/common/Modal.astro';
 import '/src/assets/scss/style.scss';
 
 interface Props {
@@ -14,7 +16,7 @@ const { title, description = "Детский театр и студия «Эмо
 ---
 
 <!doctype html>
-<html lang="ru" class={theme}>
+<html lang="ru">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
@@ -25,12 +27,56 @@ const { title, description = "Детский театр и студия «Эмо
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Nunito:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+
+        <!-- OpenGraph -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content="https://emozika.ru/og-default.png" />
+        <meta property="og:site_name" content="Театр Эмоцика" />
+        <meta property="og:locale" content="ru_RU" />
+
+        <!-- Schema.org -->
+        <script type="application/ld+json">
+            {
+              "@context": "https://schema.org",
+              "@type": "EducationalOrganization",
+              "name": "Театр-студия «Эмоцика»",
+              "url": "https://emozika.ru",
+              "logo": "https://emozika.ru/assets/img/logo.svg", 
+              "sameAs": [
+                "https://vk.com/emozika",
+                "https://instagram.com/emozika"
+              ],
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Saint Petersburg",
+                "addressCountry": "RU"
+              },
+              "description": "Театральная студия и Киношкола для детей и подростков в Санкт-Петербурге."
+            }
+        </script>
+
         <ViewTransitions />
 	</head>
-	<body class={`theme-${theme}`}>
+	<body class={theme}>
         <Header />
 		<slot />
+        <StickyCTA />
         <Footer />
+        
+        <!-- Global Modals -->
+        <Modal id="main-booking-modal" title="Записаться в Эмоцику">
+            <div class="modal-form-placeholder" style="text-align: center; padding: 20px 0;">
+                <p style="margin-bottom: 20px; color: var(--text-muted);">Выберите, куда вы хотите записаться:</p>
+                <div style="display: grid; gap: 10px;">
+                    <a href="/studio#branches" class="btn btn-primary" style="background: var(--accent); color: white; padding: 12px; border-radius: 8px; text-decoration: none; display: block;">🎭 В Театральную Студию</a>
+                    <a href="/cinema#casting" class="btn btn-secondary" style="background: #40E0D0; color: #000; padding: 12px; border-radius: 8px; text-decoration: none; display: block;">🎬 На Кастинг в Кино</a>
+                </div>
+                <p style="margin-top: 15px; font-size: 0.8em; opacity: 0.7;">Или напишите нам в <a href="https://wa.me/79313157787" style="color: #25D366; text-decoration: underline;">WhatsApp</a></p>
+            </div>
+        </Modal>
         <script>
             import "../assets/js/main.js";
             

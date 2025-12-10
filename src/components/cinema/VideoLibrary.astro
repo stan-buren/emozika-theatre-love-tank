@@ -1,0 +1,183 @@
+---
+import filmsData from '../../data/vk_films.json';
+import clipsData from '../../data/vk_clips.json';
+
+// Combine for library, maybe prioritize films
+// For MVP we show 2 lists: "Student Films" & "Shorts"
+---
+
+<section id="library" class="section-dark">
+    <div class="container">
+        <h2 class="section-title glitch" data-text="ФИЛЬМОТЕКА">ФИЛЬМОТЕКА</h2>
+        
+        <!-- Long Films -->
+        <h3 class="library-subtitle">Короткий метр</h3>
+        <div class="library-grid">
+            {filmsData.map(film => (
+                <article class="film-card">
+                    <div class="film-card__poster-wrapper">
+                        <img src={film.image} alt={film.title} class="film-card__poster" loading="lazy" />
+                        <div class="film-card__overlay">
+                             <a href={film.vkPageUrl} target="_blank" rel="noopener" class="btn-play">
+                                ▶
+                             </a>
+                        </div>
+                        <span class="film-card__duration">{film.duration}</span>
+                    </div>
+                    <h4 class="film-card__title">{film.title}</h4>
+                    <p class="film-card__meta">{film.year} • {film.logline}</p>
+                </article>
+            ))}
+        </div>
+
+        <!-- Shorts / Clips -->
+        <h3 class="library-subtitle mt-8">Клипы & Этюды</h3>
+        <div class="clips-grid">
+             {clipsData.map(clip => (
+                <article class="clip-card">
+                     <div class="clip-card__preview">
+                        <img src={clip.image} alt={clip.title} class="clip-card__img" loading="lazy" />
+                        <a href={clip.vkEmbedUrl} target="_blank" class="clip-card__play"></a>
+                     </div>
+                     <h5 class="clip-card__title">{clip.title}</h5>
+                </article>
+             ))}
+        </div>
+    </div>
+</section>
+
+<style lang="scss">
+    .library-subtitle {
+        color: var(--text-muted);
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        border-left: 2px solid var(--text-accent);
+        padding-left: 1rem;
+    }
+
+    .mt-8 { margin-top: 4rem; }
+
+    /* Films Grid */
+    .library-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+    }
+
+    .film-card {
+        cursor: pointer;
+
+        &__poster-wrapper {
+            position: relative;
+            aspect-ratio: 16/9;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        &__poster {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        &:hover &__poster {
+            transform: scale(1.05);
+        }
+
+        &__overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        &:hover &__overlay {
+            opacity: 1;
+        }
+
+        .btn-play {
+            width: 50px;
+            height: 50px;
+            background: var(--text-accent);
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: transform 0.2s;
+            padding-left: 4px; /* Optical center */
+
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+
+        &__duration {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.8);
+            color: #fff;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        &__title {
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 0.25rem;
+        }
+
+        &__meta {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+    }
+
+    /* Clips Grid (More compact, vertical feel usually for shorts, but we use horizontal for clips here) */
+    .clips-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .clip-card {
+        &__preview {
+            position: relative;
+            aspect-ratio: 9/16; /* Vertical video ratio */
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+            background: #222;
+        }
+        
+        &__img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        &:hover &__img {
+            opacity: 1;
+        }
+
+        &__title {
+             font-size: 0.9rem;
+             color: #ccc;
+             line-height: 1.3;
+        }
+    }
+</style>

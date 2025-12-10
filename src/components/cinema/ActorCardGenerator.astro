@@ -1,0 +1,259 @@
+---
+---
+<section id="actor-card-generator" class="section section-dark card-generator">
+    <div class="container">
+        <header class="section-header text-center mb-12">
+            <h2 class="section-title glitch" data-text="Создай свою Карту Актера">Создай свою Карту Актера</h2>
+            <p class="section-subtitle max-w-2xl mx-auto text-gray-400">
+                Почувствуй себя частью киноимперии. Загрузи фото, впиши имя и получи профессиональную карточку для соцсетей.
+            </p>
+        </header>
+
+        <div class="generator-workspace">
+            <!-- Sidebar / Controls -->
+            <div class="generator-controls">
+                <div class="control-group">
+                    <label>Имя Фамилия</label>
+                    <input type="text" id="card-name" placeholder="Александр Петров" maxlength="20" />
+                </div>
+                
+                <div class="control-group">
+                    <label>Амплуа (Роль)</label>
+                    <select id="card-role">
+                        <option value="Action Hero">Герой Боевика</option>
+                        <option value="Drama Queen">Звезда Драмы</option>
+                        <option value="Comedy King">Король Комедии</option>
+                        <option value="Future Star">Будущая Звезда</option>
+                        <option value="Villain">Главный Злодей</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label>Загрузить фото</label>
+                    <label for="card-upload" class="upload-btn">
+                        <span class="icon">📷</span> Выбрать файл
+                    </label>
+                    <input type="file" id="card-upload" accept="image/*" hidden />
+                </div>
+
+                <button id="card-download" class="btn-cinema-gold mt-6 w-full">
+                    Скачать Карточку
+                </button>
+            </div>
+
+            <!-- Preview Area -->
+            <div class="generator-preview">
+                <canvas id="card-canvas" width="600" height="800"></canvas>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function initGenerator() {
+        const canvas = document.getElementById('card-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        
+        const nameInput = document.getElementById('card-name');
+        const roleInput = document.getElementById('card-role');
+        const uploadInput = document.getElementById('card-upload');
+        const downloadBtn = document.getElementById('card-download');
+
+        let userImage = new Image();
+        let bgImage = new Image();
+        let overlayImage = new Image();
+        
+        // Default state
+        let userName = "Имя Фамилия";
+        let userRole = "Future Star";
+        
+        // Load Assets (Ideally these should be real paths, here we simulate)
+        // We will draw generated background code-side to avoid needing external assets immediately
+        
+        function drawCard() {
+            // 1. Background (Dark Cinema Style)
+            const gradient = ctx.createLinearGradient(0, 0, 0, 800);
+            gradient.addColorStop(0, '#1a1a1a');
+            gradient.addColorStop(1, '#000000');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 600, 800);
+            
+            // 2. User Photo
+            if (userImage.src) {
+                // Cover fit logic
+                const ratio = Math.max(600 / userImage.width, 800 / userImage.height);
+                const centerShift_x = (600 - userImage.width * ratio) / 2;
+                const centerShift_y = (800 - userImage.height * ratio) / 2;
+                ctx.drawImage(userImage, 0, 0, userImage.width, userImage.height, centerShift_x, centerShift_y, userImage.width * ratio, userImage.height * ratio);
+            }
+
+            // 3. Overlay (Vignette + Neon Borders)
+            const vignette = ctx.createRadialGradient(300, 400, 200, 300, 400, 500);
+            vignette.addColorStop(0, 'rgba(0,0,0,0)');
+            vignette.addColorStop(1, 'rgba(0,0,0,0.8)');
+            ctx.fillStyle = vignette;
+            ctx.fillRect(0, 0, 600, 800);
+
+            // Neon Border
+            ctx.strokeStyle = '#40E0D0'; // Turquoise neon
+            ctx.lineWidth = 4;
+            ctx.strokeRect(20, 20, 560, 760);
+
+            // 4. Branding
+            ctx.font = '700 40px Montserrat, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#FFFFFF';
+            ctx.shadowColor = "rgba(0,0,0,0.8)";
+            ctx.shadowBlur = 10;
+            ctx.fillText(userName.toUpperCase(), 300, 680);
+
+            ctx.font = '600 24px Montserrat, sans-serif';
+            ctx.fillStyle = '#FFD700'; // Gold
+            ctx.fillText(userRole.toUpperCase(), 300, 720);
+
+            // Logo Text
+            ctx.font = '600 16px sans-serif';
+            ctx.fillStyle = 'rgba(255,255,255,0.6)';
+            ctx.fillText("ЭМОЦИКА | KINOSHKOLA", 300, 760);
+        }
+
+        // Event Listeners
+        nameInput.addEventListener('input', (e) => {
+            userName = e.target.value || "Имя Фамилия";
+            drawCard();
+        });
+
+        roleInput.addEventListener('change', (e) => {
+            userRole = e.target.value;
+            drawCard();
+        });
+
+        uploadInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (evt) => {
+                    userImage.src = evt.target.result;
+                    userImage.onload = drawCard;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        downloadBtn.addEventListener('click', () => {
+             const link = document.createElement('a');
+             link.download = `emozika-actor-${userName}.png`;
+             link.href = canvas.toDataURL();
+             link.click();
+        });
+
+        // Initial Draw
+        drawCard();
+    }
+
+    document.addEventListener('astro:page-load', initGenerator);
+    document.addEventListener('DOMContentLoaded', initGenerator);
+</script>
+
+<style lang="scss">
+    .card-generator {
+        padding: 4rem 0;
+        background: #0f0f0f;
+    }
+
+    .generator-workspace {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .generator-controls {
+        flex: 1;
+        min-width: 300px;
+        max-width: 400px;
+        background: #1a1a1a;
+        padding: 2rem;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .control-group {
+        margin-bottom: 1.5rem;
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            background: #000;
+            border: 1px solid #333;
+            color: white;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 1rem;
+            
+            &:focus {
+                border-color: #40E0D0;
+                outline: none;
+            }
+        }
+    }
+
+    .upload-btn {
+        display: block;
+        width: 100%;
+        background: #2a2a2a;
+        color: white;
+        text-align: center;
+        padding: 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        border: 1px dashed #444;
+        transition: all 0.2s;
+        
+        &:hover {
+            border-color: #40E0D0;
+            color: #40E0D0;
+        }
+    }
+
+    .generator-preview {
+        flex: 1;
+        min-width: 300px;
+        display: flex;
+        justify-content: center;
+        
+        canvas {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(64, 224, 208, 0.2);
+            border: 2px solid #222;
+        }
+    }
+
+    .btn-cinema-gold {
+      background: linear-gradient(135deg, #FFD700 0%, #FFAA00 100%);
+      color: #000;
+      font-weight: 700;
+      padding: 14px 24px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+      }
+    }
+</style>

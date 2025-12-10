@@ -25,10 +25,16 @@
     --header-border: rgba(122, 47, 180, 0.1);
     --header-text: #222;
     --header-accent: #7a2fb4;
+
+    /* Missing Variables Restoration */
+    --accent-gold: #D4AF37;
+    --accent-gold-rgb: 212, 175, 55;
+    --primary-gradient: linear-gradient(135deg, #7a2fb4 0%, #d355b2 100%);
+    --font-header: var(--font-heading);
 }
 
 /* --- THEME 1: STUDIO (Comfort & Warmth) --- */
-html.studio {
+body.studio {
     --bg-body: #FDFCF8;
     /* Warm White */
     --text-main: #2D2D2D;
@@ -56,7 +62,7 @@ html.studio {
 }
 
 /* --- THEME 2: CINEMA (Dark & Sharp) --- */
-html.cinema {
+body.cinema {
     --bg-body: #050505;
     /* True Black */
     --text-main: #ffffff;
@@ -83,7 +89,7 @@ html.cinema {
 }
 
 /* --- THEME 3: THEATRE (Velvet & Grand) --- */
-html.theatre {
+body.theatre {
     --bg-body: #1A0B2E;
     /* Deep Velvet */
     --text-main: #F0E6D2;

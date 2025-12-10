@@ -1,0 +1,129 @@
+---
+import historyData from '../../data/history.json';
+---
+
+<div class="interactive-timeline">
+  <div class="timeline-line"></div>
+  
+  {historyData.map((item, index) => (
+    <article class="timeline-item reveal-on-scroll">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content card-warm">
+        <span class="timeline-year">{item.year}</span>
+        <h3 class="timeline-title">{item.title}</h3>
+        <p class="timeline-text">{item.description}</p>
+      </div>
+    </article>
+  ))}
+</div>
+
+<style lang="scss">
+  .interactive-timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 4rem auto;
+    padding: 2rem 0;
+  }
+
+  .timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--primary-gradient);
+    transform: translateX(-50%);
+    opacity: 0.3;
+    
+    @media (max-width: 768px) {
+        left: 20px;
+    }
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 4rem;
+    width: 50%;
+    
+    &:nth-child(odd) {
+      left: 0;
+      padding-right: 40px;
+      text-align: right;
+      
+      .timeline-content {
+         margin-left: auto; /* Push to right edge of left container */
+      }
+
+      .timeline-dot {
+        right: -6px;
+      }
+    }
+
+    &:nth-child(even) {
+      left: 50%;
+      padding-left: 40px;
+      text-align: left;
+
+      .timeline-dot {
+        left: -6px;
+      }
+    }
+
+    @media (max-width: 768px) {
+        width: 100%;
+        left: 0 !important;
+        padding-left: 50px !important;
+        padding-right: 0 !important;
+        text-align: left !important;
+
+        .timeline-dot {
+            left: 14px !important; /* Align with line at 20px - 6px radius */
+            right: auto !important;
+        }
+    }
+  }
+
+  .timeline-dot {
+    position: absolute;
+    top: 0; 
+    width: 14px;
+    height: 14px;
+    background: var(--accent-gold);
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(var(--accent-gold-rgb), 0.5);
+    z-index: 2;
+  }
+
+  .timeline-year {
+    display: block;
+    font-family: var(--font-header);
+    font-size: 2.5rem;
+    color: var(--accent-gold);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+
+  .timeline-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  
+  .timeline-text {
+    font-size: 0.95rem;
+    opacity: 0.8;
+  }
+
+  .card-warm {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+    }
+  }
+</style>

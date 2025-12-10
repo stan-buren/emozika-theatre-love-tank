@@ -18,20 +18,22 @@ async function main() {
     // 3. Generate Awards (From Posts with #awards)
     generateAwards();
 
-    // 4. Generate Goods (Placeholder from DB or just empty if no table yet)
-    // We didn't solve market access yet, so generate empty or cache if we had it.
+    // 4. Generate News (From Posts)
+    generateNews();
+
+    // 5. Generate Goods (Placeholder)
     await saveData('vk_goods.json', []);
 
     console.log('✨ Data generation complete!');
 }
 
 function generateGallery() {
-    // Select recent photos
-    const photos = db.prepare('SELECT * FROM photos ORDER BY date DESC LIMIT 50').all();
+    // Select recent photos - LIMIT 12 for MVP Grid
+    const photos = db.prepare('SELECT * FROM photos ORDER BY date DESC LIMIT 12').all();
 
     const galleryItems = photos.map(p => ({
         id: `vk-${p.id}`,
-        category: 'backstage', // default for now, can improve logic later
+        category: 'backstage',
         categoryLabel: 'Закулисье',
         src: p.url,
         full: p.url,
@@ -43,9 +45,8 @@ function generateGallery() {
 }
 
 function generateFilms() {
-    // 1. Generate Films (Duration > 5 min or explicit type 'film' if we had it)
-    // We use 300 seconds (5 mins) as a threshold for "Films" vs short promos
-    const films = db.prepare("SELECT * FROM videos WHERE duration > 300 ORDER BY date DESC").all();
+    // 1. Generate Films - LIMIT 6 for MVP Library
+    const films = db.prepare("SELECT * FROM videos WHERE duration > 300 ORDER BY date DESC LIMIT 6").all();
 
     const filmItems = films.map(v => ({
         id: `vk-video-${v.id}`,
@@ -54,7 +55,7 @@ function generateFilms() {
         city: "Санкт-Петербург",
         logline: v.description ? v.description.substring(0, 100) + '...' : '',
         synopsis: v.description || '',
-        vkEmbedUrl: v.player_url, // Use the proper player URL from API
+        vkEmbedUrl: v.player_url,
         vkPageUrl: `https://vk.com/video${v.owner_id}_${v.id}`,
         duration: formatDuration(v.duration),
         image: v.image_url,
@@ -63,8 +64,8 @@ function generateFilms() {
 
     saveData('vk_films.json', filmItems);
 
-    // 2. Generate Clips (Shorts/Promos < 60s)
-    const clips = db.prepare("SELECT * FROM videos WHERE duration <= 60 ORDER BY date DESC").all();
+    // 2. Generate Clips - LIMIT 8 for MVP
+    const clips = db.prepare("SELECT * FROM videos WHERE duration <= 60 ORDER BY date DESC LIMIT 8").all();
 
     const clipItems = clips.map(v => ({
         id: `vk-clip-${v.id}`,
@@ -85,7 +86,7 @@ function formatDuration(seconds) {
 }
 
 function generateAwards() {
-    // 1. Find the "Awards" topic (Fetch all and filter in JS to avoid SQLite Cyrillic case issues)
+    // LIMIT 6 Awards for MVP
     const allTopics = db.prepare("SELECT id, title FROM topics").all();
     const topic = allTopics.find(t => t.title.toLowerCase().includes('наград'));
 
@@ -97,13 +98,11 @@ function generateAwards() {
 
     console.log(`   🏆 Using topic: "${topic.title}" (${topic.id})`);
 
-    // 2. Get comments from that topic
     const comments = db.prepare("SELECT * FROM comments WHERE topic_id = ? ORDER BY date DESC").all(topic.id);
 
     const awards = [];
 
     comments.forEach(c => {
-        // Parse attachments for photos
         let photoUrl = null;
         try {
             const atts = JSON.parse(c.attachments);
@@ -111,19 +110,46 @@ function generateAwards() {
             if (photo) photoUrl = photo.url;
         } catch (e) { }
 
-        // Only include if it has a photo (usually the diploma) or significant text
         if (photoUrl || c.text.length > 10) {
             awards.push({
                 festivalId: `vk-topic-${c.id}`,
-                label: "Награда", // We could try to extract year or festival name from text
+                label: "Награда",
                 sublabel: c.text ? c.text.substring(0, 100) + (c.text.length > 100 ? '...' : '') : 'Диплом',
-                image: photoUrl, // We might need to update schema/component to support images in awards list
+                image: photoUrl,
                 date: new Date(c.date * 1000).toISOString()
             });
         }
     });
 
-    saveData('vk_awards.json', awards);
+    // Apply limit after filtering
+    saveData('vk_awards.json', awards.slice(0, 6));
+}
+
+function generateNews() {
+    // Generate News from Posts - LIMIT 4 for MVP
+    console.log('   📰 Generating News...');
+    const posts = db.prepare("SELECT * FROM posts WHERE text IS NOT NULL AND text != '' ORDER BY date DESC LIMIT 4").all();
+
+    const newsItems = posts.map(p => {
+        let imageUrl = null;
+        try {
+            const images = JSON.parse(p.image_urls || '[]');
+            if (images.length > 0) imageUrl = images[0];
+        } catch (e) { }
+
+        const cleanText = p.text.replace(/<br>/g, '\n').substring(0, 200) + (p.text.length > 200 ? '...' : '');
+
+        return {
+            id: `vk-news-${p.id}`,
+            title: "Новости студии", // VK posts don't have titles usually
+            date: new Date(p.date * 1000).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' }),
+            excerpt: cleanText,
+            image: imageUrl || '/images/news-placeholder.jpg',
+            link: `https://vk.com/wall${p.owner_id}_${p.id}`
+        };
+    });
+
+    saveData('vk_news.json', newsItems);
 }
 
 async function saveData(filename, data) {

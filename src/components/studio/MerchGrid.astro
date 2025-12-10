@@ -1,0 +1,146 @@
+---
+const fantasyGoods = [
+  {
+    id: 1,
+    title: "Худи «Режиссёр»",
+    price: "3 500 ₽",
+    image: "/assets/img/shop/merch_hoodie_emozika_1765370174082.png",
+    tag: "Хит"
+  },
+  {
+    id: 2,
+    title: "Футболка «Я в моменте»",
+    price: "1 800 ₽",
+    image: "/assets/img/shop/merch_tshirt_actor_1765370186897.png",
+    tag: "New"
+  },
+  {
+    id: 3,
+    title: "Шоппер «Театр — это жизнь»",
+    price: "990 ₽",
+    image: "/assets/img/shop/merch_shopper_theatre_1765370204344.png",
+    tag: ""
+  }
+];
+---
+
+<section id="shop" class="section section-shop">
+  <div class="container">
+    <header class="section-header text-center">
+      <h2 class="section-title section-title--bold">Мерч студии</h2>
+      <p class="section-subtitle">Одежда и аксессуары для тех, кто живет театром.</p>
+    </header>
+
+    <div class="merch-grid">
+      {fantasyGoods.map(item => (
+        <article class="merch-card">
+          <div class="merch-card__image-wrapper">
+             {item.tag && <span class="merch-card__tag">{item.tag}</span>}
+             <img src={item.image} alt={item.title} class="merch-card__image" loading="lazy" />
+          </div>
+          <div class="merch-card__content">
+            <h3 class="merch-card__title">{item.title}</h3>
+            <p class="merch-card__price">{item.price}</p>
+            <a href={`https://wa.me/79313157787?text=Здравствуйте! Хочу заказать ${item.title}`} target="_blank" class="btn-merch">Заказать через WhatsApp</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .section-shop {
+      padding: 6rem 0;
+      background: #fafafa;
+  }
+
+  .text-center { text-align: center; margin-bottom: 3rem; }
+  .section-title--bold { font-weight: 800; font-size: 2.5rem; letter-spacing: -1px; }
+
+  .merch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 3rem;
+  }
+
+  .merch-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+
+    &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+  }
+
+  .merch-card__image-wrapper {
+    position: relative;
+    aspect-ratio: 1;
+    background: #f8f8f8;
+    
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain; /* Images are photos, contain shows them properly */
+        padding: 20px;
+        transition: transform 0.5s ease;
+    }
+  }
+
+  .merch-card:hover .merch-card__image { transform: scale(1.05); }
+
+  .merch-card__tag {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: var(--accent-gold, #FFC107);
+    color: black;
+    padding: 0.5rem 1rem;
+    border-radius: 99px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    z-index: 2;
+  }
+
+  .merch-card__content {
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .merch-card__title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #1a1a1a;
+  }
+
+  .merch-card__price {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 1.5rem;
+  }
+
+  .btn-merch {
+    display: inline-flex;
+    padding: 1rem 2rem;
+    background: #1a1a1a;
+    color: white;
+    border-radius: 99px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 0.95rem;
+
+    &:hover {
+        background: var(--text-accent, #6A6A6A);
+        transform: scale(1.05);
+    }
+  }
+</style>

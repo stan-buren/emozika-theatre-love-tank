@@ -21,6 +21,8 @@ export function initGallery() {
         let visibleItems = [];
         let currentIndex = 0;
 
+        if (!scroller) return;
+
         // Initialize from DOM
         const initialCards = Array.from(scroller.querySelectorAll('.gallery-card'));
         const galleryItems = initialCards.map(card => {

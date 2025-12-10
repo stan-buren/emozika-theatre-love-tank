@@ -23,11 +23,38 @@ const { reviews } = Astro.props;
         <h3 class="review-video-card__title">{review.title}</h3>
         <p class="review-video-card__meta">
           {[
-            review.authorLabel, 
-            review.yearsInStudioLabel, 
+            review.authorLabel,
+            review.yearsInStudioLabel,
             review.branch
           ].filter(Boolean).join(' • ')}
         </p>
       </article>
     ))}
 </div>
+
+<style lang="scss">
+    .review-card__text {
+        font-family: "Georgia", serif; /* More editorial feel */
+        font-size: 1.05rem;
+        line-height: 1.6;
+        color: var(--text-main);
+        margin-bottom: 1.5rem;
+        flex-grow: 1;
+        font-style: italic;
+        position: relative;
+        z-index: 1;
+
+        &::before {
+            content: '“';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            font-size: 4rem;
+            line-height: 1;
+            color: rgba(122, 47, 180, 0.1); /* Studio accent */
+            font-family: sans-serif;
+            z-index: -1;
+        }
+    }
+</style>
+```

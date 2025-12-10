@@ -36,9 +36,11 @@
 </header>
 
 <script>
+    const header = document.querySelector('.site-header');
     const toggle = document.querySelector('[data-mobile-toggle]');
     const menu = document.querySelector('[data-mobile-menu]');
     
+    // Mobile Menu Logic
     if (toggle && menu) {
         toggle.addEventListener('click', () => {
             const isOpen = toggle.classList.toggle('is-active');
@@ -54,5 +56,40 @@
                 document.body.style.overflow = '';
             });
         });
+    }
+
+    // Smart Header Logic (Hide/Show on Scroll)
+    let lastScroll = 0;
+    const scrollThreshold = 100; // px before logic kicks in
+
+    if (header) {
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.scrollY;
+            
+            // Add 'is-scrolled' class for styling when not at top
+            if (currentScroll > 10) {
+                header.classList.add('is-scrolled');
+            } else {
+                header.classList.remove('is-scrolled');
+            }
+
+            // Don't hide if menu is open or near top
+            if (currentScroll < scrollThreshold || (menu && menu.classList.contains('is-active'))) {
+                header.classList.remove('is-hidden');
+                lastScroll = currentScroll;
+                return;
+            }
+
+            // Don't hide header on scroll anymore (User Request)
+            // if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
+            //    header.classList.add('is-hidden');
+            //    document.body.classList.add('header-hidden');
+            // } else {
+            //    header.classList.remove('is-hidden');
+            //    document.body.classList.remove('header-hidden');
+            // }
+            
+            lastScroll = currentScroll;
+        }, { passive: true });
     }
 </script>

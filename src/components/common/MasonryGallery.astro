@@ -1,0 +1,147 @@
+---
+import galleryItems from '../../data/gallery.json';
+
+interface Props {
+  limit?: number;
+}
+
+const { limit } = Astro.props;
+const displayItems = limit ? galleryItems.slice(0, limit) : galleryItems;
+---
+
+<div class="masonry-grid">
+  {displayItems.map((item) => (
+    <div class="masonry-item group" data-lightbox-trigger={item.full}>
+      <img 
+        src={item.src} 
+        alt={item.alt} 
+        loading="lazy" 
+        class="masonry-image"
+      />
+      
+      <div class="masonry-overlay">
+        <div class="overlay-content">
+            <span class="masonry-category">{item.categoryLabel}</span>
+            <p class="masonry-caption">{item.caption}</p>
+        </div>
+        
+        <!-- Center Icon -->
+        <div class="masonry-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
+<style lang="scss">
+  .masonry-grid {
+    column-count: 2;
+    column-gap: 1.5rem;
+    
+    @media (min-width: 768px) {
+      column-count: 3;
+    }
+    
+    @media (min-width: 1200px) {
+      column-count: 4;
+    }
+  }
+
+  .masonry-item {
+    break-inside: avoid;
+    margin-bottom: 1.5rem;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: zoom-in;
+    background: #000;
+    transform: translateZ(0); /* Fix flickering */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+  }
+
+  .masonry-image {
+    width: 100%;
+    display: block;
+    height: auto;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform;
+  }
+
+  .masonry-item:hover .masonry-image {
+    transform: scale(1.08);
+  }
+
+  .masonry-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem;
+  }
+
+  .masonry-item:hover .masonry-overlay {
+    opacity: 1;
+  }
+
+  .overlay-content {
+    transform: translateY(20px);
+    transition: transform 0.4s ease;
+  }
+
+  .masonry-item:hover .overlay-content {
+    transform: translateY(0);
+  }
+
+  .masonry-category {
+    display: inline-block;
+    color: #ffcf71; /* Gold accent */
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .masonry-caption {
+    color: #fff;
+    font-size: 0.95rem;
+    line-height: 1.3;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .masonry-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 60px;
+    height: 60px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(8px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .masonry-item:hover .masonry-icon {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+</style>

@@ -1,0 +1,123 @@
+---
+import newsData from '../../data/vk_news.json';
+// Simple News Feed mostly for Studio page (parents info)
+---
+
+<section class="section-news">
+    <div class="container">
+        <div class="news-header">
+            <h2 class="section-title">Новости Жизни</h2>
+            <a href="https://vk.com/emozika" target="_blank" class="news-more-link">Все новости VK →</a>
+        </div>
+
+        <div class="news-grid">
+            {newsData.map(item => (
+                <article class="news-card">
+                    <a href={item.link} target="_blank" rel="noopener" class="news-card__link-wrapper">
+                        <div class="news-card__image-wrapper">
+                             <img src={item.image} alt="News" class="news-card__image" loading="lazy" />
+                        </div>
+                        <div class="news-card__content">
+                            <span class="news-card__date">{item.date}</span>
+                            <p class="news-card__text">{item.excerpt}</p>
+                            <span class="news-card__read-more">Читать далее</span>
+                        </div>
+                    </a>
+                </article>
+            ))}
+        </div>
+    </div>
+</section>
+
+<style lang="scss">
+    .section-news {
+        padding: 4rem 0;
+        background: #fafafa;
+    }
+
+    .news-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        padding-bottom: 1rem;
+    }
+    
+    .news-more-link {
+        font-weight: 600;
+        color: var(--text-accent);
+        text-decoration: none;
+        
+        &:hover { text-decoration: underline; }
+    }
+
+    .news-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 2rem;
+    }
+
+    .news-card {
+        background: #fff;
+        border-radius: var(--radius-card);
+        overflow: hidden;
+        border: 1px solid rgba(0,0,0,0.05);
+        transition: transform 0.2s, box-shadow 0.2s;
+        
+        &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        &__link-wrapper {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        &__image-wrapper {
+            height: 160px;
+            background: #eee;
+        }
+
+        &__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        &__content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__date {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        &__text {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+            flex-grow: 1;
+             display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        &__read-more {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-accent);
+        }
+    }
+</style>

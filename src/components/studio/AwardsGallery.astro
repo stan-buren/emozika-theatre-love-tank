@@ -1,0 +1,108 @@
+---
+import awardsData from '../../data/vk_awards.json';
+
+interface Props {
+  limit?: number;
+}
+
+const { limit } = Astro.props;
+const displayItems = limit ? awardsData.slice(0, limit) : awardsData;
+---
+
+<div class="awards-grid">
+    {displayItems.map(award => (
+        <article class="award-card">
+            <div class="award-card__icon-wrapper">
+                {award.image ? (
+                    <img src={award.image} alt={award.sublabel} class="award-card__img" loading="lazy" />
+                ) : (
+                    <div class="award-card__placeholder">🏆</div>
+                )}
+            </div>
+            <div class="award-card__content">
+                <h4 class="award-card__title">{award.label}</h4>
+                <p class="award-card__text">{award.sublabel}</p>
+                <span class="award-card__date">{new Date(award.date).getFullYear()}</span>
+            </div>
+        </article>
+    ))}
+</div>
+
+<style lang="scss">
+    .awards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .award-card {
+        background: #fff;
+        border-radius: var(--radius-card);
+        padding: 1.5rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        border: 1px solid rgba(0,0,0,0.05);
+        transition: transform 0.2s;
+
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(122, 47, 180, 0.08);
+        }
+
+        &__icon-wrapper {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f8f8f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        &__img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        &__placeholder {
+            font-size: 2rem;
+        }
+
+        &__content {
+            flex-grow: 1;
+        }
+
+        &__title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.25rem;
+        }
+
+        &__text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        &__date {
+            font-size: 0.75rem;
+            color: var(--text-accent);
+            font-weight: 700;
+            background: rgba(122, 47, 180, 0.05);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+    }
+</style>

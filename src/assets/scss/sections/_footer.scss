@@ -4,13 +4,12 @@
 
 .footer {
     position: relative;
-    background: radial-gradient(circle at top left, rgba(213, 154, 255, 0.24), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(255, 215, 130, 0.16), transparent 55%),
-        var(--footer-bg, #050505);
+    /* Use global variables for Footer */
+    background: var(--footer-bg, #050505);
     color: var(--footer-text, #f5f5f5);
     padding: 2.75rem 0 2.4rem;
     font-size: 0.87rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-top: 1px solid var(--header-border, rgba(255, 255, 255, 0.12));
     box-shadow: 0 -18px 40px rgba(0, 0, 0, 0.6);
     overflow: hidden;
 }

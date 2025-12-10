@@ -1,0 +1,58 @@
+---
+---
+<div class="news-ticker">
+    <div class="container news-ticker__inner">
+        <span class="news-ticker__label">Событие сегодня:</span>
+        <div class="news-ticker__content">
+            <span class="news-item">🎭 Спектакль "Алиса в Стране Чудес" — 19:00 (Гранд Каньон)</span>
+            <span class="news-item">🎬 Открыт кастинг в короткий метр "Зеркало"</span>
+            <span class="news-item">🏆 Студия на Гражданке заняла 1-е место на фестивале!</span>
+        </div>
+    </div>
+</div>
+
+<style lang="scss">
+    .news-ticker {
+        background: #F5F0FF; /* Very light purple */
+        padding: 8px 0;
+        font-size: 0.9rem;
+        border-bottom: 1px solid rgba(162, 89, 255, 0.1);
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .news-ticker__inner {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .news-ticker__label {
+        font-weight: 700;
+        color: var(--color-primary, #A259FF);
+        flex-shrink: 0;
+    }
+
+    .news-ticker__content {
+        display: inline-flex;
+        animation: ticker 30s linear infinite;
+        gap: 40px;
+    }
+    
+    .news-item {
+        color: var(--text-main, #333);
+        display: inline-flex;
+        align-items: center;
+    }
+
+    @keyframes ticker {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
+    }
+    
+    @media (max-width: 768px) {
+        .news-ticker__label {
+            display: none; /* Hide label on mobile to save space */
+        }
+    }
+</style>

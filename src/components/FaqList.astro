@@ -8,16 +8,43 @@ const { faqItems } = Astro.props;
 
 <div class="faq-list" data-faq-list>
     {faqItems.map((item, index) => (
-        <article class="faq-item" data-faq-item>
-            <button class="faq-item__trigger" type="button" aria-expanded="false" aria-controls={`faq-answer-${index}`}>
-                <span class="faq-item__question">{item.question}</span>
-                <span class="faq-item__icon" aria-hidden="true"></span>
-            </button>
-            <div class="faq-item__content" id={`faq-answer-${index}`} hidden>
-                <div class="faq-item__body">
-                    <p>{item.answer}</p>
-                </div>
+        <details class="faq-item" data-faq-item>
+            <summary class="faq-summary">
+              <span class="faq-icon">❓</span>
+              <span class="faq-question">{item.question}</span>
+              <span class="faq-toggle"></span>
+            </summary>
+            <div class="faq-answer">
+              <p>{item.answer}</p>
             </div>
-        </article>
+        </details>
     ))}
 </div>
+
+<style lang="scss">
+    .faq-summary {
+        list-style: none;
+        padding: 1.5rem 2rem; /* Increased padding */
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-weight: 700;
+        font-size: 1.1rem;
+        position: relative;
+        transition: background 0.2s;
+
+        &::-webkit-details-marker {
+            display: none;
+        }
+
+        &:hover {
+            background: #fafafa;
+        }
+    }
+
+    .faq-icon {
+        font-size: 1.25rem;
+        opacity: 0.7;
+    }
+</style>
