@@ -13,19 +13,8 @@ import reviewsData from '../../data/reviews.json';
       </p>
     </div>
 
-    <div class="reviews-strip-shell">
-      <button class="reviews-strip__arrow reviews-strip__arrow--left" type="button" aria-label="Предыдущий отзыв"
-        data-reviews-arrow="left">
-        ‹
-      </button>
-
-      <ReviewsGrid reviews={reviewsData} />
-
-      <button class="reviews-strip__arrow reviews-strip__arrow--right" type="button" aria-label="Следующий отзыв"
-        data-reviews-arrow="right">
-        ›
-      </button>
-    </div>
+    <!-- Masonry Grid (No Carousel) -->
+    <ReviewsGrid reviews={reviewsData} />
 
     <!-- Лайтбокс для просмотра выбранного видеоотзыва -->
     <div class="review-lightbox" data-review-lightbox aria-hidden="true" hidden>

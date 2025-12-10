@@ -1,216 +1,245 @@
 ---
 ---
 <section class="stage-hero">
-    <div class="curtain curtain--left"></div>
-    <div class="curtain curtain--right"></div>
+    <div class="curtain curtain--left">
+        <div class="curtain-fabric"></div>
+        <div class="curtain-tassel"></div>
+    </div>
+    <div class="curtain curtain--right">
+        <div class="curtain-fabric"></div>
+        <div class="curtain-tassel"></div>
+    </div>
     
     <div class="stage-content">
-        <div class="spotlight"></div>
+        <div class="spotlight-beam"></div>
         <div class="container text-center relative z-10">
-            <span class="eyebrow">Для детей 4–16 лет</span>
+            <span class="eyebrow fade-in">Для детей 4–16 лет</span>
             <h1 class="stage-title">
                 <span class="line reveal-text">Твой Выход</span>
                 <span class="line reveal-text delay-1">На Сцену</span>
             </h1>
             <p class="stage-subtitle reveal-text delay-2">
-                Студия, где застенчивость превращается в харизму, а игра — в искусство.
+                Студия, где застенчивость превращается в харизму,<br>а детская игра — в настоящее искусство.
             </p>
             <div class="stage-actions reveal-text delay-3">
-                <button class="btn-stage-primary" data-open-modal="main-booking-modal">
+                <button class="btn-stage-primary shimmer-btn" data-open-modal="main-booking-modal">
                     Записаться на пробу
                 </button>
                 <a href="#studio-journey" class="btn-stage-secondary">
-                    Узнать путь актера ↓
+                    Путь актера
                 </a>
             </div>
         </div>
+        
+        <!-- Bottom Fog/Floor -->
+        <div class="stage-floor"></div>
     </div>
 </section>
 
 <script>
     function initHero() {
-        const stageHero = document.querySelector('.stage-hero');
-        const spotlight = document.querySelector('.spotlight') as HTMLElement;
-
-        if (stageHero) {
-            // Interactive Spotlight
-            if (spotlight) {
-                stageHero.addEventListener('mousemove', (e) => {
-                    const { clientX, clientY } = e as MouseEvent;
-                    const { left, top } = stageHero.getBoundingClientRect();
-                    
-                    const x = clientX - left;
-                    const y = clientY - top;
-                    
-                    spotlight.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.15) 0%, rgba(0, 0, 0, 0) 30%)`;
-                });
-            }
-
-            // Trigger curtain animation ONLY if we are on the stage page
-            // 1. Immediate reset to ensure closed state (in case of navigation back)
-            document.body.classList.remove('curtains-open');
-            
-            // 2. Open after small delay to allow repaint
-            setTimeout(() => {
-                document.body.classList.add('curtains-open');
-            }, 100);
-        } else {
-            // Ensure curtains are closed if we are on another page
-            document.body.classList.remove('curtains-open');
-        }
+        // Trigger curtain animation
+        document.body.classList.remove('curtains-open');
+        setTimeout(() => {
+            document.body.classList.add('curtains-open');
+        }, 300); // Slight delay for dramatic effect
     }
 
-    // Run on initial load
     initHero();
-
-    // Run on view transitions navigation
     document.addEventListener('astro:after-swap', initHero);
 </script>
 
 <style lang="scss">
     .stage-hero {
         position: relative;
-        min-height: 90vh;
+        height: 100vh;
+        min-height: 700px;
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: #1a0b2e; /* Deep Velvet */
+        background-color: #05010a; /* Vantablack-ish */
         overflow: hidden;
         color: white;
+        perspective: 1000px;
     }
 
-    /* Curtains */
+    /* --- CURTAINS --- */
     .curtain {
         position: absolute;
         top: 0;
         bottom: 0;
-        width: 50%;
-        background: url('https://www.transparenttextures.com/patterns/velvet.png'), linear-gradient(90deg, #7a2fb4 0%, #4a1f6b 100%);
-        box-shadow: inset -10px 0 40px rgba(0,0,0,0.5);
-        z-index: 20;
-        transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1);
+        width: 55%; /* Overlap slightly */
+        z-index: 50;
+        transition: transform 2.5s cubic-bezier(0.25, 1, 0.5, 1); /* Realistic heavy fabric easing */
+        pointer-events: none;
         
         &--left {
             left: 0;
-            transform-origin: left top;
+            transform-origin: top left;
+            box-shadow: 10px 0 50px rgba(0,0,0,0.8);
         }
         
         &--right {
             right: 0;
-            transform-origin: right top;
-            background: url('https://www.transparenttextures.com/patterns/velvet.png'), linear-gradient(-90deg, #7a2fb4 0%, #4a1f6b 100%);
+            transform-origin: top right;
+            box-shadow: -10px 0 50px rgba(0,0,0,0.8);
+            
+            .curtain-fabric {
+                background: 
+                radial-gradient(circle at 0% 50%, rgba(0,0,0,0.6), transparent 70%),
+                repeating-linear-gradient(270deg, #5e1c8a 0%, #3a0d58 4%, #26053b 8%, #3a0d58 12%);
+            }
         }
     }
 
-    /* Animation Trigger */
-    :global(body.curtains-open) .curtain--left {
-        transform: translateX(-100%);
-    }
-    :global(body.curtains-open) .curtain--right {
-        transform: translateX(100%);
+    .curtain-fabric {
+        width: 100%;
+        height: 100%;
+        background: 
+            radial-gradient(circle at 100% 50%, rgba(0,0,0,0.6), transparent 70%),
+            repeating-linear-gradient(90deg, #5e1c8a 0%, #3a0d58 4%, #26053b 8%, #3a0d58 12%);
+        /* Rich Velvet Texture Map */
+        background-color: #3a0d58;
+        filter: contrast(1.1) brightness(0.9);
     }
 
-    /* Stage Content */
+    /* Open State */
+    :global(body.curtains-open) .curtain--left {
+        transform: translate3d(-92%, 0, 0) rotateY(5deg) scaleX(0.9); /* Compress fabric */
+    }
+    :global(body.curtains-open) .curtain--right {
+        transform: translate3d(92%, 0, 0) rotateY(-5deg) scaleX(0.9);
+    }
+
+    /* Lighting */
+    .spotlight-beam {
+        position: absolute;
+        top: -20%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 1000px;
+        height: 1000px;
+        background: radial-gradient(ellipse at center, rgba(120, 50, 200, 0.15) 0%, transparent 60%);
+        filter: blur(80px);
+        opacity: 0;
+        animation: lightOn 2s ease forwards 1s;
+        pointer-events: none;
+    }
+
     .stage-content {
         position: relative;
+        z-index: 10;
         width: 100%;
         height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        background: radial-gradient(circle at center, #2d1b4e 0%, #1a0b2e 100%);
-        padding: 2rem;
+        background: radial-gradient(circle at center, #1a0829 0%, #000 100%);
     }
 
-    .spotlight {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        transition: background 0.1s ease;
-        mix-blend-mode: overlay;
-    }
-
+    /* Typography */
     .eyebrow {
         text-transform: uppercase;
-        letter-spacing: 0.1em;
-        font-size: 0.9rem;
-        color: #d4af37; /* Gold */
-        margin-bottom: 1rem;
-        display: block;
+        letter-spacing: 0.3em;
+        font-size: 0.85rem;
+        color: #d4af37;
+        margin-bottom: 2rem;
+        opacity: 0.8;
     }
 
     .stage-title {
-        font-family: var(--font-heading, "Montserrat", sans-serif);
-        font-size: clamp(3rem, 8vw, 6rem);
+        font-family: var(--font-heading);
+        font-size: clamp(3.5rem, 9vw, 8rem);
         font-weight: 800;
-        line-height: 1.1;
-        margin-bottom: 1.5rem;
-        text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        line-height: 0.95;
+        margin-bottom: 2.5rem;
+        text-shadow: 0 20px 60px rgba(0,0,0,0.7);
         
-        .line {
-            display: block;
-        }
+        .line { display: block; }
     }
 
     .stage-subtitle {
-        font-size: 1.25rem;
-        max-width: 600px;
-        margin: 0 auto 3rem;
-        color: rgba(255,255,255,0.8);
+        font-size: 1.3rem;
+        color: rgba(255,255,255,0.75);
+        font-weight: 300;
+        margin-bottom: 3.5rem;
         line-height: 1.6;
     }
 
-    /* Buttons */
+    /* Action Buttons */
     .stage-actions {
         display: flex;
         gap: 1.5rem;
         justify-content: center;
-        flex-wrap: wrap;
+        align-items: center;
     }
 
     .btn-stage-primary {
-        background: #d4af37;
+        position: relative;
+        background: linear-gradient(135deg, #d4af37 0%, #f1c40f 100%);
         color: #1a0b2e;
-        padding: 1rem 2.5rem;
-        font-weight: 700;
+        padding: 1.2rem 3rem;
+        font-weight: 800;
         text-transform: uppercase;
+        letter-spacing: 0.05em;
         border-radius: 99px;
-        transition: transform 0.2s, box-shadow 0.2s;
-        
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+
         &:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
         }
+    }
+
+    .shimmer-btn::after {
+        content: '';
+        position: absolute;
+        top: 0; left: -100%;
+        width: 50%; height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+        transform: skewX(-20deg);
+        animation: shimmer 3s infinite;
     }
 
     .btn-stage-secondary {
-        border: 1px solid rgba(255,255,255,0.3);
-        color: white;
-        padding: 1rem 2rem;
-        border-radius: 99px;
-        text-decoration: none;
-        transition: background 0.2s;
-        
+        color: rgba(255,255,255,0.6);
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+        padding-bottom: 2px;
+        transition: color 0.3s, border-color 0.3s;
+
         &:hover {
-            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border-color: #fff;
         }
     }
 
-    /* Text Reveal Animation */
+    @keyframes shimmer {
+        0% { left: -100%; }
+        20% { left: 200%; }
+        100% { left: 200%; }
+    }
+
+    @keyframes lightOn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
     .reveal-text {
         opacity: 0;
-        transform: translateY(20px);
-        animation: fadeUp 0.8s ease forwards;
+        transform: translateY(30px);
+        animation: fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         
-        &.delay-1 { animation-delay: 1.6s; } /* Wait for curtains */
-        &.delay-2 { animation-delay: 1.8s; }
-        &.delay-3 { animation-delay: 2.0s; }
+        &.delay-1 { animation-delay: 1.8s; }
+        &.delay-2 { animation-delay: 2.1s; }
+        &.delay-3 { animation-delay: 2.4s; }
     }
 
     @keyframes fadeUp {
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        to { opacity: 1; transform: translateY(0); }
     }
 </style>

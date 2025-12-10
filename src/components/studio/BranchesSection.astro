@@ -49,29 +49,258 @@ const sortedBranches = [...branches].sort((a, b) => {
           </div>
         </header>
 
-        <div class="branches-preferences">
-          <label class="branches-my-metro">
-            <span class="branches-my-metro-label">Моя станция метро:</span>
-            <select class="branches-filter__select" data-branch-my-metro aria-label="Выберите вашу станцию метро">
-            <option value="">Не выбрано</option>
-            {(() => {
-               const uniqueMetros = [...new Set(sortedBranches.map(b => b.metro).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'ru'));
-               return uniqueMetros.map(metro => (
-                 <option value={metro}>{metro}</option>
-               ));
-            })()}
-          </select>
-          </label>
+        <div class="branches-smart-search">
+             <div class="search-row">
+                 <button class="btn-geo" id="btn-geo" aria-label="Найти рядом со мной">
+                     📍 Рядом со мной
+                 </button>
+                 <div class="search-input-wrapper">
+                    <input type="text" id="branch-search" placeholder="Поиск по адресу или метро..." class="search-input" />
+                    <span class="search-icon">🔍</span>
+                 </div>
+             </div>
+             
+             <div class="filter-chips">
+                  <button type="button" class="filter-chip is-active" data-branch-filter="all">Все</button>
+                  <button type="button" class="filter-chip" data-branch-filter="adults">18+ Взрослые</button>
+                  <button type="button" class="filter-chip" data-branch-filter="kids">4-16 Дети</button>
+             </div>
         </div>
 
-        <div class="branches-filters" aria-label="Фильтр по филиалам">
-          <button type="button" class="branches-filter is-active" data-branch-filter="all">
-            Все филиалы
-          </button>
-          <button type="button" class="branches-filter" data-branch-filter="adults">
-            Группы 18+
-          </button>
-        </div>
+        <!-- Hidden select for fallback/mobile if needed, but primary is now Smart Search -->
+        <select class="visually-hidden" data-branch-my-metro>
+             <option value="">Не выбрано</option>
+             {(() => {
+                const uniqueMetros = [...new Set(sortedBranches.map(b => b.metro).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'ru'));
+                return uniqueMetros.map(metro => (
+                  <option value={metro}>{metro}</option>
+                ));
+             })()}
+        </select>
+
+<script>
+    // Smart Branch Logic
+    function initSmartBranches() {
+        const geoBtn = document.getElementById('btn-geo');
+        const searchInput = document.getElementById('branch-search') as HTMLInputElement;
+        const cards = document.querySelectorAll('.branch-interactive-card');
+        const grid = document.querySelector('.branch-cards-grid');
+
+        // 1. Geolocation
+        geoBtn?.addEventListener('click', () => {
+            if (!navigator.geolocation) {
+                alert('Ваш браузер не поддерживает геолокацию');
+                return;
+            }
+            
+            geoBtn.classList.add('loading');
+            geoBtn.textContent = 'Определяем...';
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    sortByDistance(latitude, longitude);
+                    geoBtn.textContent = '📍 Рядом с вами';
+                    geoBtn.classList.remove('loading');
+                    geoBtn.classList.add('active');
+                },
+                (error) => {
+                    console.error(error);
+                    alert('Не удалось определить местоположение. Проверьте настройки браузера.');
+                    geoBtn.textContent = '📍 Рядом со мной';
+                    geoBtn.classList.remove('loading');
+                }
+            );
+        });
+
+        // 2. Search
+        searchInput?.addEventListener('input', (e) => {
+            const term = (e.target as HTMLInputElement).value.toLowerCase();
+            let hasVisible = false;
+
+            cards.forEach(card => {
+                const text = (card.textContent || "").toLowerCase();
+                const isMatch = text.includes(term);
+                (card as HTMLElement).style.display = isMatch ? 'flex' : 'none';
+                if(isMatch) hasVisible = true;
+            });
+            
+            // Show/Hide "No results" message logic could go here
+        });
+
+        // 3. Distance Sorter (Haversine)
+        function sortByDistance(lat: number, lon: number) {
+            const cardsArray = Array.from(cards) as HTMLElement[];
+            
+            cardsArray.sort((a, b) => {
+                const coordsA = JSON.parse(a.dataset.coords || "[0,0]");
+                const coordsB = JSON.parse(b.dataset.coords || "[0,0]");
+                
+                const distA = getDistanceFromLatLonInKm(lat, lon, coordsA[0], coordsA[1]);
+                const distB = getDistanceFromLatLonInKm(lat, lon, coordsB[0], coordsB[1]);
+                
+                // Add distance badge if not exists
+                updateDistanceBadge(a, distA);
+                updateDistanceBadge(b, distB);
+
+                return distA - distB;
+            });
+
+            // Reorder DOM
+            cardsArray.forEach(card => grid?.appendChild(card));
+        }
+
+        function updateDistanceBadge(card: HTMLElement, dist: number) {
+            let badge = card.querySelector('.distance-badge');
+            if (!badge) {
+                badge = document.createElement('div');
+                badge.className = 'distance-badge';
+                card.querySelector('.card-visual')?.appendChild(badge);
+            }
+            badge.textContent = `${dist.toFixed(1)} км`;
+        }
+
+        function getDistanceFromLatLonInKm(lat1: number, lon1: number, lat2: number, lon2: number) {
+            var R = 6371; // Radius of the earth in km
+            var dLat = deg2rad(lat2-lat1);  // deg2rad below
+            var dLon = deg2rad(lon2-lon1); 
+            var a = 
+                Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+                Math.sin(dLon/2) * Math.sin(dLon/2); 
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+            var d = R * c; // Distance in km
+            return d;
+        }
+
+        function deg2rad(deg: number) {
+            return deg * (Math.PI/180)
+        }
+        
+        // Filter Chips Logic
+        document.querySelectorAll('.filter-chip').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+               document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('is-active'));
+               const target = e.target as HTMLElement;
+               target.classList.add('is-active');
+               
+               const filter = target.dataset.branchFilter;
+               
+               cards.forEach(card => {
+                   const isAdult = card.dataset.adults !== undefined; // data-adults attribute existence
+                   
+                   if (filter === 'all') {
+                       (card as HTMLElement).style.display = 'flex';
+                   } else if (filter === 'adults') {
+                       (card as HTMLElement).style.display = isAdult ? 'flex' : 'none';
+                   } else if (filter === 'kids') {
+                       (card as HTMLElement).style.display = !isAdult ? 'flex' : 'none';
+                   }
+               });
+            });
+        });
+    }
+
+    // Init
+    initSmartBranches();
+    document.addEventListener('astro:after-swap', initSmartBranches);
+</script>
+
+<style lang="scss">
+    .branches-smart-search {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .search-row {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .btn-geo {
+        background: #f0f0f0;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 99px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s;
+        
+        &:hover { background: #e0e0e0; }
+        &.active { background: #d4af37; color: white; }
+        &.loading { opacity: 0.7; pointer-events: none; }
+    }
+
+    .search-input-wrapper {
+        position: relative;
+        flex: 1;
+        min-width: 250px;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 0.8rem 1.2rem;
+        padding-right: 3rem;
+        border: 2px solid #eee;
+        border-radius: 99px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+        
+        &:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+    }
+
+    .search-icon {
+        position: absolute;
+        right: 1.2rem;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0.5;
+    }
+
+    .filter-chips {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .filter-chip {
+        background: transparent;
+        border: 1px solid #ddd;
+        padding: 0.5rem 1.2rem;
+        border-radius: 99px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        
+        &:hover { border-color: #999; }
+        &.is-active {
+            background: #2d2d2d;
+            color: white;
+            border-color: #2d2d2d;
+        }
+    }
+    
+    .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0,0,0,0);
+        white-space: nowrap;
+        border: 0;
+    }
+</style>
       </div>
 
       <div class="branches-map-wrapper" style="grid-column: span 6; height: 100%; min-height: 400px;">

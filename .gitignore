@@ -22,5 +22,3 @@ test-results/
 src/data/vk_*.json
 src/data/vk_wall_dump.json
 
-# Project Planning and Reasoning (Internal)
-project_reasoning_and_planning/

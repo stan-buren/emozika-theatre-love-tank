@@ -13,6 +13,7 @@ import TeacherSuperheroes from '../../components/studio/TeacherSuperheroes.astro
 import StudioStageHero from '../../components/studio/StudioStageHero.astro';
 import StudioJourneyMap from '../../components/studio/StudioJourneyMap.astro';
 import FaqSection from '../../components/studio/FaqSection.astro';
+import StudioFinalCTA from '../../components/studio/StudioFinalCTA.astro';
 ---
 
 <Layout title="Театральная Студия Эмоцика | Развитие через сцену" description="Театральная студия для детей от 4 до 16 лет. Спектакли на профессиональной сцене, костюмы включены." theme="studio">
@@ -57,18 +58,8 @@ import FaqSection from '../../components/studio/FaqSection.astro';
     <MerchGrid />
 
     <!-- 7. Contacts -->
-    <section id="contacts" class="section section--contacts">
-       <div class="container contacts">
-          <div class="contacts__info card-warm">
-            <h2 class="section-title">Пора на сцену!</h2>
-            <p class="contacts__text section-subtitle mb-8">Запишитесь на бесплатное пробное занятие.</p>
-            
-            <a href="https://wa.me/79313157787" class="btn-cinema-gold" target="_blank" rel="noopener" style="background: var(--text-accent); color: white; border-radius: 99px;">
-              Записаться в WhatsApp
-            </a>
-          </div>
-       </div>
-    </section>
+    <!-- 7. Contacts / Final CTA (Epic) -->
+    <StudioFinalCTA />
 
     <!-- 8. FAQ (Moved from About) -->
     <FaqSection />
