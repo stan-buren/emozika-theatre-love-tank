@@ -8,10 +8,11 @@ const teachers = teamGroup.filter(person => person.tags && person.tags.includes(
 
 <section id="super-teachers" class="section section-teachers">
   <div class="container">
-    <header class="section-header text-center mb-12">
-      <h2 class="section-title">Наши Супер-Педагоги</h2>
+    <header class="section-header text-center mb-16">
+      <span class="eyebrow">Ваши Наставники</span>
+      <h2 class="section-title">Мастера Сцены</h2>
       <p class="section-subtitle max-w-2xl mx-auto">
-        В каждом из них скрыта суперсила, которая помогает детям раскрываться. Наведите, чтобы узнать!
+        Действующие актеры театра и кино, которые знают, как зажечь звезду в каждом ребенке.
       </p>
     </header>
 
@@ -24,25 +25,28 @@ const teachers = teamGroup.filter(person => person.tags && person.tags.includes(
             data-branch-ids={JSON.stringify(person.relatedBranches || [])}
         >
           <div class="teacher-card__inner">
-            <!-- Front -->
-            <div class="teacher-card__front">
-                <div class="media-wrapper">
-                    {person.photoUrl 
-                        ? <img src={`/${person.photoUrl}`} alt={person.name} loading="lazy" />
-                        : <div class="placeholder">{person.name[0]}</div>
-                    }
-                </div>
-                <div class="info">
+            <div class="media-wrapper">
+                {person.photoUrl 
+                    ? <img src={`/${person.photoUrl}`} alt={person.name} loading="lazy" class="teacher-photo" />
+                    : <div class="placeholder">{person.name[0]}</div>
+                }
+                <div class="gradient-overlay"></div>
+                <div class="info-overlay">
                     <h3 class="name">{person.name}</h3>
                     <p class="role">{person.shortRole}</p>
                 </div>
             </div>
 
-            <!-- Back (Overlay) -->
-            <div class="teacher-card__back">
+            <!-- Reveal Overlay -->
+            <div class="teacher-card__reveal">
                 <div class="superpower-badge">Суперсила</div>
-                <h3 class="superpower-title">{person.superpower || 'Магия Театра ✨'}</h3>
+                <h3 class="superpower-title">{person.superpower || 'Харизма 100 lvl'}</h3>
                 <p class="bio">{person.bio}</p>
+                
+                <button class="teleport-btn" aria-label="Показать школу">
+                    <span class="teleport-icon">📍</span>
+                    <span class="teleport-text">Где встретить?</span>
+                </button>
             </div>
           </div>
         </article>
@@ -55,131 +59,148 @@ const teachers = teamGroup.filter(person => person.tags && person.tags.includes(
   function initTeacherCards() {
     const cards = document.querySelectorAll('.teacher-card');
     cards.forEach(card => {
-        // Remove existing listeners if any (to avoid duplicates if re-init) - though astro:after-swap handles it usually by re-running
-        
-        card.addEventListener('click', () => {
+        const teleportBtn = card.querySelector('.teleport-btn');
+        const trigger = teleportBtn || card; // Fallback to clicking full card
+
+        trigger.addEventListener('click', (e) => {
+             e.stopPropagation(); // Avoid double triggers if button is inside
              const branchIdsRaw = (card as HTMLElement).dataset.branchIds;
              const teacherName = (card as HTMLElement).dataset.teacherName;
              
              try {
                 const branchIds = JSON.parse(branchIdsRaw || '[]');
-                console.log(`Teacher clicked: ${teacherName}, Branches:`, branchIds);
-
+                
+                // Dispatch event for BranchesMap
                 document.dispatchEvent(new CustomEvent('find-teacher-branches', {
                     detail: {
                         branchIds,
                         teacherName
                     }
                 }));
+
+                // Smooth Scroll to Branches
+                const branchesSection = document.getElementById('branches-section');
+                if(branchesSection) {
+                    branchesSection.scrollIntoView({ behavior: 'smooth' });
+                }
+
              } catch(e) {
                  console.error('Error parsing branch IDs', e);
              }
         });
-        
-        // Keyboard support
-        card.addEventListener('keydown', (e) => {
-            if((e as KeyboardEvent).key === 'Enter' || (e as KeyboardEvent).key === ' ') {
-                e.preventDefault();
-                (card as HTMLElement).click();
-            }
-        });
     });
   }
   
-  // Initialize
   initTeacherCards();
   document.addEventListener('astro:after-swap', initTeacherCards);
 </script>
 
 <style lang="scss">
+  .section-teachers {
+      background-color: #FDFCF8;
+  }
+
+  .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #C5A059;
+      font-weight: 700;
+      font-size: 0.8rem;
+      display: block;
+      margin-bottom: 0.5rem;
+  }
+
   .teachers-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2rem;
-    padding-bottom: 2rem;
+    gap: 2.5rem;
+    padding-bottom: 4rem;
   }
 
   .teacher-card {
     position: relative;
-    height: 420px;
-    border-radius: var(--radius-card);
+    aspect-ratio: 3/4;
+    border-radius: 24px;
     overflow: hidden;
     cursor: pointer;
-    background: var(--bg-card);
-    box-shadow: var(--shadow-card);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: #000;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 
-    &:hover, &:focus {
+    &:hover {
         transform: translateY(-8px);
-        box-shadow: 0 20px 40px rgba(122, 47, 180, 0.15);
+        box-shadow: 0 20px 50px rgba(58, 13, 88, 0.2);
 
-        .teacher-card__back {
+        .teacher-photo {
+            filter: grayscale(0); /* Color on hover */
+            transform: scale(1.05);
+        }
+
+        .teacher-card__reveal {
             opacity: 1;
             transform: translateY(0);
+        }
+        
+        .info-overlay {
+            opacity: 0; /* Hide default info to show full reveal */
+            transform: translateY(20px);
         }
     }
   }
 
   .teacher-card__inner {
+    width: 100%; height: 100%;
     position: relative;
-    width: 100%;
-    height: 100%;
-  }
-
-  .teacher-card__front {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
   }
 
   .media-wrapper {
-    flex: 1;
-    overflow: hidden;
+    width: 100%; height: 100%;
     position: relative;
-    
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-    }
-    
-    .placeholder {
-        width: 100%;
-        height: 100%;
-        background: #f0f0f0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 3rem;
-        color: #ccc;
-    }
   }
 
-  .info {
-    padding: 1.25rem;
-    background: white;
-    text-align: center;
-    position: relative;
-    z-index: 1;
+  .teacher-photo {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: grayscale(1); /* B&W Default */
+    transition: filter 0.5s ease, transform 0.5s ease;
+  }
+
+  .gradient-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 60%;
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+      pointer-events: none;
+  }
+
+  .info-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1.5rem;
+      color: white;
+      transition: all 0.3s ease;
   }
 
   .name {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 0.25rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
   }
 
   .role {
-    font-size: 0.9rem;
-    color: var(--text-muted);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      opacity: 0.8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
   }
 
-  /* Reveal State */
-  .teacher-card__back {
+  /* Reveal State (Hover) */
+  .teacher-card__reveal {
     position: absolute;
     inset: 0;
-    background: rgba(122, 47, 180, 0.95); /* Studio Purple Accent */
+    background: rgba(58, 13, 88, 0.92); /* Deep Velvet Purple */
     color: white;
     padding: 2rem;
     display: flex;
@@ -188,41 +209,59 @@ const teachers = teamGroup.filter(person => person.tags && person.tags.includes(
     justify-content: center;
     text-align: center;
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(10px);
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     backdrop-filter: blur(4px);
-    z-index: 2;
+    z-index: 10;
   }
 
   .superpower-badge {
-    background: #FFD700;
-    color: #000;
+    background: #F1C40F; /* Gold */
+    color: #2c1e0b;
     font-weight: 700;
     text-transform: uppercase;
     font-size: 0.75rem;
-    padding: 4px 12px;
+    padding: 6px 16px;
     border-radius: 99px;
-    margin-bottom: 1rem;
-    letter-spacing: 0.05em;
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.1em;
+    box-shadow: 0 5px 15px rgba(241, 196, 15, 0.3);
   }
 
   .superpower-title {
-    font-family: var(--font-heading);
-    font-size: 1.75rem;
-    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
     margin-bottom: 1rem;
-    line-height: 1.2;
+    line-height: 1.3;
   }
 
   .bio {
     font-size: 0.95rem;
-    line-height: 1.5;
+    line-height: 1.6;
     opacity: 0.9;
-    max-height: 200px;
+    max-height: 150px;
     overflow-y: auto;
-    
-    /* Scrollbar for bio */
-    &::-webkit-scrollbar { width: 4px; }
-    &::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 4px; }
+    margin-bottom: 1.5rem;
+  }
+
+  .teleport-btn {
+      background: white;
+      color: #3a0d58;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: transform 0.2s, background 0.2s;
+      
+      &:hover {
+          transform: scale(1.05);
+          background: #f0f0f0;
+      }
   }
 </style>

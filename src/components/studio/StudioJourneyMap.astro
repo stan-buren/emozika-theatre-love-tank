@@ -2,168 +2,353 @@
 const steps = [
     {
         icon: "🐣",
-        title: "Первый шаг",
+        title: "Робкое Начало",
         subtitle: "Сентябрь",
-        desc: "Застенчивый новичок приходит в класс. Знакомство, игры на раскрепощение, поиск друзей.",
-        color: "#FFD700"
+        desc: "Ребенок прячется за вашей спиной. Мы аккуратно знакомим его с труппой через игры. Без давления.",
+        color: "#F1C40F" 
     },
     {
         icon: "🎭",
-        title: "Поиск Роли",
+        title: "Поиск Героя",
         subtitle: "Октябрь-Ноябрь",
-        desc: "Читка сценария. Кто я — Волк или Красная Шапочка? Примерка характеров и первые этюды.",
-        color: "#FFA500"
+        desc: "Читка сценария. Кто я — Храбрый Рыцарь или Хитрый Лис? Примерка характеров и первые этюды.",
+        color: "#F39C12"
     },
     {
-        icon: "❄️",
-        title: "Зимний Показ",
+        icon: "🤝",
+        title: "Команда",
         subtitle: "Декабрь",
-        desc: "Первый выход на сцену! Открытый урок для родителей. Показываем, чему уже научились.",
-        color: "#00BFFF"
+        desc: "Уже не страшно. Появляются друзья. Первый открытый урок — 'Зимний Показ' для родителей.",
+        color: "#E67E22"
     },
     {
-        icon: "🧱",
-        title: "Стройка Спектакля",
+        icon: "🏗️",
+        title: "Стройка",
         subtitle: "Январь—Март",
-        desc: "Погружение в большую постановку. Зубрежка текста, постановка света, выбор костюмов.",
-        color: "#FF4500"
+        desc: "Погружение в большую постановку. Репетиции, костюмы, свет. Мы строим настоящий спектакль.",
+        color: "#D35400"
     },
     {
-        icon: "🏆",
-        title: "Большая Премьера",
+        icon: "✨",
+        title: "Большая Сцена",
         subtitle: "Май",
-        desc: "Цветы, аплодисменты, профессиональная сцена. Ваш ребенок — звезда. Настоящий праздник!",
-        color: "#800080"
+        desc: "Профессиональный театр. Сотни зрителей. Ваш ребенок в луче прожектора. Это и есть Магия.",
+        color: "#8E44AD"
     }
 ];
 ---
 
 <section id="studio-journey" class="section section-journey">
     <div class="container overflow-hidden">
-        <div class="text-center mb-12">
-            <h2 class="section-title">Путь от новичка до звезды</h2>
-            <p class="section-subtitle">Один учебный год — как маленькая жизнь.</p>
+        <div class="journey-header text-center mb-16">
+            <span class="eyebrow">История одного года</span>
+            <h2 class="section-title">Желтая Кирпичная Дорога</h2>
+            <p class="section-subtitle">Как мы вместе пройдем путь от первой стеснительной улыбки до оваций.</p>
         </div>
 
-        <div class="journey-track-wrapper">
+        <div class="journey-scroll-container" id="journey-scroll">
             <div class="journey-track">
+                <!-- SVG Path connecting the cards -->
+                <svg class="journey-path-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                    <path class="path-bg" d="" />
+                    <path class="path-fill" d="" />
+                </svg>
+
                 {steps.map((step, index) => (
-                    <div class="journey-card" style={`--accent: ${step.color}`}>
-                        <div class="card-number">0{index + 1}</div>
-                        <div class="card-icon">{step.icon}</div>
-                        <div class="card-content">
-                             <span class="card-meta">{step.subtitle}</span>
-                             <h3 class="card-title">{step.title}</h3>
-                             <p class="card-desc">{step.desc}</p>
+                    <div class="journey-step reveal-step" data-index={index}>
+                        <div class="step-connector">
+                            <div class="connector-dot" style={`--step-color: ${step.color}`}></div>
+                        </div>
+                        <div class="journey-card">
+                            <div class="card-icon-wrapper" style={`--step-color: ${step.color}`}>
+                                {step.icon}
+                            </div>
+                            <span class="card-date">{step.subtitle}</span>
+                            <h3 class="card-title">{step.title}</h3>
+                            <p class="card-desc">{step.desc}</p>
                         </div>
                     </div>
                 ))}
             </div>
-            <!-- Dashed Path Line (Canvas or SVG could be better, simplified here) -->
-            <div class="journey-path-line"></div>
+        </div>
+        
+        <!-- Drag Hint -->
+        <div class="drag-hint">
+            <span>← Листайте историю →</span>
         </div>
     </div>
 </section>
 
+<script>
+    function initJourney() {
+        const track = document.querySelector('.journey-track');
+        const container = document.getElementById('journey-scroll');
+        const steps = document.querySelectorAll('.journey-step');
+        const pathBg = document.querySelector('.path-bg');
+        const pathFill = document.querySelector('.path-fill');
+        const svg = document.querySelector('.journey-path-svg');
+
+        if (!track || !steps.length || !svg) return;
+
+        // 1. Draw SVG Path connecting centers of dots
+        function updatePath() {
+            const dots = Array.from(document.querySelectorAll('.connector-dot'));
+            if (!dots.length) return;
+
+            const firstDot = dots[0].getBoundingClientRect();
+            const trackRect = track.getBoundingClientRect();
+            
+            // Calculate coordinates relative to the track
+            const coords = dots.map(dot => {
+                const rect = dot.getBoundingClientRect();
+                return {
+                    x: rect.left - trackRect.left + rect.width / 2,
+                    y: rect.top - trackRect.top + rect.height / 2
+                };
+            });
+
+            // Make path wavy or straight? Straight is cleaner for "Road".
+            // Let's do a slight curve.
+            let d = `M ${coords[0].x} ${coords[0].y}`;
+            for (let i = 1; i < coords.length; i++) {
+                const prev = coords[i-1];
+                const curr = coords[i];
+                const cp1x = prev.x + (curr.x - prev.x) / 2;
+                const cp1y = prev.y;
+                const cp2x = prev.x + (curr.x - prev.x) / 2;
+                const cp2y = curr.y;
+                d += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${curr.x} ${curr.y}`;
+            }
+
+            pathBg.setAttribute('d', d);
+            pathFill.setAttribute('d', d);
+            
+            // Set SVG size
+            const lastDot = coords[coords.length - 1];
+            svg.setAttribute('width', lastDot.x + 50); // padding
+            svg.setAttribute('height', '100%');
+        }
+
+        // 2. Animate Fill on Scroll
+        function onScroll() {
+            if (!container || !pathFill) return;
+            const maxScroll = container.scrollWidth - container.clientWidth;
+            const currentScroll = container.scrollLeft;
+            const progress = Math.min(Math.max(currentScroll / maxScroll, 0), 1);
+            
+            // Calculate path length (approx) or use path.getTotalLength()
+            const totalLength = (pathBg as SVGPathElement).getTotalLength();
+            const drawLength = (progress * totalLength) + (container.clientWidth / 2); // fill ahead a bit
+
+            pathFill.style.strokeDasharray = `${drawLength} ${totalLength}`;
+        }
+        
+        // Initial Draw
+        // Use ResizeObserver to redraw on layout changes
+        const ro = new ResizeObserver(() => {
+            updatePath();
+            onScroll();
+        });
+        ro.observe(track);
+
+        container.addEventListener('scroll', onScroll);
+        // Initial call
+        setTimeout(() => {
+            updatePath();
+            onScroll();
+        }, 100);
+    }
+
+    document.addEventListener('astro:page-load', initJourney);
+    document.addEventListener('DOMContentLoaded', initJourney);
+</script>
+
 <style lang="scss">
     .section-journey {
-        background: #fdfcf8;
-        padding: 4rem 0;
-        overflow: hidden;
-    }
-
-    .journey-track-wrapper {
+        background: #FDFCF8; /* Warm White */
+        padding: 6rem 0;
         position: relative;
-        padding: 2rem 0;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        /* Hide scrollbar */
-        &::-webkit-scrollbar { display: none; }
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
     }
 
-    .journey-track {
-        display: flex;
-        gap: 2rem;
-        padding: 0 1rem;
-        width: max-content; /* Ensure connection line spans all */
-    }
-
-    .journey-path-line {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background: repeating-linear-gradient(to right, #e0e0e0 0, #e0e0e0 10px, transparent 10px, transparent 20px);
-        z-index: 0;
-        transform: translateY(-50%);
-        pointer-events: none;
-    }
-
-    .journey-card {
-        position: relative;
-        z-index: 1;
-        flex: 0 0 300px;
-        background: white;
-        border: 2px solid var(--accent);
-        border-radius: 16px;
-        padding: 2rem;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-        transition: transform 0.3s ease;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-
-        &:hover {
-            transform: translateY(-10px);
-        }
-    }
-
-    .card-number {
-        font-family: var(--font-heading);
-        font-size: 4rem;
-        font-weight: 800;
-        color: rgba(0,0,0,0.03);
-        position: absolute;
-        top: 0;
-        right: 1rem;
-        line-height: 1;
-    }
-
-    .card-icon {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-        background: var(--bg-body);
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 2px solid var(--accent);
-    }
-
-    .card-meta {
-        font-size: 0.8rem;
+    .eyebrow {
         text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: #888;
+        letter-spacing: 0.2em;
+        font-size: 0.8rem;
+        color: #C5A059; /* Muted Gold */
+        font-weight: 700;
         display: block;
         margin-bottom: 0.5rem;
     }
 
+    .section-title {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #2c1e0b;
+        margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+        font-family: 'Inter', sans-serif;
+        color: #666;
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .journey-scroll-container {
+        overflow-x: auto;
+        padding: 4rem 2rem;
+        margin: 0 -2rem; /* Bleed out on mobile */
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        
+        /* Hide scrollbars */
+        &::-webkit-scrollbar { height: 6px; }
+        &::-webkit-scrollbar-track { background: transparent; }
+        &::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 10px; }
+    }
+
+    .journey-track {
+        display: flex;
+        gap: 4rem; /* Spacing between cards */
+        position: relative;
+        width: max-content;
+        min-width: 100%;
+        align-items: center;
+        padding: 0 4rem; /* End padding */
+    }
+
+    .journey-path-svg {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        overflow: visible;
+        pointer-events: none;
+        z-index: 0;
+
+        .path-bg {
+            fill: none;
+            stroke: #E0E0E0;
+            stroke-width: 4;
+            stroke-dasharray: 10 10;
+        }
+
+        .path-fill {
+            fill: none;
+            stroke: #F1C40F; /* Gold */
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-dasharray: 0 9999; /* Updated by JS */
+            transition: stroke-dasharray 0.1s linear;
+        }
+    }
+
+    .journey-step {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        margin-top: 0; 
+        
+        /* Stagger vertical positions for a 'wavy' feeling */
+        &:nth-child(even) { margin-top: 6rem; }
+        
+        opacity: 0;
+        animation: fadeUp 0.8s ease forwards;
+        @for $i from 1 through 5 {
+             &:nth-child(#{$i}) { animation-delay: #{$i * 0.15}s; }
+        }
+    }
+
+    .step-connector {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+    }
+
+    .connector-dot {
+        width: 16px;
+        height: 16px;
+        background: white;
+        border: 4px solid var(--step-color);
+        border-radius: 50%;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.8);
+    }
+
+    .journey-card {
+        background: white;
+        width: 320px;
+        padding: 2.5rem;
+        border-radius: 32px; /* XL Rounded */
+        box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+        text-align: center;
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
+        
+        &:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+        }
+    }
+
+    .card-icon-wrapper {
+        width: 80px;
+        height: 80px;
+        background: var(--step-color);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        margin: 0 auto 1.5rem auto;
+        color: white;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .card-date {
+        display: block;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #999;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+
     .card-title {
+        font-family: 'Montserrat', sans-serif;
         font-size: 1.5rem;
         font-weight: 700;
-        margin-bottom: 0.75rem;
-        color: var(--text-main);
+        color: #2c1e0b;
+        margin-bottom: 1rem;
     }
 
     .card-desc {
+        font-family: 'Inter', sans-serif;
         font-size: 0.95rem;
-        line-height: 1.5;
-        color: var(--text-muted);
+        line-height: 1.6;
+        color: #666;
+    }
+
+    .drag-hint {
+        text-align: center;
+        margin-top: 2rem;
+        color: #ccc;
+        font-size: 0.9rem;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 1; }
     }
 </style>

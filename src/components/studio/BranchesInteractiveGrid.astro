@@ -7,12 +7,12 @@ const { branches } = Astro.props;
 
 function getGradient(color: string) {
     const map: Record<string, string> = {
-        purple: "linear-gradient(135deg, #7a2fb4 0%, #4a1f6b 100%)",
-        blue: "linear-gradient(135deg, #40E0D0 0%, #20B2AA 100%)",
-        orange: "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
-        green: "linear-gradient(135deg, #90EE90 0%, #32CD32 100%)",
-        cyan: "linear-gradient(135deg, #E0FFFF 0%, #00FFFF 100%)",
-        red: "linear-gradient(135deg, #FF6347 0%, #FF4500 100%)"
+        purple: "linear-gradient(135deg, #8E44AD 0%, #3a0d58 100%)",
+        blue: "linear-gradient(135deg, #3498DB 0%, #2980B9 100%)",
+        orange: "linear-gradient(135deg, #F39C12 0%, #D35400 100%)",
+        green: "linear-gradient(135deg, #2ECC71 0%, #27AE60 100%)",
+        cyan: "linear-gradient(135deg, #1ABC9C 0%, #16A085 100%)",
+        red: "linear-gradient(135deg, #E74C3C 0%, #C0392B 100%)"
     };
     return map[color] || map.purple;
 }
@@ -35,8 +35,13 @@ function getGradient(color: string) {
                 tabindex="0"
             >
                 <div class="card-visual" style={`background: ${gradient}`}>
-                    <span class="visual-icon">🏛️</span>
+                    <div class="visual-content">
+                        <span class="visual-icon">📍</span>
+                        <span class="view-interior-label">👀 Смотреть зал</span>
+                    </div>
                     {isAdults && <span class="badge-18">18+</span>}
+                    <!-- Placeholder for future Video Loop -->
+                    <div class="video-placeholder-overlay"></div>
                 </div>
                 
                 <div class="card-content">
@@ -44,7 +49,7 @@ function getGradient(color: string) {
                         <h3 class="card-title">{branch.place}</h3>
                         <div class="card-metro-row">
                              <span class="metro-dot"></span>
-                             <span class="card-metro">{branch.metro || "Метро"}</span>
+                             <span class="card-metro">{branch.metro || "Санкт-Петербург"}</span>
                         </div>
                     </div>
                     
@@ -52,7 +57,7 @@ function getGradient(color: string) {
                     
                     <div class="card-footer">
                         <a href={link} class="card-link" target="_blank">
-                            Показать на карте →
+                            Маршрут →
                         </a>
                     </div>
                 </div>
@@ -61,68 +66,125 @@ function getGradient(color: string) {
     })}
 </div>
 
+<script>
+    function initBranchInteractions() {
+        const cards = document.querySelectorAll('.branch-interactive-card');
+        
+        cards.forEach(card => {
+            // Hover: Highlight Pin on Map
+            card.addEventListener('mouseenter', () => {
+                const coords = JSON.parse((card as HTMLElement).dataset.coords || "[0,0]");
+                document.dispatchEvent(new CustomEvent('highlight-map-pin', {
+                    detail: { coords, id: (card as HTMLElement).dataset.branchId }
+                }));
+            });
+
+            card.addEventListener('mouseleave', () => {
+                document.dispatchEvent(new CustomEvent('reset-map-pin'));
+            });
+        });
+    }
+
+    initBranchInteractions();
+    document.addEventListener('astro:after-swap', initBranchInteractions);
+</script>
+
 <style lang="scss">
     .branch-cards-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 2rem;
         padding-top: 2rem;
     }
 
     .branch-interactive-card {
         background: white;
-        border-radius: 16px;
+        border-radius: 20px;
         overflow: hidden;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border: 1px solid rgba(0,0,0,0.05);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+        border: 1px solid rgba(0,0,0,0.03);
         display: flex;
         flex-direction: column;
-        position: relative;
         height: 100%;
+        position: relative;
 
-        &:hover, &:focus {
+        &:hover, &:focus-within {
             transform: translateY(-8px);
-            box-shadow: 0 20px 50px rgba(48, 16, 74, 0.15); /* Purple shadow */
+            box-shadow: 0 20px 50px rgba(58, 13, 88, 0.15);
             z-index: 2;
+
+            .view-interior-label {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            
+            .visual-icon {
+                opacity: 0;
+            }
         }
     }
 
     .card-visual {
-        height: 120px;
+        height: 160px;
+        position: relative;
+        overflow: hidden;
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    .visual-content {
         position: relative;
-        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        z-index: 2;
+        text-align: center;
+        width: 100%;
     }
 
     .visual-icon {
-        font-size: 3rem;
-        opacity: 0.2;
-        mix-blend-mode: overlay;
-        transform: rotate(-10deg);
+        font-size: 4rem;
+        opacity: 0.3;
+        transition: opacity 0.3s;
+        display: block;
+    }
+
+    .view-interior-label {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, 20px);
+        background: rgba(0,0,0,0.7);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        opacity: 0;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        white-space: nowrap;
     }
 
     .badge-18 {
         position: absolute;
-        top: 10px;
-        right: 10px;
-        background: #000;
-        color: #d4af37; /* Gold text */
+        top: 12px;
+        right: 12px;
+        background: rgba(0,0,0,0.8);
+        -webkit-backdrop-filter: blur(4px);
+        backdrop-filter: blur(4px);
+        color: #F1C40F;
         font-size: 0.75rem;
         font-weight: 800;
         padding: 4px 8px;
-        border-radius: 4px;
-        border: 1px solid #d4af37;
+        border-radius: 6px;
+        z-index: 5;
+        border: 1px solid rgba(241, 196, 15, 0.5);
     }
 
     .card-content {
-        padding: 1.5rem 1.5rem 2rem;
+        padding: 1.5rem;
         flex: 1;
         display: flex;
         flex-direction: column;
-        background: linear-gradient(to bottom, #fff 50%, #fafafa 100%);
+        background: white;
     }
 
     .card-header {
@@ -130,12 +192,12 @@ function getGradient(color: string) {
     }
 
     .card-title {
-        font-family: var(--font-heading, serif);
+        font-family: 'Montserrat', sans-serif;
         font-size: 1.25rem;
         font-weight: 700;
         margin-bottom: 0.5rem;
         line-height: 1.2;
-        color: #1a0b2e; /* Deep purple */
+        color: #2c1e0b;
     }
 
     .card-metro-row {
@@ -145,26 +207,24 @@ function getGradient(color: string) {
     }
 
     .metro-dot {
-        width: 10px;
-        height: 10px;
-        background: #D70100;
+        width: 8px;
+        height: 8px;
+        background: #E74C3C;
         border-radius: 50%;
-        box-shadow: 0 0 0 2px rgba(215, 1, 0, 0.2);
     }
 
     .card-metro {
-        font-size: 0.95rem;
-        color: #555;
+        font-size: 0.9rem;
+        color: #666;
         font-weight: 600;
-        letter-spacing: 0.02em;
     }
 
     .card-address {
         font-size: 0.9rem;
-        color: #777;
+        color: #888;
         margin-bottom: 1.5rem;
         line-height: 1.5;
-        border-top: 1px dashed rgba(0,0,0,0.1);
+        border-top: 1px dashed #eee;
         padding-top: 1rem;
     }
 
@@ -175,33 +235,37 @@ function getGradient(color: string) {
     .card-link {
         font-size: 0.85rem;
         font-weight: 700;
-        color: #7a2fb4; /* Brand purple */
+        color: #8E44AD;
         text-decoration: none;
         display: inline-flex;
         align-items: center;
-        gap: 4px;
+        gap: 6px;
         text-transform: uppercase;
         letter-spacing: 0.05em;
         transition: gap 0.2s;
         
         &:hover {
-            gap: 8px;
-            color: #4a1f6b;
+            gap: 10px;
+            color: #6c3483;
         }
     }
 
-    /* Highlight Animation */
+    /* Highlight Animation triggered from Parent */
     :global(.highlight-pulse) {
         animation: pulseHighlight 0.8s ease;
-        border-color: #d4af37 !important;
-        box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2), 0 15px 40px rgba(0,0,0,0.2) !important;
-        transform: scale(1.02);
-        z-index: 5;
+        border: 2px solid #F1C40F !important;
+        box-shadow: 0 0 0 4px rgba(241, 196, 15, 0.2), 0 20px 60px rgba(0,0,0,0.15) !important;
+        transform: scale(1.03);
+        z-index: 10;
+        
+        .card-visual {
+            filter: brightness(1.1);
+        }
     }
 
     @keyframes pulseHighlight {
-        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
-        50% { transform: scale(1.03); box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
-        100% { transform: scale(1.02); }
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1.03); }
     }
 </style>

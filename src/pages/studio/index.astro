@@ -1,9 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import PeopleSection from '../../components/PeopleSection.astro';
 import BenefitsGrid from '../../components/studio/BenefitsGrid.astro';
 import TicketOffice from '../../components/studio/TicketOffice.astro';
-// Migrated Components
 import BranchesSection from '../../components/studio/BranchesSection.astro';
 import ReviewsSection from '../../components/studio/ReviewsSection.astro';
 import StudioMoments from '../../components/studio/StudioMoments.astro';
@@ -16,114 +14,44 @@ import FaqSection from '../../components/studio/FaqSection.astro';
 import StudioFinalCTA from '../../components/studio/StudioFinalCTA.astro';
 ---
 
-<Layout title="Театральная Студия Эмоцика | Развитие через сцену" description="Театральная студия для детей от 4 до 16 лет. Спектакли на профессиональной сцене, костюмы включены." theme="studio">
+<Layout title="Театральная Студия Эмоцика | Развитие через сцену" description="Театральная студия для детей от 4 до 16 лет. Спектакли на профессиональной сцене, собственная методика." theme="studio">
   <main class="studio-page">
     
-    <!-- Hero Section (Point B) -->
+    <!-- 1. The Dream (Hero) -->
     <StudioStageHero />
 
-    <!-- 1. Pain Points Solver (Warm Grid) -->
-    <BenefitsGrid title="Почему мамы выбирают «Эмоцику»?" />
-
-    <!-- 2. Abonements (Ticket Office - Point B) -->
-    <TicketOffice />
-
-    <!-- 3. Studio Journey (Point B) -->
+    <!-- 2. The Path (Journey) - Scrollytelling -->
     <StudioJourneyMap />
 
-    <!-- 4. Super Teachers (Point B) -->
+    <!-- 3. The Trust (Why Us) - Own Theatre & Career -->
+    <BenefitsGrid />
+
+    <!-- 4. The Guides (Teachers) - The Masters -->
     <TeacherSuperheroes />
 
-    <!-- 5. Branches (Interactive Point B) -->
+    <!-- 5. The Place (Branches) - Treasure Map -->
     <BranchesSection />
 
-    <!-- 6. Reviews (Polished) -->
+    <!-- 6. The Action (Tickets) - Box Office -->
+    <TicketOffice />
+
+    <!-- 7. The Proof (Reviews) - Social Proof -->
     <ReviewsSection />
     
-    <!-- 7. Studio Moments (Insta-Pulse Point B) -->
+    <!-- 8. The Vibe (Moments) - Backstage Polaroids -->
     <StudioMoments />
     
-     <!-- 8. Awards (Trophy Shelf Point B) -->
-    <section class="section">
-         <div class="container">
-             <header class="section-header text-center award-header-wrapper">
-                 <div class="gold-plaque-wrapper">
-                    <h2 class="section-title text-white mb-2" style="font-family: var(--font-heading); text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Наши Победы</h2>
-                    <p class="section-subtitle text-gold-200" style="color: #e6c86e;">Дипломы и кубки с городских и международных фестивалей</p>
-                    <div class="plaque-shine"></div>
-                 </div>
-             </header>
-             <AwardsShelf limit={8} />
-         </div>
-    </section>
+    <!-- 9. The Victories (Awards) - Trophy Shelf -->
+    <AwardsShelf limit={8} />
 
-    <!-- 9. Merch (Fantasy Shop) -->
+    <!-- 10. The Souvenir (Merch) -->
     <MerchGrid />
 
-    <!-- 7. Contacts -->
-    <!-- 7. Contacts / Final CTA (Epic) -->
-    <StudioFinalCTA />
-
-    <!-- 8. FAQ (Moved from About) -->
+    <!-- 11. The Details (FAQ) -->
     <FaqSection />
+
+    <!-- 12. The Bow (Final CTA) -->
+    <StudioFinalCTA />
 
   </main>
 </Layout>
-
-<style is:global>
-    .gold-plaque-wrapper {
-        background: radial-gradient(circle at center, #2c1e12 0%, #1a0b08 100%);
-        padding: 2.5rem 5rem;
-        border-radius: 8px;
-        border: 2px solid #b8860b;
-        box-shadow: 
-            0 20px 50px rgba(0,0,0,0.5),
-            inset 0 0 30px rgba(0,0,0,0.8),
-            0 0 0 4px #1a0b08, /* Double border effect */
-            0 0 0 5px #b8860b;
-        display: inline-flex;
-        flex-direction: column;
-        align-items: center;
-        position: relative;
-        overflow: hidden;
-        margin-bottom: 4rem;
-        transform: rotate(-0.5deg);
-    }
-
-    .gold-plaque-wrapper .section-title {
-        color: #fff !important;
-        font-family: var(--font-heading, serif);
-        letter-spacing: 0.05em;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-        margin: 0;
-        font-size: 2.5rem;
-    }
-
-    .gold-plaque-wrapper .section-subtitle {
-        font-family: var(--font-primary, sans-serif);
-        font-size: 1rem;
-        letter-spacing: 0.1em;
-        margin-top: 1rem;
-        text-transform: uppercase;
-        color: #e6c86e !important;
-        text-shadow: 0 1px 2px rgba(0,0,0,0.8);
-        opacity: 0.9;
-    }
-
-    .plaque-shine {
-        position: absolute;
-        top: 0; left: -100%;
-        width: 40%;
-        height: 100%;
-        background: linear-gradient(to right, transparent, rgba(255, 215, 0, 0.1), transparent);
-        transform: skewX(-25deg);
-        animation: shine 8s infinite;
-        pointer-events: none;
-    }
-
-    @keyframes shine {
-        0% { left: -100%; }
-        15% { left: 200%; }
-        100% { left: 200%; }
-    }
-</style>

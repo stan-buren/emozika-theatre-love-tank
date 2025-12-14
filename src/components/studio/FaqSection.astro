@@ -88,15 +88,23 @@ import faqData from '../../data/faq.json';
         text-transform: uppercase;
         font-size: 0.8rem;
         letter-spacing: 0.15em;
-        color: #d4af37;
+        color: #C5A059; /* Brand Gold */
         display: block;
         margin-bottom: 1rem;
         font-weight: 700;
+        font-family: 'Courier Prime', monospace;
     }
 
     .section-title {
         color: #1a0b2e;
-        font-family: var(--font-heading, serif);
+        font-family: 'Montserrat', sans-serif;
+        font-size: 2.5rem;
+        font-weight: 800;
+    }
+    
+    .section-subtitle {
+        font-family: 'Inter', sans-serif;
+        color: #666;
     }
 
     .faq-chat-layout {
@@ -109,13 +117,14 @@ import faqData from '../../data/faq.json';
     }
     
     .group-label {
-        font-family: var(--font-heading, serif);
+        font-family: 'Montserrat', sans-serif;
         font-size: 1.5rem;
         color: #1a0b2e;
         margin-bottom: 2rem;
         display: flex;
         align-items: center;
         gap: 1rem;
+        font-weight: 700;
         
         &::after {
             content: '';
@@ -168,7 +177,7 @@ import faqData from '../../data/faq.json';
         &:hover { 
             transform: translateX(5px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-            border-color: rgba(212, 175, 55, 0.3);
+            border-color: rgba(197, 160, 89, 0.3);
         }
     }
     
@@ -180,7 +189,7 @@ import faqData from '../../data/faq.json';
         display: flex; align-items: center; justify-content: center;
         font-weight: 700;
         flex-shrink: 0;
-        font-family: var(--font-heading, serif);
+        font-family: 'Montserrat', sans-serif;
         transition: all 0.3s;
     }
     
@@ -218,14 +227,14 @@ import faqData from '../../data/faq.json';
     
     .avatar-a {
         width: 36px; height: 36px;
-        background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+        background: linear-gradient(135deg, #C5A059 0%, #b8860b 100%);
         color: white;
         border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
         font-weight: 800;
         font-size: 0.9rem;
         flex-shrink: 0;
-        box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+        box-shadow: 0 4px 10px rgba(197, 160, 89, 0.3);
     }
     
     .text-bubble {
@@ -235,7 +244,7 @@ import faqData from '../../data/faq.json';
         color: #444;
         line-height: 1.7;
         font-size: 1rem;
-        border: 1px solid rgba(212, 175, 55, 0.15);
+        border: 1px solid rgba(197, 160, 89, 0.15);
         box-shadow: 0 10px 30px rgba(0,0,0,0.03);
         position: relative;
         
@@ -254,5 +263,3 @@ import faqData from '../../data/faq.json';
         to { opacity: 1; transform: translateY(0) translateX(0); }
     }
 </style>
-
-

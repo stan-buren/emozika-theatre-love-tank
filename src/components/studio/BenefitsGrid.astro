@@ -3,28 +3,40 @@ interface Props {
     title?: string;
 }
 
-const { title = "Почему мамы выбирают «Эмоцику»?" } = Astro.props;
+const { title = "Почему мы?" } = Astro.props;
 
 const benefits = [
-    { icon: "👗", title: "Костюмерная включена", text: "Вам не нужно шить костюмы ночами или искать реквизит. Мы всё предоставляем сами." },
-    { icon: "📸", title: "Контент в подарок", text: "Профессиональные фото и видео со спектаклей уже включены в абонемент." },
-    { icon: "🎭", title: "Своя сцена", text: "Мы не арендуем ДК. Дети выступают на профессиональной сцене в Гранд Каньоне." }
+    { 
+        icon: "🏛️", 
+        title: "Свой Театр", 
+        text: "Мы не арендуем ДК или подвалы. Студенты занимаются и выступают на собственной профессиональной сцене в Гранд Каньоне." 
+    },
+    { 
+        icon: "🚀", 
+        title: "Карьерный Лифт", 
+        text: "Путь от студийца до актера репертуара. Лучшие ученики попадают в труппу и играют в спектаклях наравне с профи." 
+    },
+    { 
+        icon: "🏆", 
+        title: "История Побед", 
+        text: "10 лет успеха. 15+ наград Гран-при международных фестивалей. Наши выпускники поступают в театральные ВУЗы." 
+    }
 ];
 ---
 
 <section class="section benefits-section">
+    <div class="wood-texture-overlay"></div>
     <div class="container relative z-10">
         <header class="section-header text-center mb-16">
-            <span class="eyebrow">Для спокойствия родителей</span>
-            <h2 class="section-title">{title}</h2>
+            <span class="eyebrow">Фундамент вашего доверия</span>
+            <h2 class="section-title text-white">{title}</h2>
         </header>
         
         <div class="benefits-grid">
             {benefits.map((item, index) => (
-                <div class="benefit-card glass-card" style={`--delay: ${index * 0.1}s`}>
+                <div class="benefit-card glass-card" style={`--delay: ${index * 0.15}s`}>
                     <div class="benefit-icon-wrapper">
-                        <span class="benefit-emoji">{item.icon}</span>
-                        <div class="benefit-check">✓</div>
+                        <span class="benefit-emoji filter-3d">{item.icon}</span>
                     </div>
                     <div class="benefit-content">
                         <h3 class="benefit-title">{item.title}</h3>
@@ -38,10 +50,19 @@ const benefits = [
 
 <style lang="scss">
     .benefits-section {
-        background: linear-gradient(180deg, #f9f9f9 0%, #fff 100%);
+        background-color: #2c1e12; /* Dark Wood Base */
         padding: 6rem 0;
         position: relative;
         overflow: hidden;
+    }
+
+    .wood-texture-overlay {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, transparent 2px, transparent 10px);
+        opacity: 0.4;
+        pointer-events: none;
     }
 
     .eyebrow {
@@ -49,91 +70,104 @@ const benefits = [
         text-transform: uppercase;
         font-size: 0.8rem;
         letter-spacing: 0.15em;
-        color: var(--text-muted);
+        color: #C5A059; /* Gold */
         margin-bottom: 1rem;
-        font-weight: 600;
+        font-weight: 700;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .section-title {
+        color: white;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 800;
+        font-size: 2.5rem;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.5);
     }
 
     .benefits-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        max-width: 1100px;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2.5rem;
+        max-width: 1200px;
         margin: 0 auto;
     }
 
     .glass-card {
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.8);
+        background: rgba(255, 255, 255, 0.95);
+        border: 3px solid #C5A059; /* Thick Gold Border */
         border-radius: 24px;
-        padding: 2rem;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        padding: 2.5rem;
+        box-shadow: 
+            0 20px 50px rgba(0,0,0,0.3),
+            inset 0 0 20px rgba(197, 160, 89, 0.1);
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         display: flex;
-        align-items: flex-start;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
         gap: 1.5rem;
-        animation: fadeUp 0.6s ease forwards;
-        animation-delay: var(--delay);
         opacity: 0;
-        transform: translateY(20px);
+        animation: fadeUp 0.8s ease forwards;
+        animation-delay: var(--delay);
+        position: relative;
+
+        &::before {
+            content: '';
+            position: absolute;
+            inset: 6px;
+            border: 1px dashed rgba(197, 160, 89, 0.4);
+            border-radius: 18px;
+            pointer-events: none;
+        }
 
         &:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-            border-color: #fff;
+            transform: translateY(-10px) scale(1.02);
             background: #fff;
+            box-shadow: 0 30px 60px rgba(197, 160, 89, 0.2);
         }
     }
 
     .benefit-icon-wrapper {
-        position: relative;
-        flex-shrink: 0;
-        width: 60px;
-        height: 60px;
-        background: #fff;
-        border-radius: 20px;
+        width: 80px;
+        height: 80px;
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+        margin-bottom: 0.5rem;
     }
 
     .benefit-emoji {
-        font-size: 2rem;
+        font-size: 4rem;
+        line-height: 1;
+        transition: transform 0.3s;
+    }
+    
+    .glass-card:hover .benefit-emoji {
+        transform: scale(1.1) rotate(5deg);
     }
 
-    .benefit-check {
-        position: absolute;
-        bottom: -5px;
-        right: -5px;
-        width: 24px;
-        height: 24px;
-        background: #4CAF50;
-        color: white;
-        border-radius: 50%;
-        font-size: 14px;
-        font-weight: bold;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 2px solid #fff;
+    /* Fake 3D effect for Emoji */
+    .filter-3d {
+        filter: drop-shadow(0 4px 0 #C5A059) drop-shadow(0 8px 5px rgba(0,0,0,0.2));
     }
 
     .benefit-title {
-        font-size: 1.25rem;
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5rem;
         font-weight: 700;
-        margin-bottom: 0.5rem;
-        color: var(--text-main);
+        color: #2c1e0b;
+        margin: 0;
     }
 
     .benefit-text {
+        font-family: 'Inter', sans-serif;
         font-size: 0.95rem;
         line-height: 1.6;
-        color: var(--text-muted);
+        color: #555;
     }
 
     @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(40px); }
         to { opacity: 1; transform: translateY(0); }
     }
 </style>

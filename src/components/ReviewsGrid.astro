@@ -45,6 +45,9 @@ const activeReviews = reviews.filter(r => r.isActive);
 </div>
 
 <style lang="scss">
+    /* Import Handwriting Font if not global, but assuming it might be added globally. If not, fallback to cursive. */
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');
+
     .reviews-masonry {
         column-count: 3;
         column-gap: 2rem;
@@ -55,31 +58,40 @@ const activeReviews = reviews.filter(r => r.isActive);
     }
 
     .review-card {
-        break-inside: avoid;
+        break-inside: avoid-column;
         background: #fff;
-        border-radius: 20px;
+        border-radius: 2px; /* More like paper note */
         margin-bottom: 2rem;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         overflow: hidden;
         transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         border: 1px solid rgba(0,0,0,0.03);
         cursor: pointer;
         position: relative;
         
+        /* Wall of Love - slight random rotations handled by CSS nth-child */
+        &:nth-child(3n) { transform: rotate(1deg); }
+        &:nth-child(3n+1) { transform: rotate(-1deg); }
+        &:nth-child(3n+2) { transform: rotate(0.5deg); }
+        
         &:hover {
-            transform: translateY(-8px) scale(1.02);
+            transform: translateY(-8px) scale(1.02) rotate(0deg) !important;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             z-index: 2;
         }
 
         &--featured {
-            background: #1a0b2e;
+            background: #1a0b2e; /* Deep Purple */
             color: white;
             
-            .review-quote { color: rgba(255,255,255,0.9); font-size: 1.2rem; }
+            .review-quote { 
+                color: rgba(255,255,255,0.9); 
+                font-family: 'Montserrat', sans-serif; /* Featured is serious/bold */
+                font-style: italic;
+            }
             .author-name { color: white; }
             .review-meta { color: rgba(255,255,255,0.6); }
-            .quote-icon { color: #d4af37; opacity: 1; }
+            .quote-icon { color: #C5A059; opacity: 1; }
         }
     }
 
@@ -132,6 +144,8 @@ const activeReviews = reviews.filter(r => r.isActive);
     .card-quote-body {
         padding: 2.5rem 2rem 1rem 2rem;
         position: relative;
+        background-color: #fffdf9; /* Warm paper */
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
     }
     
     .quote-icon {
@@ -141,15 +155,15 @@ const activeReviews = reviews.filter(r => r.isActive);
         font-family: serif;
         font-size: 4rem;
         line-height: 1;
-        color: rgba(122, 47, 180, 0.1);
+        color: rgba(142, 68, 173, 0.1); /* Soft Purple tint */
         pointer-events: none;
     }
     
     .review-quote {
-        font-size: 1.05rem;
-        line-height: 1.6;
-        color: #333;
-        font-style: italic;
+        font-family: 'Caveat', cursive; /* Handwritten feel */
+        font-size: 1.4rem;
+        line-height: 1.4;
+        color: #2c1e0b;
         position: relative;
         z-index: 1;
     }
@@ -157,7 +171,8 @@ const activeReviews = reviews.filter(r => r.isActive);
     /* Footer Meta */
     .card-footer {
         padding: 1.5rem;
-        border-top: 1px solid rgba(0,0,0,0.03);
+        border-top: 1px dashed rgba(0,0,0,0.05); /* Dashed line for notes */
+        background: #fffdf9;
         
         .review-card--video & {
             position: absolute;
@@ -165,20 +180,33 @@ const activeReviews = reviews.filter(r => r.isActive);
             left: 0;
             right: 0;
             border-top: none;
+            background: transparent;
             color: white;
             z-index: 5;
+        }
+        
+        .review-card--featured & {
+             background: transparent;
+             border-top-color: rgba(255,255,255,0.1);
         }
     }
     
     .author-name {
-        font-size: 1rem;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.95rem;
         font-weight: 700;
         margin-bottom: 0.2rem;
+        color: #1a0b2e;
+        
+        .review-card--video & { color: white; }
     }
     
     .review-meta {
-        font-size: 0.8rem;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.75rem;
         color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
         
         .review-card--video & { color: rgba(255,255,255,0.7); }
     }
