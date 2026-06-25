@@ -1,0 +1,1492 @@
+@use "../base/variables" as *;
+
+// ==========================================================================
+// Стили страницы «Любовь у сливного бачка»
+// ==========================================================================
+
+.love-tank-page {
+    background-color: #0c0b0f;
+    color: #f0e6d2;
+    overflow-x: hidden;
+    font-family: var(--font-primary), sans-serif;
+}
+
+// --------------------------------------------------------------------------
+// 1. Геро-секция «Сплит» (Lt Hero)
+// --------------------------------------------------------------------------
+.lt-hero {
+    position: relative;
+    display: flex;
+    height: 100vh;
+    min-height: 600px;
+    width: 100%;
+    overflow: hidden;
+
+    @media (min-width: 769px) {
+        min-height: 53vw;
+    }
+}
+
+.lt-hero__half {
+    position: relative;
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lt-hero__img-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.lt-hero__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    filter: brightness(0.65) contrast(1.1);
+    transition: transform 8s ease;
+
+    .lt-hero__half:hover & {
+        transform: scale(1.05);
+    }
+}
+
+// Уникальные градиенты для каждой половины
+.lt-hero__half--poetess {
+    justify-content: flex-end;
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(139, 30, 15, 0.45) 0%, rgba(13, 13, 17, 0.85) 100%);
+        z-index: 2;
+    }
+
+    .lt-hero__content {
+        text-align: right;
+        padding: 2rem 8rem 2rem 2rem;
+
+        @media (max-width: 768px) {
+            padding: 1.5rem 4.5rem 1.5rem 1rem;
+        }
+    }
+}
+
+.lt-hero__half--plumber {
+    justify-content: flex-start;
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(225deg, rgba(78, 83, 60, 0.45) 0%, rgba(43, 59, 78, 0.85) 100%);
+        z-index: 2;
+    }
+
+    .lt-hero__content {
+        text-align: left;
+        padding: 2rem 2rem 2rem 8rem;
+
+        @media (max-width: 768px) {
+            padding: 1.5rem 1rem 1.5rem 4.5rem;
+        }
+    }
+}
+
+.lt-hero__content {
+    position: relative;
+    z-index: 3;
+    
+    @media (min-width: 769px) {
+        .lt-hero__half--poetess & {
+            max-width: calc(50vw - 11rem);
+        }
+        .lt-hero__half--plumber & {
+            max-width: calc(50vw - 11rem);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .lt-hero__half--poetess & {
+            max-width: calc(50vw - 5rem);
+        }
+        .lt-hero__half--plumber & {
+            max-width: calc(50vw - 5rem);
+        }
+    }
+}
+
+.lt-hero__title {
+    font-size: clamp(1.4rem, 5.5vw, 4.2rem);
+    line-height: 1.15;
+    margin: 0;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+}
+
+.lt-hero__title--poetess {
+    font-family: 'Caveat', cursive;
+    color: var(--text-accent, #D4AF37);
+    font-weight: 700;
+}
+
+.lt-hero__title--plumber {
+    font-family: 'Courier Prime', 'Courier New', Courier, monospace;
+    color: #e0e6ed;
+    text-transform: lowercase;
+}
+
+// Разделитель: медная труба и манометр
+.lt-hero__divider {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100%;
+    width: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(-50%);
+}
+
+.lt-hero__pipe {
+    position: absolute;
+    width: 6px;
+    height: 100%;
+    background: linear-gradient(to right, #8f4f35, #d27d2d 30%, #ffd090 50%, #b87333 70%, #683018);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.6), inset 0 0 2px rgba(255, 255, 255, 0.2);
+}
+
+.lt-hero__gauge-station {
+    position: absolute;
+    bottom: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 15;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+
+    @media (max-width: 768px) {
+        bottom: 5%;
+        transform: translateX(-50%) scale(0.65);
+    }
+    @media (max-width: 480px) {
+        bottom: 4%;
+        transform: translateX(-50%) scale(0.58);
+    }
+}
+.gauge-fitting {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 110px;
+    background: linear-gradient(to right, #5c3523, #a05a2c 40%, #ffd090 55%, #8c4a24 70%, #442211);
+    border-radius: 4px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+.gauge-valve-wrapper {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 230px;
+    height: 230px;
+    z-index: 2;
+    pointer-events: none; /* Let clicks pass to the wheel */
+}
+
+.gauge-valve-wheel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.5));
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    pointer-events: auto;
+
+    &:hover {
+        transform: rotate(20deg) scale(1.03);
+    }
+
+    &.is-spinning {
+        animation: spin-valve 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+}
+
+.gauge-dial {
+    width: 180px;
+    height: 180px;
+    background: 
+        radial-gradient(circle, #fcfbf9 65%, transparent 65.5%), // Inner dial face cover
+        repeating-conic-gradient(from 220deg, #64748b 0deg 0.8deg, transparent 0.8deg 7deg), // Minor ticks
+        repeating-conic-gradient(from 220deg, #1e293b 0deg 1.5deg, transparent 1.5deg 35deg), // Major ticks (0..8)
+        radial-gradient(circle, #fcfbf9 73%, transparent 73.5%), // White separation ring cover
+        conic-gradient(from 220deg, #2e7d32 0deg 90deg, #f9a825 90deg 180deg, #c62828 180deg 280deg, transparent 280deg), // Color sectors
+        radial-gradient(circle, #fcfbf9 80%, #cbd5e1 100%); // Base plate metal tint
+    border: 8px solid #5d4037; // Bronze/iron bezel
+    border-radius: 50%;
+    box-shadow: 
+        0 12px 30px rgba(0, 0, 0, 0.7), 
+        inset 0 4px 10px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 3;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+
+    &:hover {
+        transform: scale(1.03);
+        box-shadow: 0 16px 36px rgba(212, 175, 55, 0.3), inset 0 4px 10px rgba(0,0,0,0.2);
+        border-color: #8d6e63;
+    }
+}
+
+.gauge-num {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    color: #1e293b;
+    font-family: 'Courier Prime', monospace;
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-58px) rotate(calc(-1 * var(--angle)));
+    pointer-events: none;
+    z-index: 5;
+}
+
+.gauge-glass {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.08) 100%);
+    pointer-events: none;
+    z-index: 6;
+}
+
+.gauge-label {
+    position: absolute;
+    bottom: 40px;
+    font-size: 9px;
+    font-weight: 700;
+    color: #334155;
+    letter-spacing: 0.18em;
+    font-family: 'Courier Prime', monospace;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+    z-index: 5;
+    text-transform: uppercase;
+}
+
+.gauge-unit {
+    position: absolute;
+    top: 115px;
+    font-size: 8px;
+    font-weight: 700;
+    color: #475569;
+    font-family: 'Courier Prime', monospace;
+    z-index: 5;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+.gauge-needle {
+    width: 2px;
+    height: 75px;
+    background: #c2185b; /* Deep ruby red metal */
+    position: absolute;
+    bottom: 50%;
+    left: calc(50% - 1px);
+    transform-origin: bottom center;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5));
+    z-index: 4;
+
+    /* Pointy tip */
+    &::after {
+        content: '';
+        position: absolute;
+        top: -6px;
+        left: -2px;
+        width: 0;
+        height: 0;
+        border-left: 3px solid transparent;
+        border-right: 3px solid transparent;
+        border-bottom: 6px solid #c2185b;
+    }
+
+    /* Counterweight */
+    &::before {
+        content: '';
+        position: absolute;
+        bottom: -22px;
+        left: -3px;
+        width: 8px;
+        height: 22px;
+        background: #475569;
+        border-radius: 2px;
+        border: 1px solid #1e293b;
+    }
+}
+
+.gauge-center-cap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    background: radial-gradient(circle, #ffe082 20%, #ffb300 60%, #ff8f00 90%, #8d6e63 100%);
+    border: 1.5px solid #5d4037;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.6);
+    z-index: 5;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 6px;
+        height: 6px;
+        background: #3e2723;
+        border-radius: 50%;
+    }
+}
+
+.gauge-steam-container {
+    position: absolute;
+    top: -20px;
+    width: 120px;
+    height: 120px;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.steam-puff {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(240, 244, 250, 0.9) 0%, rgba(240, 244, 250, 0.35) 50%, rgba(240, 244, 250, 0) 80%);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2);
+    filter: blur(2px);
+    pointer-events: none;
+    z-index: 10;
+}
+
+.lt-hero__gauge-station.is-releasing {
+    .steam-puff--1 {
+        animation: steam-left 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .steam-puff--2 {
+        animation: steam-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .steam-puff--3 {
+        animation: steam-right 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+}
+
+@keyframes spin-valve {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes steam-up {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.4);
+        filter: blur(2px);
+        left: 50%;
+        top: 50%;
+    }
+    15% {
+        opacity: 0.95;
+        filter: blur(4px);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, calc(-50% - 180px)) scale(6.5);
+        filter: blur(18px);
+        left: 50%;
+        top: 50%;
+    }
+}
+
+@keyframes steam-left {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.4);
+        filter: blur(2px);
+        left: 50%;
+        top: 50%;
+    }
+    15% {
+        opacity: 0.95;
+        filter: blur(4px);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(calc(-50% - 100px), calc(-50% - 110px)) scale(6.5);
+        filter: blur(18px);
+        left: 50%;
+        top: 50%;
+    }
+}
+
+@keyframes steam-right {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.4);
+        filter: blur(2px);
+        left: 50%;
+        top: 50%;
+    }
+    15% {
+        opacity: 0.95;
+        filter: blur(4px);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(calc(-50% + 100px), calc(-50% - 110px)) scale(6.5);
+        filter: blur(18px);
+        left: 50%;
+        top: 50%;
+    }
+}
+
+.gauge-meta {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 3.5rem;
+}
+
+.gauge-badge {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: #f8fafc;
+    padding: 0.4rem 1.1rem;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: 'Courier Prime', monospace;
+    box-shadow: 
+        0 4px 10px rgba(0,0,0,0.4),
+        inset 0 1px 0px rgba(255,255,255,0.1);
+    position: relative;
+
+    &::before, &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 3px;
+        height: 3px;
+        background: #94a3b8;
+        border-radius: 50%;
+        box-shadow: inset 0 0.5px 0.5px black;
+    }
+
+    &::before { left: 4px; }
+    &::after { right: 4px; }
+}
+
+/* Острые струйки пара по бокам (для красной зоны) */
+.gauge-jets-container {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 240px;
+    height: 240px;
+    pointer-events: none;
+    z-index: 2.5; /* Below the dial */
+}
+
+.steam-jet {
+    position: absolute;
+    width: 150px;
+    height: 30px;
+    margin-top: -15px;
+    transform-origin: left center;
+    pointer-events: none;
+}
+
+.steam-jet--left-1 {
+    top: 50%;
+    left: 50%;
+    transform: rotate(165deg);
+}
+
+.steam-jet--left-2 {
+    top: 50%;
+    left: 50%;
+    transform: rotate(195deg);
+}
+
+.steam-jet--right-1 {
+    top: 50%;
+    left: 50%;
+    transform: rotate(-15deg);
+}
+
+.steam-jet--right-2 {
+    top: 50%;
+    left: 50%;
+    transform: rotate(15deg);
+}
+
+.jet-puff {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%) scale(0.2);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(240, 240, 245, 0.4) 40%, rgba(240, 240, 245, 0) 70%);
+    opacity: 0;
+    filter: blur(2px);
+    pointer-events: none;
+}
+
+/* Анимация пара для Желтой зоны */
+.lt-hero__gauge-station.state-yellow {
+    .steam-puff {
+        opacity: 0.4;
+        animation: gentle-puff 3.5s infinite ease-in-out;
+    }
+    
+    .steam-puff--1 { animation-delay: 0s; }
+    .steam-puff--2 { animation-delay: 1.2s; }
+    .steam-puff--3 { animation-delay: 2.4s; }
+
+    .gauge-valve-wrapper {
+        animation: valve-jitter-yellow 0.2s infinite ease-in-out;
+    }
+}
+
+@keyframes gentle-puff {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 0) scale(0.3);
+        left: 50%;
+        bottom: 50%;
+    }
+    40% {
+        opacity: 0.35;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50px) scale(1.4);
+        left: 50%;
+        bottom: 50%;
+        filter: blur(3px);
+    }
+}
+
+/* Анимация пара для Красной зоны */
+.lt-hero__gauge-station.state-red {
+    .steam-puff {
+        opacity: 0.7;
+        animation: gentle-puff 1.5s infinite ease-in-out;
+    }
+    .steam-puff--1 { animation-delay: 0s; }
+    .steam-puff--2 { animation-delay: 0.5s; }
+    .steam-puff--3 { animation-delay: 1s; }
+
+    .jet-puff {
+        animation: steam-flow 1.5s infinite linear;
+    }
+    .steam-jet .jet-puff--1 { animation-delay: 0s; }
+    .steam-jet .jet-puff--2 { animation-delay: 0.5s; }
+    .steam-jet .jet-puff--3 { animation-delay: 1.0s; }
+
+    .gauge-valve-wrapper {
+        animation: valve-jitter-red 0.1s infinite linear;
+    }
+}
+
+@keyframes steam-flow {
+    0% {
+        opacity: 0;
+        transform: translateY(-50%) translateX(0) scale(0.2);
+        filter: blur(2px);
+    }
+    15% {
+        opacity: 0.85;
+        filter: blur(3px);
+    }
+    60% {
+        opacity: 0.6;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50%) translateX(160px) scale(2.8);
+        filter: blur(14px);
+    }
+}
+
+@keyframes valve-jitter-yellow {
+    0%, 100% { transform: translate(-50%, -50%) translate(0, 0); }
+    50% { transform: translate(-50%, -50%) translate(-0.5px, 0.5px); }
+}
+
+@keyframes valve-jitter-red {
+    0%, 100% { transform: translate(-50%, -50%) translate(0, 0); }
+    20% { transform: translate(-50%, -50%) translate(-1.5px, 1px); }
+    40% { transform: translate(-50%, -50%) translate(1px, -1.5px); }
+    60% { transform: translate(-50%, -50%) translate(-1px, -0.5px); }
+    80% { transform: translate(-50%, -50%) translate(1.5px, 1.5px); }
+}
+
+/* Полноэкранный пар для взрыва */
+.lt-fullscreen-steam {
+    position: fixed;
+    inset: 0;
+    background: transparent;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+    transition: opacity 0.4s ease-in-out;
+
+    &.is-active {
+        opacity: 1;
+
+        .steam-overlay-puff {
+            animation: overlay-puff-grow 2.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+    }
+}
+
+.steam-overlay-puff {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(240, 240, 248, 0.95) 0%, rgba(240, 240, 248, 0.6) 45%, rgba(240, 240, 248, 0) 75%);
+    opacity: 0;
+    transform: scale(0.1);
+    filter: blur(10px);
+    pointer-events: none;
+}
+
+.steam-overlay-puff--1 {
+    width: 80vw;
+    height: 80vw;
+    bottom: -20%;
+    left: -10%;
+}
+
+.steam-overlay-puff--2 {
+    width: 90vw;
+    height: 90vw;
+    bottom: -15%;
+    right: -10%;
+    animation-delay: 0.1s;
+}
+
+.steam-overlay-puff--3 {
+    width: 75vw;
+    height: 75vw;
+    top: -10%;
+    left: 10%;
+    animation-delay: 0.2s;
+}
+
+.steam-overlay-puff--4 {
+    width: 85vw;
+    height: 85vw;
+    top: -15%;
+    right: 15%;
+    animation-delay: 0.15s;
+}
+
+@keyframes overlay-puff-grow {
+    0% {
+        opacity: 0;
+        transform: scale(0.1) translate(0, 50px);
+        filter: blur(10px);
+    }
+    30% {
+        opacity: 0.92;
+        filter: blur(25px);
+    }
+    75% {
+        opacity: 0.92;
+        filter: blur(35px);
+        transform: scale(1.6) translate(0, -50px);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(2.0) translate(0, -100px);
+        filter: blur(45px);
+    }
+}
+
+// --------------------------------------------------------------------------
+// 2. Интерактивный диалог (Lt Dialogue)
+// --------------------------------------------------------------------------
+.lt-dialogue {
+    position: relative;
+    padding: 8rem 0;
+    background: linear-gradient(to bottom, #0c0b0f 0%, #171124 100%);
+}
+
+.lt-dialogue__container {
+    position: relative;
+}
+
+.lt-dialogue__pipe {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(to right, #683018, #d27d2d, #683018);
+    transform: translateX(-50%);
+    opacity: 0.6;
+
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+.lt-dialogue__row {
+    display: flex;
+    margin-bottom: 5rem;
+    align-items: center;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-bottom: 4rem;
+    }
+}
+
+.lt-dialogue__col {
+    flex: 1;
+    width: 50%;
+    padding: 0 3rem;
+
+    @media (max-width: 768px) {
+        width: 100%;
+        padding: 0;
+    }
+}
+
+.lt-dialogue__col--left {
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+
+    @media (max-width: 768px) {
+        text-align: left;
+        justify-content: flex-start;
+    }
+}
+
+.lt-dialogue__col--right {
+    text-align: left;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.lt-dialogue__card {
+    max-width: 450px;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    position: relative;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+    }
+}
+
+.lt-dialogue__card--poetess {
+    background: linear-gradient(135deg, #25121e 0%, #150912 100%);
+    border-left: 4px solid var(--text-accent, #D4AF37);
+    border-right: 1px solid rgba(212, 175, 55, 0.1);
+    border-top: 1px solid rgba(212, 175, 55, 0.1);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    color: #ffd8a8;
+
+    .lt-dialogue__role, .lt-dialogue__tag {
+        color: var(--text-accent, #D4AF37);
+        font-family: 'Caveat', cursive;
+        font-size: 1.5rem;
+        display: block;
+        margin-bottom: 0.75rem;
+    }
+
+    .lt-dialogue__text {
+        font-family: 'Caveat', cursive;
+        font-size: 1.35rem;
+        line-height: 1.4;
+        margin: 0;
+    }
+}
+
+.lt-dialogue__card--plumber {
+    background: linear-gradient(135deg, #17212e 0%, #0e141d 100%);
+    border-right: 4px solid #40e0d0;
+    border-left: 1px solid rgba(64, 224, 208, 0.1);
+    border-top: 1px solid rgba(64, 224, 208, 0.1);
+    border-bottom: 1px solid rgba(64, 224, 208, 0.1);
+    color: #e2e8f0;
+
+    .lt-dialogue__role, .lt-dialogue__tag {
+        color: #40e0d0;
+        font-family: 'Courier Prime', monospace;
+        font-size: 0.9rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 0.75rem;
+    }
+
+    .lt-dialogue__text {
+        font-family: 'Courier Prime', monospace;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .lt-dialogue__footnote {
+        display: block;
+        margin-top: 1rem;
+        font-size: 0.75rem;
+        opacity: 0.5;
+        font-style: italic;
+    }
+}
+
+// Анимация при скролле (Intersection Observer)
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+
+    &.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// --------------------------------------------------------------------------
+// 3. О спектакле / Синопсис (Lt About)
+// --------------------------------------------------------------------------
+.lt-about {
+    position: relative;
+    padding: 10rem 0;
+    background-color: #0c0b0f;
+    z-index: 1;
+}
+
+.lt-about__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at center, rgba(18, 11, 30, 0.75) 0%, rgba(12, 11, 15, 0.98) 90%);
+    }
+}
+
+.lt-about__bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(4px) scale(1.02) brightness(0.4);
+}
+
+.lt-about__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+    align-items: start;
+
+    @media (max-width: 992px) {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+}
+
+.lt-about__quote-col {
+    position: sticky;
+    top: 100px;
+
+    @media (max-width: 992px) {
+        position: static;
+    }
+}
+
+.lt-about__quote {
+    font-family: var(--font-serif), serif;
+    font-size: 2.2rem;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--text-accent, #D4AF37);
+    margin: 0 0 3rem 0;
+    padding-left: 1.5rem;
+    border-left: 4px solid var(--text-accent, #D4AF37);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+
+    @media (max-width: 480px) {
+        font-size: 1.75rem;
+    }
+}
+
+.lt-about__meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.lt-meta-item {
+    background: rgba(26, 11, 46, 0.4);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: 8px;
+    padding: 1.2rem;
+    backdrop-filter: blur(10px);
+}
+
+.lt-meta-label {
+    display: block;
+    font-size: 0.75rem;
+    color: rgba(240, 230, 210, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+}
+
+.lt-meta-val {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #f0e6d2;
+}
+
+.lt-section-title {
+    font-family: var(--font-serif), serif;
+    font-size: 2.75rem;
+    color: var(--text-accent, #D4AF37);
+    margin-top: 0;
+    margin-bottom: 2rem;
+    position: relative;
+
+    &.text-center {
+        text-align: center;
+        &::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 60px;
+        height: 2px;
+        background-color: var(--text-accent, #D4AF37);
+    }
+}
+
+.lt-about__desc {
+    color: rgba(240, 230, 210, 0.8);
+    font-size: 1.1rem;
+    line-height: 1.7;
+
+    p {
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+        
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+// --------------------------------------------------------------------------
+// 4. Создатели спектакля (Lt Team)
+// --------------------------------------------------------------------------
+.lt-team {
+    padding: 8rem 0;
+    background-color: #11091e;
+}
+
+.lt-team__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    max-width: 1000px;
+    margin: 3rem auto 0;
+}
+
+.lt-member-card {
+    display: flex;
+    background: rgba(37, 18, 64, 0.4);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
+}
+
+.lt-member-card__photo-wrapper {
+    width: 250px;
+    min-width: 250px;
+    overflow: hidden;
+    position: relative;
+
+    @media (max-width: 768px) {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1.1;
+    }
+}
+
+.lt-member-card__photo-wrapper--graphic {
+    background: linear-gradient(135deg, #1f0f35 0%, #0d0617 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-accent, #D4AF37);
+}
+
+.lt-designer-icon {
+    width: 80px;
+    height: 80px;
+    opacity: 0.6;
+}
+
+.lt-member-card__photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.lt-member-card__content {
+    padding: 2.5rem;
+    flex: 1;
+}
+
+.lt-member-card__role {
+    font-size: 0.8rem;
+    color: var(--text-accent, #D4AF37);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.lt-member-card__name {
+    font-family: var(--font-serif), serif;
+    font-size: 2rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: #f0e6d2;
+}
+
+.lt-member-card__bio {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(240, 230, 210, 0.75);
+    margin-bottom: 2rem;
+}
+
+.lt-awards-title {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #f0e6d2;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.lt-awards-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.75rem;
+
+    li {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+}
+
+.lt-award-badge {
+    font-size: 1.2rem;
+}
+
+.lt-award-text {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: rgba(240, 230, 210, 0.8);
+}
+
+// --------------------------------------------------------------------------
+// 5. В ролях (Lt Cast)
+// --------------------------------------------------------------------------
+.lt-cast {
+    padding: 8rem 0;
+    background-color: #0c0b0f;
+}
+
+.lt-cast__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    max-width: 1000px;
+    margin: 3rem auto 0;
+
+    @media (max-width: 992px) {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+    }
+}
+
+.lt-actor-card {
+    background: rgba(26, 11, 46, 0.3);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+.lt-actor-card__img-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+}
+
+.lt-actor-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+
+    .lt-actor-card:hover & {
+        transform: scale(1.05);
+    }
+}
+
+.lt-actor-card__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+
+    .lt-actor-card:hover & {
+        opacity: 1;
+    }
+}
+
+.lt-actor-card__overlay--poetry {
+    background: linear-gradient(to top, rgba(139, 30, 15, 0.9), rgba(13, 13, 17, 0.8));
+    color: #ffd8a8;
+}
+
+.lt-poetry-bg {
+    font-family: 'Caveat', cursive;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.5;
+
+    p {
+        margin: 0.5rem 0;
+    }
+}
+
+.lt-blueprint-text {
+    font-family: 'Courier Prime', 'Courier New', Courier, monospace;
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.6;
+    text-align: center;
+    z-index: 5;
+    padding: 1.5rem;
+
+    p {
+        margin: 0.5rem 0;
+    }
+}
+
+.lt-actor-card__overlay--technical {
+    background: linear-gradient(to top, rgba(23, 33, 46, 0.9), rgba(14, 20, 29, 0.8));
+    color: #40e0d0;
+}
+
+.lt-blueprint-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px dashed rgba(64, 224, 208, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.blueprint-line {
+    position: absolute;
+    background: rgba(64, 224, 208, 0.25);
+}
+
+.blueprint-line--1 {
+    width: 80%;
+    height: 1px;
+    top: 30%;
+}
+
+.blueprint-line--2 {
+    width: 1px;
+    height: 80%;
+    left: 40%;
+}
+
+.blueprint-label {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border: 1px solid rgba(64, 224, 208, 0.5);
+    padding: 0.25rem 0.5rem;
+    background: rgba(14, 20, 29, 0.9);
+}
+
+.lt-actor-card__info {
+    padding: 2rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.lt-actor-card__name {
+    font-family: var(--font-serif), serif;
+    font-size: 1.6rem;
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+    color: #f0e6d2;
+}
+
+.lt-actor-card__role {
+    font-size: 0.85rem;
+    color: var(--text-accent, #D4AF37);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.lt-actor-card__bio {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(240, 230, 210, 0.7);
+    margin: 0;
+}
+
+// --------------------------------------------------------------------------
+// 6. Гастроли и Билеты (Lt Booking)
+// --------------------------------------------------------------------------
+.lt-booking {
+    padding: 8rem 0;
+    background: linear-gradient(to bottom, #0c0b0f 0%, #1a0b2e 100%);
+    border-top: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.lt-booking__grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 4rem;
+    max-width: 1000px;
+    margin: 0 auto;
+
+    @media (max-width: 992px) {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+}
+
+.lt-booking__organizers, .lt-booking__spectators {
+    background: rgba(37, 18, 64, 0.3);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: 16px;
+    padding: 3rem;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.lt-booking__title {
+    font-family: var(--font-serif), serif;
+    font-size: 1.8rem;
+    color: var(--text-accent, #D4AF37);
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+}
+
+.lt-booking__desc {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(240, 230, 210, 0.75);
+    margin-bottom: 2rem;
+}
+
+.lt-booking__downloads {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+
+    .btn-download {
+        justify-content: flex-start;
+        text-align: left;
+        background: rgba(26, 11, 46, 0.5);
+        color: #f0e6d2;
+        border-color: rgba(212, 175, 55, 0.3);
+        padding: 1rem 1.5rem;
+        transition: all 0.3s ease;
+
+        &:hover {
+            border-color: var(--text-accent, #D4AF37);
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--text-accent, #D4AF37);
+        }
+    }
+}
+
+.lt-booking__contacts {
+    border-top: 1px solid rgba(240, 230, 210, 0.1);
+    padding-top: 1.5rem;
+
+    p {
+        font-size: 0.85rem;
+        color: rgba(240, 230, 210, 0.5);
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+    }
+
+    strong {
+        display: block;
+        font-size: 1.1rem;
+        color: #f0e6d2;
+        margin-bottom: 0.5rem;
+    }
+}
+
+.lt-contact-link {
+    display: block;
+    color: var(--text-accent, #D4AF37);
+    text-decoration: underline;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+
+    &:hover {
+        color: #fff;
+    }
+}
+
+.lt-contact-link--tg {
+    display: inline-flex;
+    align-items: center;
+    color: #40c4ff;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+        color: #fff;
+    }
+}
+
+.lt-spectators-quote {
+    font-family: var(--font-serif), serif;
+    font-size: 1.25rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: rgba(240, 230, 210, 0.85);
+    border-left: 3px solid var(--text-accent, #D4AF37);
+    padding-left: 1.25rem;
+    margin: 0 0 2.5rem 0;
+}
+
+.lt-spectators-cta {
+    margin-bottom: 2rem;
+
+    .btn-theatre-gold {
+        width: 100%;
+        background: linear-gradient(135deg, #c07040 0%, #b87333 50%, #d4af37 100%);
+        border: none;
+        color: #0c0b0f;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        padding: 1.2rem;
+        border-radius: 4px;
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        transition: all 0.3s ease;
+
+        &:hover {
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+            transform: translateY(-2px);
+        }
+    }
+}
+
+.lt-booking__pitch {
+    font-size: 0.9rem;
+    color: rgba(240, 230, 210, 0.6);
+    text-align: center;
+    margin: 0;
+    font-style: italic;
+}
