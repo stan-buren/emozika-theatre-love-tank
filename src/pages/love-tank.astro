@@ -11,12 +11,18 @@ import Layout from '../layouts/Layout.astro';
     
     <!-- СЕКЦИЯ 1: Сплит-геро (Split Hero) -->
     <section class="lt-hero">
+      <div class="lt-hero__meta-top-left">спектакль</div>
+      <div class="lt-hero__meta-bottom-right">
+        <span class="lt-hero__meta-label">по пьесе</span>
+        <span class="lt-hero__meta-author">Василия Сигарева</span>
+      </div>
+
       <div class="lt-hero__half lt-hero__half--poetess">
         <div class="lt-hero__img-container">
           <img src="/assets/img/lubov_u_slivnogo_bochka/poetess_alone.jpg" alt="Елена Молодан — Поэтесса" class="lt-hero__img" />
         </div>
         <div class="lt-hero__content">
-          <h1 class="lt-hero__title lt-hero__title--poetess">Любовь</h1>
+          <h1 class="lt-hero__title lt-hero__title--poetess">«Любовь</h1>
         </div>
       </div>
       
@@ -25,7 +31,7 @@ import Layout from '../layouts/Layout.astro';
           <img src="/assets/img/lubov_u_slivnogo_bochka/plumber_alone.jpg" alt="Михаил Драгунов — Сантехник" class="lt-hero__img" />
         </div>
         <div class="lt-hero__content">
-          <h1 class="lt-hero__title lt-hero__title--plumber">у сливного бачка</h1>
+          <h1 class="lt-hero__title lt-hero__title--plumber">у сливного бачка»</h1>
         </div>
       </div>
 
@@ -106,83 +112,110 @@ import Layout from '../layouts/Layout.astro';
           
           <!-- Информационные плашки -->
           <div class="gauge-meta">
-            <span class="gauge-badge">12+</span>
-            <span class="gauge-badge">1 час 30 минут</span>
+            <span class="gauge-badge gauge-badge--large">12+</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- СЕКЦИЯ 2: Столкновение монологов (Interactive Dialogue Scroll) -->
-    <section class="lt-dialogue">
-      <div class="container lt-dialogue__container">
-        <div class="lt-dialogue__pipe" aria-hidden="true"></div>
+    <!-- СЕКЦИЯ 2: Режиссерская тетрадь (Director's Notebook Storytelling) -->
+    <section class="lt-notebook">
+      <div class="container lt-notebook__container">
         
-        <!-- Шаг 1 -->
-        <div class="lt-dialogue__row scroll-reveal">
-          <div class="lt-dialogue__col lt-dialogue__col--left">
-            <div class="lt-dialogue__card lt-dialogue__card--poetess">
-              <span class="lt-dialogue__role">Она — Поэтесса</span>
-              <p class="lt-dialogue__text">Тонкая. Громкая. С характером, который не помещается в одну комнату. Привыкла говорить красиво, жить трудно и любить — тоже со вкусом.</p>
-            </div>
-          </div>
-          <div class="lt-dialogue__col lt-dialogue__col--right">
-            <div class="lt-dialogue__card lt-dialogue__card--plumber">
-              <span class="lt-dialogue__role">Он — Сантехник</span>
-              <p class="lt-dialogue__text">Простой. Грубый. От него пахнет машинным маслом и чем-то таким, от чего у женщин сбивается пульс. Он не читал её стихов. Ему всё равно.</p>
-              <span class="lt-dialogue__footnote">У них нет ничего общего. Кроме этой ночи.</span>
-            </div>
-          </div>
-        </div>
+        <!-- Корешок тетради (пружина) по центру -->
+        <div class="lt-notebook__spine" aria-hidden="true"></div>
 
-        <!-- Шаг 2 -->
-        <div class="lt-dialogue__row scroll-reveal">
-          <div class="lt-dialogue__col lt-dialogue__col--left">
-            <div class="lt-dialogue__card lt-dialogue__card--poetess">
-              <span class="lt-dialogue__tag">Как начинается?</span>
-              <p class="lt-dialogue__text">Случайная поломка. Чужой мужик в её доме. Она нервная, с порога — на разрыв. Она цепляет его словами.</p>
-            </div>
-          </div>
-          <div class="lt-dialogue__col lt-dialogue__col--right">
-            <div class="lt-dialogue__card lt-dialogue__card--plumber">
-              <span class="lt-dialogue__tag">Мужской ответ</span>
-              <p class="lt-dialogue__text">Он невозмутимый — как бетонная стена. Он отвечает — не словами.</p>
-            </div>
-          </div>
-        </div>
+        <div class="lt-script__column">
+          <!-- Красная линия полей -->
+          <div class="lt-script__margin-line" aria-hidden="true"></div>
 
-        <!-- Шаг 3 -->
-        <div class="lt-dialogue__row scroll-reveal">
-          <div class="lt-dialogue__col lt-dialogue__col--left">
-            <div class="lt-dialogue__card lt-dialogue__card--poetess">
-              <span class="lt-dialogue__tag">Соблазнение</span>
-              <p class="lt-dialogue__text">Соблазнение — не в поцелуях. Оно в том, как он молчит, когда она говорит. В том, как она хочет его разбудить — и вдруг просыпается сама.</p>
+          <!-- Шаг 1 -->
+          <div class="lt-script__section scroll-reveal" data-note-id="1">
+            <h3 class="lt-script__act-title">Акт I. Персонажи</h3>
+            
+            <div class="lt-script__scene-desc">
+              <span class="lt-script__character">ОНА:</span>
+              <p class="lt-script__text lt-script__text--poetess">Тонкая. Громкая. С характером, который не помещается в одну комнату. Привыкла говорить красиво, жить трудно и любить — тоже со вкусом.</p>
             </div>
-          </div>
-          <div class="lt-dialogue__col lt-dialogue__col--right">
-            <div class="lt-dialogue__card lt-dialogue__card--plumber">
-              <span class="lt-dialogue__tag">Паузы</span>
-              <p class="lt-dialogue__text">В паузах, которые говорят больше, чем любая её рифма.</p>
+            
+            <div class="lt-script__scene-desc">
+              <span class="lt-script__character">ОН:</span>
+              <p class="lt-script__text lt-script__text--plumber">Простой. Грубый. От него пахнет машинным маслом и чем-то таким, от чего у женщин сбивается пульс. Он не читал её стихов. Ему всё равно.</p>
             </div>
-          </div>
-        </div>
 
-        <!-- Шаг 4 -->
-        <div class="lt-dialogue__row scroll-reveal">
-          <div class="lt-dialogue__col lt-dialogue__col--left">
-            <div class="lt-dialogue__card lt-dialogue__card--poetess">
-              <span class="lt-dialogue__tag">Чем заканчивается?</span>
-              <p class="lt-dialogue__text">Тем, что стихи заканчиваются. А он остаётся. Она привыкла всё контролировать. Прописывать. Додумывать.</p>
+            <!-- Режиссерская заметка на левом поле -->
+            <div class="lt-script__note lt-script__note--left" id="note-1">
+              <span>У них нет ничего общего. Кроме этой ночи.</span>
+              <svg class="script-arrow script-arrow--left" viewBox="0 0 80 30" fill="none">
+                <path d="M70,5 Q35,25 5,10 M15,3 L5,10 L15,18" stroke="#D4AF37" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
             </div>
           </div>
-          <div class="lt-dialogue__col lt-dialogue__col--right">
-            <div class="lt-dialogue__card lt-dialogue__card--plumber">
-              <span class="lt-dialogue__tag">Развязка</span>
-              <p class="lt-dialogue__text">А он — просто берёт. И оказывается, что за грубостью — нежность. За молчанием — глубина. А за случайным вызовом сантехника — то, что она не писала в своих тетрадях. Настоящее.</p>
-            </div>
-          </div>
-        </div>
 
+          <!-- Шаг 2 -->
+          <div class="lt-script__section scroll-reveal" data-note-id="2">
+            <h3 class="lt-script__act-title">Акт II. Как начинается</h3>
+            
+            <div class="lt-script__scene-desc">
+              <p class="lt-script__action">Случайная поломка. Чужой мужик в её доме.</p>
+              <p class="lt-script__action lt-script__action--poetess">Она нервная, с порога — на разрыв.</p>
+              <p class="lt-script__action lt-script__action--plumber">Он невозмутимый — как бетонная стена.</p>
+              <p class="lt-script__action">Она цепляет его словами. Он отвечает — не словами.</p>
+            </div>
+
+            <!-- Режиссерская заметка на правом поле -->
+            <div class="lt-script__note lt-script__note--right" id="note-2">
+              <span>Какое начало... Случайный вызов сантехника.</span>
+              <svg class="script-arrow script-arrow--right" viewBox="0 0 80 30" fill="none">
+                <path d="M10,5 Q45,25 75,10 M65,18 L75,10 L65,3" stroke="#D4AF37" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Шаг 3 -->
+          <div class="lt-script__section scroll-reveal" data-note-id="3">
+            <h3 class="lt-script__act-title">Акт III. Соблазнение</h3>
+            
+            <div class="lt-script__scene-desc">
+              <p class="lt-script__action">Соблазнение — не в поцелуях.</p>
+              <p class="lt-script__action">Оно в том, как он молчит, когда она говорит.</p>
+              <p class="lt-script__action lt-script__action--poetess">В том, как она хочет его разбудить — и вдруг просыпается сама.</p>
+            </div>
+
+            <!-- Режиссерская заметка на левом поле -->
+            <div class="lt-script__note lt-script__note--left" id="note-3">
+              <span>В паузах, которые говорят больше, чем любая её рифма.</span>
+              <svg class="script-arrow script-arrow--left" viewBox="0 0 80 30" fill="none">
+                <path d="M70,5 Q35,25 5,10 M15,3 L5,10 L15,18" stroke="#D4AF37" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Шаг 4 -->
+          <div class="lt-script__section scroll-reveal" data-note-id="4">
+            <h3 class="lt-script__act-title">Акт IV. Чем заканчивается</h3>
+            
+            <div class="lt-script__scene-desc">
+              <p class="lt-script__action lt-script__action--poetess">Тем, что стихи заканчиваются. А он остаётся.</p>
+              <p class="lt-script__action">Она привыкла всё контролировать. Прописывать. Додумывать.</p>
+              <p class="lt-script__action lt-script__action--plumber">А он — просто берёт.</p>
+              <p class="lt-script__action">И оказывается, что за грубостью — нежность. За молчанием — глубина. А за случайным вызовом сантехника — то, что она не писала в своих тетрадях.</p>
+              
+              <div class="lt-script__conclusion">
+                <span class="lt-highlight--oval">Настоящее.</span>
+              </div>
+            </div>
+
+            <!-- Режиссерская заметка на правом поле -->
+            <div class="lt-script__note lt-script__note--right" id="note-4">
+              <span>Что под этой маской? Настоящее.</span>
+              <svg class="script-arrow script-arrow--right" viewBox="0 0 80 30" fill="none">
+                <path d="M10,5 Q45,25 75,10 M65,18 L75,10 L65,3" stroke="#D4AF37" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
 
@@ -537,7 +570,7 @@ import Layout from '../layouts/Layout.astro';
 
       // Плавный скролл вниз к диалогам через 500мс
       setTimeout(() => {
-        const dialogueSec = document.querySelector('.lt-dialogue');
+        const dialogueSec = document.querySelector('.lt-notebook');
         if (dialogueSec) {
           dialogueSec.scrollIntoView({ behavior: 'smooth' });
         }
