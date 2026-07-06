@@ -8,8 +8,8 @@ const { isLanding = false } = Astro.props;
     <div class="container">
       <div class="footer__inner">
         <div class="footer__brand">
-          <a href="/" class="footer__logo" data-scroll-to="hero">
-            <img class="footer__mark" src="/favicon.png" alt="Логотип театра «Эмоцика»" />
+          <a href={import.meta.env.BASE_URL} class="footer__logo" data-scroll-to="hero">
+            <img class="footer__mark" src={`${import.meta.env.BASE_URL}favicon.png`} alt="Логотип театра «Эмоцика»" />
             <span class="footer__name">Театр «Эмоцика»</span>
           </a>
           <p class="footer__copy">© 2014–{new Date().getFullYear()}, театр «Эмоцика» и студия «Эмоция». Все права защищены.</p>

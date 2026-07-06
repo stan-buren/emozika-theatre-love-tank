@@ -6,8 +6,8 @@ const { isLanding = false } = Astro.props;
 ---
 <header class="site-header">
     <div class="container header-inner">
-      <a href="/" class="logo-badge" data-scroll-to="hero">
-        <img class="logo-mark" src="/favicon.png" alt="Логотип театра «Эмоцика»" />
+      <a href={import.meta.env.BASE_URL} class="logo-badge" data-scroll-to="hero">
+        <img class="logo-mark" src={`${import.meta.env.BASE_URL}favicon.png`} alt="Логотип театра «Эмоцика»" />
         <span class="logo-text">Театр «Эмоцика»</span>
       </a>
 
