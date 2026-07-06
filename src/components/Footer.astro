@@ -1,4 +1,8 @@
 ---
+interface Props {
+  isLanding?: boolean;
+}
+const { isLanding = false } = Astro.props;
 ---
 <footer class="footer">
     <div class="container">
@@ -10,14 +14,16 @@
           </a>
           <p class="footer__copy">© 2014–{new Date().getFullYear()}, театр «Эмоцика» и студия «Эмоция». Все права защищены.</p>
         </div>
-        <nav class="footer__nav" aria-label="Навигация по сайту">
-          <a href="/afisha" class="footer__link" data-scroll-to="afisha">Афиша</a>
-          <a href="/afisha#snow-queen" class="footer__link" data-scroll-to="snow-queen">Новый год</a>
-          <a href="/about#people" class="footer__link" data-scroll-to="people">Люди театра</a>
-          <a href="/about#awards" class="footer__link" data-scroll-to="awards">Награды</a>
-          <a href="/about#docs" class="footer__link" data-scroll-to="docs">Документы</a>
-          <a href="/about#contacts" class="footer__link" data-scroll-to="contacts">Контакты</a>
-        </nav>
+        {!isLanding && (
+          <nav class="footer__nav" aria-label="Навигация по сайту">
+            <a href="/afisha" class="footer__link" data-scroll-to="afisha">Афиша</a>
+            <a href="/afisha#snow-queen" class="footer__link" data-scroll-to="snow-queen">Новый год</a>
+            <a href="/about#people" class="footer__link" data-scroll-to="people">Люди театра</a>
+            <a href="/about#awards" class="footer__link" data-scroll-to="awards">Награды</a>
+            <a href="/about#docs" class="footer__link" data-scroll-to="docs">Документы</a>
+            <a href="/about#contacts" class="footer__link" data-scroll-to="contacts">Контакты</a>
+          </nav>
+        )}
         <div class="footer__meta">
           <p class="footer__license">Лицензия на образовательную деятельность № 03-21-6065/24-0-3 от 05.11.2024, рег.
             № 1035-01271-78/01491532, ИП Бурундукова Е. А.</p>

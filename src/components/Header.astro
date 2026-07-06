@@ -1,4 +1,8 @@
 ---
+interface Props {
+  isLanding?: boolean;
+}
+const { isLanding = false } = Astro.props;
 ---
 <header class="site-header">
     <div class="container header-inner">
@@ -7,29 +11,33 @@
         <span class="logo-text">Театр «Эмоцика»</span>
       </a>
 
-      <!-- Mobile Toggle -->
-      <button class="mobile-toggle" aria-label="Меню" data-mobile-toggle>
-          <span></span>
-          <span></span>
-          <span></span>
-      </button>
+      {!isLanding && (
+        <!-- Mobile Toggle -->
+        <button class="mobile-toggle" aria-label="Меню" data-mobile-toggle>
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+      )}
 
-      <nav class="main-nav" aria-label="Основная навигация" data-mobile-menu>
-        <a href="/theatre" class="nav-link">Театр</a>
-        <a href="/studio" class="nav-link">Студия</a>
-        <a href="/cinema" class="nav-link">Киношкола</a>
-        <a href="/love-tank" class="nav-link">Любовь у сливного бачка</a>
-        <a href="/about" class="nav-link">О нас</a>
-        <a href="/about#contacts" class="nav-link nav-link-pill">
-          Записаться
-        </a>
-        <!-- Mobile Only CTA -->
-        <a href="https://clck.ru/3QWtC2" class="nav-link nav-link-cta mobile-only" target="_blank" rel="noopener">
-            Купить билеты
-        </a>
-      </nav>
+      {!isLanding && (
+        <nav class="main-nav" aria-label="Основная навигация" data-mobile-menu>
+          <a href="/theatre" class="nav-link">Театр</a>
+          <a href="/studio" class="nav-link">Студия</a>
+          <a href="/cinema" class="nav-link">Киношкола</a>
+          <a href="/love-tank" class="nav-link">Любовь у сливного бачка</a>
+          <a href="/about" class="nav-link">О нас</a>
+          <a href="/about#contacts" class="nav-link nav-link-pill">
+            Записаться
+          </a>
+          <!-- Mobile Only CTA -->
+          <a href="https://clck.ru/3QWtC2" class="nav-link nav-link-cta mobile-only" target="_blank" rel="noopener">
+              Купить билеты
+          </a>
+        </nav>
+      )}
       
-      <a href="https://clck.ru/3QWtC2" class="nav-link nav-link-cta header-cta desktop-only" target="_blank" rel="noopener">
+      <a href="https://clck.ru/3QWtC2" class={`nav-link nav-link-cta header-cta ${!isLanding ? 'desktop-only' : ''}`} target="_blank" rel="noopener">
         Купить билеты
       </a>
 

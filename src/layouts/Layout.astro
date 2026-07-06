@@ -10,9 +10,10 @@ interface Props {
 	title: string;
 	description?: string;
     theme?: 'light' | 'dark' | 'studio' | 'cinema';
+    isLanding?: boolean;
 }
 
-const { title, description = "Детский театр и студия «Эмоцика» в Санкт-Петербурге.", theme = 'light' } = Astro.props;
+const { title, description = "Детский театр и студия «Эмоцика» в Санкт-Петербурге.", theme = 'light', isLanding = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -61,22 +62,24 @@ const { title, description = "Детский театр и студия «Эмо
         <ViewTransitions />
 	</head>
 	<body class={theme}>
-        <Header />
+        <Header isLanding={isLanding} />
 		<slot />
-        <StickyCTA />
-        <Footer />
+        {!isLanding && <StickyCTA />}
+        <Footer isLanding={isLanding} />
         
         <!-- Global Modals -->
-        <Modal id="main-booking-modal" title="Записаться в Эмоцику">
-            <div class="modal-form-placeholder" style="text-align: center; padding: 20px 0;">
-                <p style="margin-bottom: 20px; color: var(--text-muted);">Выберите, куда вы хотите записаться:</p>
-                <div style="display: grid; gap: 10px;">
-                    <a href="/studio#branches" class="btn btn-primary" style="background: var(--accent); color: white; padding: 12px; border-radius: 8px; text-decoration: none; display: block;">🎭 В Театральную Студию</a>
-                    <a href="/cinema#casting" class="btn btn-secondary" style="background: #40E0D0; color: #000; padding: 12px; border-radius: 8px; text-decoration: none; display: block;">🎬 На Кастинг в Кино</a>
+        {!isLanding && (
+            <Modal id="main-booking-modal" title="Записаться в Эмоцику">
+                <div class="modal-form-placeholder" style="text-align: center; padding: 20px 0;">
+                    <p style="margin-bottom: 20px; color: var(--text-muted);">Выберите, куда вы хотите записаться:</p>
+                    <div style="display: grid; gap: 10px;">
+                        <a href="/studio#branches" class="btn btn-primary" style="background: var(--accent); color: white; padding: 12px; border-radius: 8px; text-decoration: none; display: block;">🎭 В Театральную Студию</a>
+                        <a href="/cinema#casting" class="btn btn-secondary" style="background: #40E0D0; color: #000; padding: 12px; border-radius: 8px; text-decoration: none; display: block;">🎬 На Кастинг в Кино</a>
+                    </div>
+                    <p style="margin-top: 15px; font-size: 0.8em; opacity: 0.7;">Или напишите нам в <a href="https://wa.me/79313157787" style="color: #25D366; text-decoration: underline;">WhatsApp</a></p>
                 </div>
-                <p style="margin-top: 15px; font-size: 0.8em; opacity: 0.7;">Или напишите нам в <a href="https://wa.me/79313157787" style="color: #25D366; text-decoration: underline;">WhatsApp</a></p>
-            </div>
-        </Modal>
+            </Modal>
+        )}
         <script>
             import "../assets/js/main.js";
             
