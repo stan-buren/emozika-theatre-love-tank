@@ -20,7 +20,7 @@ import Layout from '../layouts/Layout.astro';
 
       <div class="lt-hero__half lt-hero__half--poetess">
         <div class="lt-hero__img-container">
-          <img src="/assets/img/lubov_u_slivnogo_bochka/poetess_alone.jpg" alt="Елена Молодан — Поэтесса" class="lt-hero__img" />
+          <img src={`${import.meta.env.BASE_URL}assets/img/lubov_u_slivnogo_bochka/poetess_alone.jpg`} alt="Елена Молодан — Поэтесса" class="lt-hero__img" />
         </div>
         <div class="lt-hero__content">
           <h1 class="lt-hero__title lt-hero__title--poetess">«Любовь</h1>
@@ -29,7 +29,7 @@ import Layout from '../layouts/Layout.astro';
       
       <div class="lt-hero__half lt-hero__half--plumber">
         <div class="lt-hero__img-container">
-          <img src="/assets/img/lubov_u_slivnogo_bochka/plumber_alone.jpg" alt="Михаил Драгунов — Сантехник" class="lt-hero__img" />
+          <img src={`${import.meta.env.BASE_URL}assets/img/lubov_u_slivnogo_bochka/plumber_alone.jpg`} alt="Михаил Драгунов — Сантехник" class="lt-hero__img" />
         </div>
         <div class="lt-hero__content">
           <h1 class="lt-hero__title lt-hero__title--plumber">у сливного бачка»</h1>
@@ -165,7 +165,7 @@ import Layout from '../layouts/Layout.astro';
     <!-- СЕКЦИЯ 3: О спектакле «Анатомия одиночества» (Synopsis) -->
     <section class="lt-about">
       <div class="lt-about__bg">
-        <img src="/assets/img/lubov_u_slivnogo_bochka/poetess_and_plumber.jpg" alt="Сцена из спектакля" class="lt-about__bg-img" />
+        <img src={`${import.meta.env.BASE_URL}assets/img/lubov_u_slivnogo_bochka/poetess_and_plumber.jpg`} alt="Сцена из спектакля" class="lt-about__bg-img" />
       </div>
       <div class="container lt-about__container">
         
@@ -198,8 +198,8 @@ import Layout from '../layouts/Layout.astro';
             <h2 class="lt-section-title">О спектакле</h2>
             <div class="lt-about__video-wrapper">
               <video 
-                src="/assets/video/lubov_u_slivnogo_rolik.mp4" 
-                poster="/assets/img/lubov_u_slivnogo_bochka/poetess_poster.png"
+                src={`${import.meta.env.BASE_URL}assets/video/lubov_u_slivnogo_rolik.mp4`} 
+                poster={`${import.meta.env.BASE_URL}assets/img/lubov_u_slivnogo_bochka/poetess_poster.png`}
                 controls 
                 preload="metadata"
                 class="lt-about__video"
@@ -222,7 +222,7 @@ import Layout from '../layouts/Layout.astro';
           <!-- Режиссер -->
           <div class="lt-member-card lt-member-card--director">
             <div class="lt-member-card__photo-wrapper">
-              <img src="/assets/img/people/evgeny-baranov.webp" alt="Евгений Баранов" class="lt-member-card__photo" />
+              <img src={`${import.meta.env.BASE_URL}assets/img/people/evgeny-baranov.webp`} alt="Евгений Баранов" class="lt-member-card__photo" />
             </div>
             <div class="lt-member-card__content">
               <span class="lt-member-card__role">Режиссёр-постановщик</span>
@@ -282,7 +282,7 @@ import Layout from '../layouts/Layout.astro';
           <!-- Елена Молодан -->
           <article class="lt-actor-card">
             <div class="lt-actor-card__img-wrapper">
-              <img src="/assets/img/lubov_u_slivnogo_bochka/poetess_alone.jpg" alt="Елена Молодан" class="lt-actor-card__img" />
+              <img src={`${import.meta.env.BASE_URL}assets/img/lubov_u_slivnogo_bochka/poetess_alone.jpg`} alt="Елена Молодан" class="lt-actor-card__img" />
               <!-- Hover Overlay: Стихи -->
               <div class="lt-actor-card__overlay lt-actor-card__overlay--poetry">
                 <div class="lt-poetry-bg">
@@ -302,7 +302,7 @@ import Layout from '../layouts/Layout.astro';
           <!-- Михаил Драгунов -->
           <article class="lt-actor-card">
             <div class="lt-actor-card__img-wrapper">
-              <img src="/assets/img/lubov_u_slivnogo_bochka/plumber_alone.jpg" alt="Михаил Драгунов" class="lt-actor-card__img" />
+              <img src={`${import.meta.env.BASE_URL}assets/img/lubov_u_slivnogo_bochka/plumber_alone.jpg`} alt="Михаил Драгунов" class="lt-actor-card__img" />
               <!-- Hover Overlay: Чертежи -->
               <div class="lt-actor-card__overlay lt-actor-card__overlay--technical">
                 <div class="lt-blueprint-bg">
