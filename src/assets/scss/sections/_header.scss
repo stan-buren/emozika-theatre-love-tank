@@ -34,8 +34,8 @@
 .logo-badge {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 4px 12px;
+    gap: 10px;
+    padding: 8px 20px;
     border-radius: 999px;
     flex-shrink: 0;
     background: rgba(122, 47, 180, 0.08);
@@ -50,17 +50,17 @@
 }
 
 .logo-mark {
-    width: 28px;
-    height: 28px;
-    flex: 0 0 28px;
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
     border-radius: 50%;
     object-fit: cover;
 }
 
 .logo-text {
     font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 14px;
+    font-weight: 700;
+    font-size: 18px;
     color: var(--header-text);
     line-height: 1.1;
 }
@@ -106,7 +106,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 8px 20px;
+    padding: 12px 28px;
+    font-size: 16px;
     border-radius: 999px;
     background: var(--header-accent);
     color: #fff !important;
@@ -173,8 +174,8 @@
 /* --- MOBILE MENU --- */
 @media (max-width: 768px) {
     .logo-text {
-        display: none;
-        /* Hide text on mobile to save space */
+        display: block;
+        font-size: 14px;
     }
 
     .desktop-only {

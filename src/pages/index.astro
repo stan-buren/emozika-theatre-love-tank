@@ -13,6 +13,7 @@ import Layout from '../layouts/Layout.astro';
     <!-- СЕКЦИЯ 1: Сплит-геро (Split Hero) -->
     <section class="lt-hero">
       <div class="lt-hero__meta-top-left">спектакль</div>
+      <div class="lt-hero__meta-bottom-left">12+</div>
       <div class="lt-hero__meta-bottom-right">
         <span class="lt-hero__meta-label">по пьесе</span>
         <span class="lt-hero__meta-author">Василия Сигарева</span>
@@ -111,9 +112,6 @@ import Layout from '../layouts/Layout.astro';
             </div>
           </div>
           
-          <!-- Информационные плашки -->
-          <div class="gauge-meta">
-            <span class="gauge-badge gauge-badge--large">12+</span>
           </div>
         </div>
       </div>
@@ -128,7 +126,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="lt-narrative__block">
             <h3 class="lt-narrative__subtitle">Как начинается?</h3>
             <p class="lt-narrative__text">
-              Случайная поломка. Чужой мужик в её доме. Она нервная, с порога — на разрыв. 
+              Случайная поломка. Чужой мужчина в её доме. Она нервная, с порога — на разрыв. 
               Он невозмутимый — как бетонная стена. Она цепляет его словами. Он отвечает — не словами.
             </p>
           </div>
@@ -155,7 +153,10 @@ import Layout from '../layouts/Layout.astro';
               И оказывается, что за грубостью — нежность. За молчанием — глубина. А за случайным 
               вызовом сантехника — то, что она не писала в своих тетрадях.
             </p>
-            <p class="lt-narrative__highlight">Настоящее.</p>
+            <blockquote class="lt-narrative__quote">
+              «Человек живёт на земле не для того, чтобы стать богатым, но для того, чтобы стать счастливым».
+              <cite class="lt-narrative__quote-author">— Стендаль</cite>
+            </blockquote>
           </div>
 
         </div>
@@ -171,9 +172,7 @@ import Layout from '../layouts/Layout.astro';
         
         <div class="lt-about__grid">
           <div class="lt-about__quote-col">
-            <blockquote class="lt-about__quote">
-              «Человек живёт на земле не для того, чтобы стать богатым, но для того, чтобы стать счастливым».
-            </blockquote>
+            <h2 class="lt-section-title">О спектакле</h2>
             <div class="lt-about__meta-grid">
               <div class="lt-meta-item">
                 <span class="lt-meta-label">Жанр</span>
@@ -183,19 +182,10 @@ import Layout from '../layouts/Layout.astro';
                 <span class="lt-meta-label">Продолжительность</span>
                 <span class="lt-meta-val">1 час 30 минут</span>
               </div>
-              <div class="lt-meta-item">
-                <span class="lt-meta-label">Премьера</span>
-                <span class="lt-meta-val">13 декабря 2025 г.</span>
-              </div>
-              <div class="lt-meta-item">
-                <span class="lt-meta-label">Площадка</span>
-                <span class="lt-meta-val">Камерная сцена (50 мест)</span>
-              </div>
             </div>
           </div>
           
           <div class="lt-about__text-col">
-            <h2 class="lt-section-title">О спектакле</h2>
             <div class="lt-about__video-wrapper">
               <video 
                 src={`${import.meta.env.BASE_URL}assets/video/lubov_u_slivnogo_rolik.mp4`} 
@@ -203,10 +193,11 @@ import Layout from '../layouts/Layout.astro';
                 controls 
                 preload="metadata"
                 class="lt-about__video"
-              >
-                Ваш браузер не поддерживает встроенные видео.
               </video>
             </div>
+            <p class="lt-about__note" style="margin-top: 1.5rem; font-size: 1.1rem; line-height: 1.5; color: rgba(240, 230, 210, 0.9); font-style: italic; border-left: 2px solid var(--text-accent, #D4AF37); padding-left: 1rem;">
+              Вторым актом к спектаклю является музыкально-поэтическая композиция на стихи поэтов Серебряного века.
+            </p>
           </div>
         </div>
 
@@ -255,14 +246,6 @@ import Layout from '../layouts/Layout.astro';
 
           <!-- Художник -->
           <div class="lt-member-card lt-member-card--designer">
-            <div class="lt-member-card__photo-wrapper lt-member-card__photo-wrapper--graphic">
-              <!-- Векторная маска / Иконка театрального платья/костюма -->
-              <div class="lt-designer-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2C10.9 2 10 2.9 10 4V5.1C7.2 5.6 5 8.1 5 11V18C5 19.1 5.9 20 7 20H8V22H10V20H14V22H16V20H17C18.1 20 19 19.1 19 18V11C19 8.1 16.8 5.6 14 5.1V4C14 2.9 13.1 2 12 2ZM12 7C14.2 7 16 8.8 16 11V12H8V11C8 8.8 9.8 7 12 7ZM7 14H17V18H7V14Z" fill="currentColor"/>
-                </svg>
-              </div>
-            </div>
             <div class="lt-member-card__content">
               <span class="lt-member-card__role">Художник-постановщик</span>
               <h3 class="lt-member-card__name">Татьяна Королева</h3>
@@ -295,7 +278,7 @@ import Layout from '../layouts/Layout.astro';
             <div class="lt-actor-card__info">
               <h3 class="lt-actor-card__name">Елена Молодан</h3>
               <span class="lt-actor-card__role">Роль: Поэтесса</span>
-              <p class="lt-actor-card__bio">Главную роль исполняет Елена Молодан — актриса с богатым театральным прошлым. Член Союза театральных деятелей России с 2000 года. Почти 20 лет она служила в Академическом Русском театре имени Евгения Вахтангова (Владикавказ), где сыграла множество разноплановых ролей. В петербургский период — участник независимого театрального проекта «Лестница» (спектакль «Война и мир. На-та-ша»), сотрудничество с Центром Михаила Чехова (режиссёр Елена Кузина), где ею сыграны Аркадина, леди Макбет, Мальволио, Ричард III и другие. В 2020–2021 годах прошла профессиональную переподготовку в ВШСИ — мастерская Константина Райкина. В 2121 году принимала участие в программе СТД. «Арт-резиденция Щелыково» со спектаклем «Укрощение своенравной» по пьесе У. Шекспира в переводе А.Н.Островского. Также с этим спектаклем принимала участие в открытии фестиваля «Лик» в Пушкинских горах. В 2024 году удостоена высшей награды за лучшую режиссуру на международном фестивале «Твой Шанс» (спектакль «Кошкин дом»).</p>
+              <p class="lt-actor-card__bio">Главную роль исполняет Елена Молодан — актриса с богатым театральным прошлым. Член Союза театральных деятелей России с 2000 года. Почти 20 лет она служила в Академическом Русском театре имени Евгения Вахтангова (Владикавказ), где сыграла множество разноплановых ролей. В петербургский период — участник независимого театрального проекта «Лестница» (спектакль «Война и мир. На-та-ша»), сотрудничество с Центром Михаила Чехова (режиссёр Елена Кузина), где ею сыграны Аркадина, леди Макбет, Мальволио, Ричард III и другие. В 2020–2021 годах прошла профессиональную переподготовку в ВШСИ — мастерская Константина Райкина. В 2021 году принимала участие в программе СТД. «Арт-резиденция Щелыково» со спектаклем «Укрощение своенравной» по пьесе У. Шекспира в переводе А.Н.Островского. Также с этим спектаклем принимала участие в открытии фестиваля «Лик» в Пушкинских горах. В 2024 году удостоена высшей награды за лучшую режиссуру на международном фестивале «Твой Шанс» (спектакль «Кошкин дом»).</p>
             </div>
           </article>
 
@@ -319,7 +302,25 @@ import Layout from '../layouts/Layout.astro';
             <div class="lt-actor-card__info">
               <h3 class="lt-actor-card__name">Михаил Драгунов</h3>
               <span class="lt-actor-card__role">Роль: Сантехник</span>
-              <p class="lt-actor-card__bio">Вторую главную роль исполняет Михаил Драгунов — актёр театра «Русская антреприза» имени Андрея Миронова (Санкт-Петербург). В театре им. Миронова с 2012 года. Среди его работ: Петя Трофимов («Вишнёвый сад»), Вронский в спектакле «Алексей Каренин» по пьесе Василия Сигарева, Леон («Мадам Бовари»), Дон Карлос и Сальери («Маленькие трагедии»), а также Фёдор в спектакле «Два часа в благородном семействе» режиссёра Евгения Баранова. С 2025 года сотрудничает с театром «Комедианты».</p>
+              <p class="lt-actor-card__bio">
+                Актёр театра «Русская антреприза» имени Андрея Миронова Санкт-Петербург. С 2012 года среди его работ: Петя Трофимов в спектакле «Вишнёвый сад», Вронский в «Алексей Каренин», Леон в «Мадам Бовари», Дон Карлос и Сальери в «Маленькие трагедии», Фёдор в спектакле «Два часа в благородном семействе» режиссёра Евгения Баранова, а также Нильс Крогстад в «Кукольный дом» и Евлампий в спектакле «Грабёж».<br/><br/>
+                Лауреат международного конкурса «Овации» в жанре художественного слова.<br/><br/>
+                Автор и исполнитель поэтических программ для Пушкинского Заповедника Михайловское.
+              </p>
+            </div>
+          </article>
+
+          <!-- Ольга Драгунова -->
+          <article class="lt-actor-card">
+            <div class="lt-actor-card__img-wrapper lt-member-card__photo-wrapper--graphic" style="aspect-ratio: 2/3; display: flex; align-items: center; justify-content: center; color: var(--text-accent, #D4AF37); background: linear-gradient(135deg, #1f0f35 0%, #0d0617 100%);">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 80px; height: 80px; opacity: 0.4;">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-4.5-9.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zm9 0c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zm-4.5 7c2.33 0 4.31-1.46 5.11-3.5H7.39c.8 2.04 2.78 3.5 5.11 3.5z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="lt-actor-card__info">
+              <h3 class="lt-actor-card__name">Ольга Драгунова</h3>
+              <span class="lt-actor-card__role">Роль: Поэтесса</span>
+              <p class="lt-actor-card__bio">Информация появится позже.</p>
             </div>
           </article>
         </div>
@@ -333,23 +334,24 @@ import Layout from '../layouts/Layout.astro';
           
           <!-- Для организаторов и фестивалей -->
           <div class="lt-booking__organizers card-luxe">
-            <h3 class="lt-booking__title">Организаторам и фестивалям</h3>
+            <h3 class="lt-booking__title">Партнерам и фестивалям</h3>
             <p class="lt-booking__desc">Спектакль полностью готов к гастролям и показам на любых профессиональных сценических площадках. Мы предоставляем полный гастрольный пакет.</p>
             
             <div class="lt-booking__downloads">
               <a href="#" class="btn btn-outline btn-download" onclick="alert('Технический райдер скачивается...'); return false;">
                 <span class="btn-icon">📄</span> Скачать технический райдер (PDF)
               </a>
-              <a href="#" class="btn btn-outline btn-download" onclick="alert('Бытовой райдер скачивается...'); return false;">
-                <span class="btn-icon">📋</span> Скачать бытовой райдер (PDF)
-              </a>
             </div>
             
             <div class="lt-booking__contacts">
-              <p>По вопросам гастролей и показов:</p>
-              <strong>Елена Анатольевна</strong>
-              <a href="mailto:info@emozika.ru" class="lt-contact-link">info@emozika.ru</a>
-              <a href="https://telegram.me/BurundukovS" target="_blank" class="lt-contact-link lt-contact-link--tg">Написать в Telegram</a>
+              <p class="lt-booking__contacts-title" style="font-weight: 700; margin-bottom: 0.5rem;">Контакты:</p>
+              <div style="display: flex; flex-direction: column; gap: 6px;">
+                <a href="mailto:tsemociya@mail.ru" class="lt-contact-link">tsemociya@mail.ru</a>
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                  <a href="tel:+79215644252" class="lt-contact-link">8-921-564-42-52</a>
+                  <span style="font-size: 0.85rem; opacity: 0.8;">(Max, Telegram)</span>
+                </div>
+              </div>
             </div>
           </div>
 

@@ -9,10 +9,9 @@ const { isLanding = false } = Astro.props;
       <div class="footer__inner">
         <div class="footer__brand">
           <a href={import.meta.env.BASE_URL} class="footer__logo" data-scroll-to="hero">
-            <img class="footer__mark" src={`${import.meta.env.BASE_URL}favicon.png`} alt="Логотип театра «Эмоцика»" />
-            <span class="footer__name">Театр «Эмоцика»</span>
+            <img class="footer__mark" src={`${import.meta.env.BASE_URL}favicon_yellow.png`} alt="Логотип театра «Эмоцика»" />
           </a>
-          <p class="footer__copy">© 2014–{new Date().getFullYear()}, театр «Эмоцика» и студия «Эмоция». Все права защищены.</p>
+          <p class="footer__copy">© 2014–{new Date().getFullYear()}. Все права защищены.</p>
         </div>
         {!isLanding && (
           <nav class="footer__nav" aria-label="Навигация по сайту">
@@ -25,8 +24,7 @@ const { isLanding = false } = Astro.props;
           </nav>
         )}
         <div class="footer__meta">
-          <p class="footer__license">Лицензия на образовательную деятельность № 03-21-6065/24-0-3 от 05.11.2024, рег.
-            № 1035-01271-78/01491532, ИП Бурундукова Е. А.</p>
+          <p class="footer__license">ИП Бурундукова Е. А., лицензия № 03-21-6065/24-0-3 от 05.11.2024, рег. № 1035-01271-78/01491532</p>
           <a href="/about#docs" class="footer__link footer__link--small" data-scroll-to="docs">Политика
             конфиденциальности</a>
           <p class="footer__dev">Сайт разработал <a href="https://telegram.me/BurundukovS" target="_blank"
