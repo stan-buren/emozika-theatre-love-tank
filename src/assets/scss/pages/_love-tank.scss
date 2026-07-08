@@ -286,7 +286,7 @@
 
 .lt-hero__gauge-station {
     position: absolute;
-    bottom: 1.5%; // Сдвинуто ниже (было 8%)
+    bottom: 6%; // Raised higher
     left: 50%;
     transform: translateX(-50%);
     z-index: 15;
@@ -296,12 +296,12 @@
     gap: 1.25rem;
 
     @media (max-width: 768px) {
-        bottom: 1.5%; // Сдвинуто ниже (было 5%)
+        bottom: 5%; // Raised higher
         transform: translateX(-50%) scale(0.65);
     }
 
     @media (max-width: 480px) {
-        bottom: 1.2%; // Сдвинуто ниже (было 4%)
+        bottom: 4%; // Raised higher
         transform: translateX(-50%) scale(0.58);
     }
 }
