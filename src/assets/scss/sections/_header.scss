@@ -34,25 +34,26 @@
 .logo-container {
     display: flex;
     align-items: center;
-    gap: 12px;
+    position: relative;
+    height: 48px;
 }
 
 .logo-circle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
     width: 90px;
     height: 90px;
-    margin-top: -20px;
-    margin-bottom: -20px;
     transition: transform 0.2s ease;
     text-decoration: none;
     padding: 0;
     flex-shrink: 0;
+    z-index: 10;
 }
 
 .logo-circle:hover {
-    transform: translateY(-1px) scale(1.06);
+    transform: translateY(-52%) scale(1.06);
 }
 
 .logo-mark {
@@ -73,6 +74,7 @@
     text-decoration: none;
     color: var(--header-text);
     transition: transform 0.2s ease, background-color 0.2s ease;
+    margin-left: 102px;
 }
 
 .logo-badge:hover {
@@ -199,10 +201,11 @@
     .logo-circle {
         width: 64px;
         height: 64px;
-        margin-top: -10px;
-        margin-bottom: -10px;
+        margin: 0;
     }
-
+    .logo-badge {
+        margin-left: 76px;
+    }
     .logo-text {
         display: block;
         font-size: 14px;
