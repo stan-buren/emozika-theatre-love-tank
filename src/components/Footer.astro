@@ -8,9 +8,14 @@ const { isLanding = false } = Astro.props;
     <div class="container">
       <div class="footer__inner">
         <div class="footer__brand">
-          <a href={import.meta.env.BASE_URL} class="footer__logo" data-scroll-to="hero">
-            <img class="footer__mark" src={`${import.meta.env.BASE_URL}favicon_yellow.png`} alt="Логотип театра «Эмоцика»" />
-          </a>
+          <div class="logo-container">
+            <a href={import.meta.env.BASE_URL} class="logo-circle" data-scroll-to="hero">
+              <img class="logo-mark" src={`${import.meta.env.BASE_URL}favicon_yellow.png`} alt="Логотип театра «Эмоцика»" />
+            </a>
+            <a href={import.meta.env.BASE_URL} class="logo-badge" data-scroll-to="hero">
+              <span class="logo-text">Театр «Эмоцика»</span>
+            </a>
+          </div>
           <p class="footer__copy">© 2014–{new Date().getFullYear()}. Все права защищены.</p>
         </div>
         {!isLanding && (
