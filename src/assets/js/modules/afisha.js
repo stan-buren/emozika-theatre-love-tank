@@ -98,7 +98,7 @@ export function initAfisha() {
                 "</p>" +
                 '<div class="afisha-empty-actions">' +
                 '<button type="button" class="btn btn-outline btn-lg" data-scroll-to="contacts">Спросить администратора</button>' +
-                '<a class="btn btn-primary btn-lg" href="https://clck.ru/3QWtC2" target="_blank" rel="noopener">Купить билет</a>' +
+                '<a class="btn btn-primary btn-lg" href="https://widget.afisha.yandex.ru/w/sessions/ticketsteam-9097@67961151?clientKey=6ac8e6a2-166b-47cc-8d77-663fc720cee8&regionId=2" target="_blank" rel="noopener">Купить билет</a>' +
                 "</div>" +
                 "</div>" +
                 "</article>";
