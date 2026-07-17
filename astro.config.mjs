@@ -3,7 +3,6 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://stan-buren.github.io',
-    base: '/emozika-theatre-love-tank/',
+    site: 'https://lubov.emocika-teatr.ru',
     integrations: [sitemap()],
 });
